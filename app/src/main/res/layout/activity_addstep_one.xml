@@ -9,13 +9,13 @@
         android:id="@+id/action_bar"
         android:layout_width="match_parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:padding="@dimen/dp_30"
+        android:padding="@dimen/dp_10"
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/back_iv"
-            android:layout_width="@dimen/dp_70"
+            android:layout_width="@dimen/dp_33"
             android:src="@drawable/miuisupport_action_bar_back_normal_light"
-            android:layout_height="@dimen/dp_70"></ImageView>
+            android:layout_height="@dimen/dp_33"></ImageView>
 
         <TextView
             android:layout_width="wrap_content"
@@ -26,14 +26,13 @@
     </RelativeLayout>
 
 
-    <include
+    <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
-        layout="@layout/view_divider"
-        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/divider_bg"
         app:layout_constraintTop_toBottomOf="@+id/action_bar"
-        ></include>
+        ></View>
 
 
     <TextView
@@ -41,11 +40,11 @@
         app:layout_constraintTop_toBottomOf="@+id/divider"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="@dimen/dp_120"
+        android:layout_marginTop="@dimen/dp_40"
         android:text="接通电源，长按底部复位键5秒左右，待指示灯闪烁\n注意：重置设备后，请在三分钟内完成配网操作"
-        android:textSize="@dimen/sp_34"
+        android:textSize="@dimen/sp_11"
         android:textColor="#4E4E4E"
-        android:lineSpacingExtra="@dimen/dp_10"
+        android:lineSpacingExtra="@dimen/dp_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"></TextView>
 
@@ -56,7 +55,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="wrap_content"
         android:src="@mipmap/apnet"
-        android:layout_marginTop="@dimen/dp_160"
+        android:layout_marginTop="@dimen/dp_50"
         android:layout_height="wrap_content"></ImageView>
 
     <TextView
@@ -65,13 +64,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:padding="@dimen/dp_30"
+        android:padding="@dimen/dp_10"
         android:text="确认指示灯在快闪"
         android:textColor="@android:color/white"
         android:gravity="center"
         android:background="@drawable/shape_voice_btn"
-        android:layout_marginStart="@dimen/dp_200"
-        android:layout_marginEnd="@dimen/dp_200"
-        android:layout_marginBottom="@dimen/dp_50"
+        android:layout_marginStart="@dimen/dp_67"
+        android:layout_marginEnd="@dimen/dp_67"
+        android:layout_marginBottom="@dimen/dp_17"
         android:layout_height="wrap_content"></TextView>
 </androidx.constraintlayout.widget.ConstraintLayout>

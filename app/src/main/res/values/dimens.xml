@@ -3,6 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <integer name="animduration">2000</integer>
 
     <dimen name="base_dpi">1dp</dimen>
     <dimen name="dp_0">0.00dp</dimen>

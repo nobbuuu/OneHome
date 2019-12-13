@@ -8,9 +8,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:name=".common.OneHomeAplication"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.Activity.MainActivity"
+            android:name=".ui.Activity.LoginActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,6 +24,10 @@
         </activity>
         <activity android:name=".ui.Activity.ConnectDeviceActivity">
         </activity>
+        <activity android:name=".ui.Activity.MainActivity"></activity>
+        <activity android:name=".ui.Activity.RegisterValiActivity">
+        </activity>
+        <activity android:name=".ui.Activity.PasswordLoginActivity"></activity>
     </application>
 
 </manifest>

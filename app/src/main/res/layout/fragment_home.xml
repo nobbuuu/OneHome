@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:padding="@dimen/dp_30"
+        android:padding="@dimen/dp_10"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -33,7 +33,7 @@
                 android:id="@+id/login_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_30"
+                android:layout_marginLeft="@dimen/dp_10"
                 android:text="昵称"
                 android:textColor="@android:color/black"
                 app:layout_constraintLeft_toRightOf="@+id/user_icon"
@@ -43,11 +43,11 @@
                 android:id="@+id/loginsummary_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_30"
-                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_7"
                 android:text="智能生活每一天"
                 android:textColor="#9A9A9A"
-                android:textSize="@dimen/sp_35"
+                android:textSize="@dimen/sp_12"
                 app:layout_constraintLeft_toRightOf="@+id/user_icon"
                 app:layout_constraintTop_toBottomOf="@+id/login_tv"></TextView>
         </LinearLayout>
@@ -84,9 +84,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_30"
+        android:layout_margin="@dimen/dp_10"
         android:background="@drawable/shadow_home_white"
-        android:padding="@dimen/dp_30"
+        android:padding="@dimen/dp_10"
         android:text="所有遥控器"
         android:textColor="@color/color333"
         android:visibility="gone"
@@ -106,7 +106,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="添加遥控器"
-        android:textSize="@dimen/sp_36"
+        android:textSize="@dimen/sp_12"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addimg_iv"></TextView>
@@ -114,8 +114,8 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/dp_30"
-        android:layout_marginBottom="@dimen/dp_95"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_32"
         android:background="@drawable/shape_voice_btn"
         android:src="@mipmap/mi_brain_wave_view_normal_icon"
         app:layout_constraintBottom_toBottomOf="parent"

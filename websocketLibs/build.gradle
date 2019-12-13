@@ -1,0 +1,24 @@
+apply plugin: 'com.android.library'
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 28
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        // SpongyCastle has some imports from javax that are not included in the Android java
+        // platform.
+        disable 'InvalidPackage'
+        abortOnError true
+        ignoreWarnings true
+        checkAllWarnings false
+
+    }
+}

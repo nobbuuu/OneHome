@@ -1,6 +1,7 @@
 package com.dream.onehome.base;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -10,6 +11,8 @@ import android.view.Window;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+
+import com.dream.onehome.dialog.LoadingDialog;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -27,22 +30,24 @@ public abstract class BaseActivity extends AppCompatActivity {
    /* @Bind(R.id.root_lay)
     public LinearLayout root_lay;*/
     private static final int PERMISSION_REQUESTCODE = 100;
+    public Dialog mLoading;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //       this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        setContentView(getLayoutId());
         getSupportActionBar().hide();
+        setContentView(getLayoutId());
         mUnbinder = ButterKnife.bind(this);
 //        XuniKeyWord.setShiPei(this,root_lay);
         this.savedInstanceState = savedInstanceState;
         this.mActivity = this;
         this.mContext = this;
         this.msaveInstance = savedInstanceState;
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         initView();
         loadDatas();
         eventListener();
+        mLoading = LoadingDialog.initLoadingDialog(this);
     }
 
     @Override

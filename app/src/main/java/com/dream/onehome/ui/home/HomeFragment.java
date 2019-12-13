@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.dream.onehome.R;
 import com.dream.onehome.base.BaseFragment;
 import com.dream.onehome.ui.Activity.AddDeviceActivity;
+import com.dream.onehome.ui.Activity.ConnectDeviceActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
