@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/shape_corner_white"
+        android:gravity="center"
+        android:layout_margin="@dimen/dp_15"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="提示"
+            android:textSize="@dimen/sp_16"
+            android:layout_marginTop="@dimen/dp_15"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"></TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="目前手机没有连接WIFI"
+            android:textColor="@color/color666"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_height="wrap_content"></TextView>
+        <View
+            android:layout_width="match_parent"
+            android:background="@color/divider_bg"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_height="0.5dp"></View>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="去连接"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_16"
+            android:padding="@dimen/dp_15"
+            android:layout_height="wrap_content"></TextView>
+    </LinearLayout>
+
+</LinearLayout>
