@@ -1,18 +1,16 @@
 package com.dream.onehome.ui.Activity;
 
-import android.os.Bundle;
 import android.view.View;
 
 import com.dream.onehome.R;
 import com.dream.onehome.base.BaseActivity;
 
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ConnectDeviceActivity extends BaseActivity {
     @Override
     public int getLayoutId() {
-        return R.layout.activity_connectwifi;
+        return R.layout.activity_connectdevice;
     }
 
     @Override

@@ -1,5 +1,10 @@
 package com.dream.onehome.ui.Activity;
 
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+import android.util.Log;
+
+import com.dream.onehome.R;
 import com.dream.onehome.base.BaseActivity;
 
 /**
@@ -9,7 +14,7 @@ import com.dream.onehome.base.BaseActivity;
 public class WifiSetActivity extends BaseActivity {
     @Override
     public int getLayoutId() {
-        return 0;
+        return R.layout.activity_wifiset;
     }
 
     @Override
@@ -30,5 +35,12 @@ public class WifiSetActivity extends BaseActivity {
     @Override
     public void eventListener() {
 
+    }
+    private String getConnectWifiSsid(){
+        WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
+        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+        Log.d("wifiInfo", wifiInfo.toString());
+        Log.d("SSID",wifiInfo.getSSID());
+        return wifiInfo.getSSID();
     }
 }
