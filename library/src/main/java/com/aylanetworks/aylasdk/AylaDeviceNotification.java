@@ -275,7 +275,7 @@ public class AylaDeviceNotification {
      * @return the AylaAPIRequest object used to delete DeviceNotificationApp
      */
     public AylaAPIRequest deleteApp(final AylaDeviceNotificationApp notificationApp,
-                                    final Response.Listener<AylaAPIRequest.EmptyResponse>
+                                    final Response.Listener<EmptyResponse>
                                             successListener,
                                     final ErrorListener errorListener) {
         AylaDeviceManager deviceManager = getDeviceManager();
@@ -303,7 +303,7 @@ public class AylaDeviceNotification {
         String url = deviceManager.deviceServiceUrl("apiv1/notifications/" + notificationId +
                 "/notification_apps/" + id + ".json");
         AylaAPIRequest<EmptyResponse> request = new AylaAPIRequest<>(
-                Request.Method.DELETE, url, null, AylaAPIRequest.EmptyResponse.class,
+                Request.Method.DELETE, url, null, EmptyResponse.class,
                 sessionManager, successListener, errorListener);
 
         deviceManager.sendDeviceServiceRequest(request);

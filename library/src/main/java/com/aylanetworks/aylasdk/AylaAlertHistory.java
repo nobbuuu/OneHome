@@ -57,7 +57,7 @@ public class AylaAlertHistory {
         @Expose
         public AylaAlertHistory alertHistory;
 
-        public static AylaAlertHistory[] unwrap(AylaAlertHistory.Wrapper[] wrappedHistory){
+        public static AylaAlertHistory[] unwrap(Wrapper[] wrappedHistory){
             AylaAlertHistory[] alerts = new AylaAlertHistory[wrappedHistory.length];
             for(int i=0; i<wrappedHistory.length; i++){
                 alerts[i] = wrappedHistory[i].alertHistory;

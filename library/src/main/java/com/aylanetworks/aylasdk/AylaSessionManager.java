@@ -52,7 +52,7 @@ import java.util.Set;
  * call to {@link AylaNetworks#getSessionManager(String)}.
  * <p>
  * Applications should register an object to listen for AylaSessionManager events by implementing
- * the {@link com.aylanetworks.aylasdk.AylaSessionManager.SessionManagerListener} interface and
+ * the {@link SessionManagerListener} interface and
  * registering via {@link #addListener(SessionManagerListener)}. Listeners are notified when the
  * AylaSessionManager refreshes the session's authorization token or if the session is closed.
  * <p>

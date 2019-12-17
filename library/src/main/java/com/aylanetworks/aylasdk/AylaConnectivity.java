@@ -29,7 +29,7 @@ import java.util.List;
  * #registerListener(AylaConnectivityListener)} on the returned object.
  * <p>
  * Listeners will be called via
- * {@link AylaConnectivity.AylaConnectivityListener#connectivityChanged}
+ * {@link AylaConnectivityListener#connectivityChanged}
  * whenever the network state has changed.
  */
 public class AylaConnectivity {

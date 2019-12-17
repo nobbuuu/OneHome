@@ -258,7 +258,7 @@ public class AylaRulesService {
                 Request.Method.DELETE, url, null, AylaAPIRequest.EmptyResponse.class,
                 sessionManager, new EmptyListener<AylaAPIRequest.EmptyResponse>(), errorListener) {
             @Override
-            protected void deliverResponse(AylaAPIRequest.EmptyResponse response) {
+            protected void deliverResponse(EmptyResponse response) {
                 AylaAPIRequest originalRequest = this;
                 if(!originalRequest.isCanceled()) {
                     //Now clone the Original action with all parameters except UUID

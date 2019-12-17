@@ -468,7 +468,7 @@ public class AylaSetup {
      */
     public AylaAPIRequest scanAPsWithRegex(int timeoutInSeconds,
                                               final String scanRegex,
-                                              final Response.Listener<ScanResult[]> successListener,
+                                              final Listener<ScanResult[]> successListener,
                                               final ErrorListener errorListener){
         return this.scanForAccessPoints(timeoutInSeconds, new AylaPredicate<ScanResult>() {
             @Override
@@ -570,8 +570,8 @@ public class AylaSetup {
 
         //This sucessListener will return the _setupDevice object to the app, so that we can call
         // updateFrom() on this object to let the app know of any changes
-        final Response.Listener<AylaSetupDevice> deviceDetailsSuccessListener =
-                new Response.Listener<AylaSetupDevice>(){
+        final Listener<AylaSetupDevice> deviceDetailsSuccessListener =
+                new Listener<AylaSetupDevice>(){
                     @Override
                     public void onResponse(AylaSetupDevice response) {
                         _isSecureSetup = false;
@@ -913,7 +913,7 @@ public class AylaSetup {
         AylaLog.d(LOG_TAG, "StartScanCommand for _isSecureSetup "+_isSecureSetup);
         final StartScanCommand cmd = new StartScanCommand();
         AylaLanRequest request = new AylaLanRequest(_setupDevice, cmd, _setupDevice.getSessionManager(),
-                new Response.Listener<AylaLanRequest.LanResponse>() {
+                new Listener<AylaLanRequest.LanResponse>() {
                     @Override
                     public void onResponse(AylaLanRequest.LanResponse response) {
                         AylaLog.d(LOG_TAG, "startDeviceScanForAccessPoints response" + response);
@@ -1078,7 +1078,7 @@ public class AylaSetup {
                     "/local_lan/wifi_scan_results.json");
             cmd.setRequestTimeout(requestTimeout);
             AylaLanRequest request = new AylaLanRequest(_setupDevice, cmd, _setupDevice.getSessionManager(),
-                    new Response.Listener<AylaLanRequest.LanResponse>() {
+                    new Listener<AylaLanRequest.LanResponse>() {
                         @Override
                         public void onResponse(AylaLanRequest.LanResponse response) {
                             AylaLog.d(LOG_TAG, "fetchDeviceScanResults response" + response);
@@ -1160,7 +1160,7 @@ public class AylaSetup {
      * @return the AylaAPIRequest for this operation, which may be canceled.
      */
     public AylaAPIRequest fetchDeviceAPsWithRegex(final String scanRegex,
-                                                  final Response.Listener<AylaWifiScanResults> successListener,
+                                                  final Listener<AylaWifiScanResults> successListener,
                                                   ErrorListener errorListener){
         return this.fetchDeviceAccessPoints(new AylaPredicate<AylaWifiScanResults.Result>() {
             @Override
@@ -1596,7 +1596,7 @@ public class AylaSetup {
                                 if(_setupDevice.hasFeature(AylaSetupDevice.FEATURE_REG_TOKEN) &&
                                         response.getState().equals(DEVICE_STATE_UP)){
                                     AylaLog.d(LOG_TAG, "device wifi state is UP.  Fetch reg info");
-                                    fetchRegInfo(new Response.Listener<AylaRegInfo>(){
+                                    fetchRegInfo(new Listener<AylaRegInfo>(){
                                         @Override
                                         public void onResponse(AylaRegInfo response) {
                                             AylaLog.d(LOG_TAG, "Reg info fetched "+response);
@@ -2249,7 +2249,7 @@ public class AylaSetup {
      * @return The AylaAPIRequest for this request
      */
     private AylaAPIRequest setDeviceTime(Date deviceTime,
-                                         Response.Listener<AylaAPIRequest.EmptyResponse> successListener,
+                                         Listener<EmptyResponse> successListener,
                                          ErrorListener errorListener) {
         if (_setupDevice == null) {
             errorListener.onErrorResponse(new PreconditionError("No setup device found"));
@@ -2436,7 +2436,7 @@ public class AylaSetup {
 
         public ConnectRequest(Listener<EmptyResponse> successListener,
                               ErrorListener errorListener) {
-            super(Request.Method.GET,
+            super(Method.GET,
                     null,
                     null,
                     EmptyResponse.class,
@@ -2530,8 +2530,7 @@ public class AylaSetup {
      * Fetches device details in LAN mode
      *
      */
-    private AylaAPIRequest fetchDeviceDetailsLAN(final AylaAPIRequest originalRequest, final Response
-            .Listener<AylaSetupDevice> successListener, final ErrorListener errorListener){
+    private AylaAPIRequest fetchDeviceDetailsLAN(final AylaAPIRequest originalRequest, final Listener<AylaSetupDevice> successListener, final ErrorListener errorListener){
         AylaLog.d(LOG_TAG, "fetchDeviceDetailsLAN");
 
         if(originalRequest.isCanceled()){
@@ -2582,7 +2581,7 @@ public class AylaSetup {
                 "/local_lan/status.json");
         AylaLanRequest request = new AylaLanRequest(_setupDevice, cmd,
                 _setupDevice.getSessionManager(),
-                new Response.Listener<AylaLanRequest.LanResponse>() {
+                new Listener<AylaLanRequest.LanResponse>() {
                     @Override
                     public void onResponse(AylaLanRequest.LanResponse response) {
                         AylaError error = cmd.getResponseError();

@@ -208,7 +208,7 @@ public class AylaLocalDevice extends AylaDevice {
         // downloaded data is stored.
         _otaRequest = new AylaAPIRequest<String>(Request.Method.GET,
                 otaCommand.api_url,
-                null, String.class, getSessionManager(), new Response.Listener<String>() {
+                null, String.class, getSessionManager(), new Listener<String>() {
             @Override
             public void onResponse(String response) {
                 _otaRequest = null;

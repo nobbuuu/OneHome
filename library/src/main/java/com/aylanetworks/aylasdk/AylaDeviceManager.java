@@ -70,7 +70,7 @@ import static com.aylanetworks.aylasdk.AylaAlertHistory.*;
  * operation will contain an AylaDeviceManager object for the session. This may be accessed via
  * the {@link AylaSessionManager#getDeviceManager()} method.
  * <p>
- * Application developers will usually register a {@link AylaDeviceManager.DeviceManagerListener}
+ * Application developers will usually register a {@link DeviceManagerListener}
  * with AylaDeviceManager as soon as the user has signed in and the {@link AylaSessionManager} was
  * created.
  * <p>
@@ -82,7 +82,7 @@ import static com.aylanetworks.aylasdk.AylaAlertHistory.*;
  * <p>
  * If the AylaDeviceManager cannot retrieve the device list or encounters unrecoverable errors
  * during intialization, the listeners'
- * {@link AylaDeviceManager.DeviceManagerListener#deviceManagerInitFailure} method will instead
+ * {@link DeviceManagerListener#deviceManagerInitFailure} method will instead
  * be called with the specific {@link AylaError} that was encountered as well as the
  * {@link DeviceManagerState} the manager was in when the error occurred.
  */
@@ -1513,7 +1513,7 @@ public class AylaDeviceManager implements AylaConnectivity.AylaConnectivityListe
         Log.d(LOG_TAG, "fetchAlertHistory. url "+ url);
         AylaAPIRequest request = new AylaAPIRequest(Request.Method.GET, url, null,
                 Wrapper[].class, getSessionManager(), new Response
-                .Listener<AylaAlertHistory.Wrapper[]>() {
+                .Listener<Wrapper[]>() {
             @Override
             public void onResponse(Wrapper[] response) {
                 successListener.onResponse(Wrapper.unwrap(response));

@@ -38,7 +38,7 @@ import fi.iki.elonen.NanoHTTPD;
  * AylaAuthProvider that uses cached credentials to sign in. If your application is saving the
  * AylaAuthorization to log the user in automatically on subsequent runs of the app, this
  * object can be initialized with the cached credentials and passed to
- * {@link com.aylanetworks.aylasdk.AylaLoginManager#signIn(AylaAuthProvider, String, Response.Listener, ErrorListener)}
+ * {@link AylaLoginManager#signIn(AylaAuthProvider, String, Response.Listener, ErrorListener)}
  * to sign-in the user.
  * <p>
  * The CachedAuthProvider will refresh the provided credentials as part of the sign-in process if

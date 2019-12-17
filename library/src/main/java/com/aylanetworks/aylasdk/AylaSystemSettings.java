@@ -168,7 +168,8 @@ public class AylaSystemSettings {
     public enum CloudProvider {
         AWS,
         GCP,
-        VPC
+        VPC,
+        SUNSEA
     }
 }
 

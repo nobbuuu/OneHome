@@ -309,6 +309,26 @@ public class ServiceUrls {
         __sCloudServiceURLProvider.put(key(CloudProvider.VPC, ServiceLocation.USA, ServiceType.Field, CloudService.Datastream), "https://mstream-field.aylanetworks.com/");
         __sCloudServiceURLProvider.put(key(CloudProvider.VPC, ServiceLocation.USA, ServiceType.Field, CloudService.mdssSubscription), "https://mdss-field.aylanetworks.com/");
         __sCloudServiceURLProvider.put(key(CloudProvider.VPC, ServiceLocation.USA, ServiceType.Field, CloudService.Rules), "https://rulesservice-field.aylanetworks.com/");
+
+
+        /**
+         * SUNSEA Base URLs
+         * Metrics/Rules 使用的是CloudProvider.China 提供的地址。
+         */
+        __sCloudServiceURLProvider.put(key(CloudProvider.SUNSEA, ServiceLocation.China, ServiceType.Development, CloudService.User), "https://user-dev.sunseaiot.com/");
+        __sCloudServiceURLProvider.put(key(CloudProvider.SUNSEA, ServiceLocation.China, ServiceType.Development, CloudService.Log), "https://log.sunseaiot.com/");
+        __sCloudServiceURLProvider.put(key(CloudProvider.SUNSEA, ServiceLocation.China, ServiceType.Development, CloudService.Metrics), "https://metric-dev.ayla.com.cn/");
+        __sCloudServiceURLProvider.put(key(CloudProvider.SUNSEA, ServiceLocation.China, ServiceType.Development, CloudService.Device), "https://ads-dev.sunseaiot.com/");
+        __sCloudServiceURLProvider.put(key(CloudProvider.SUNSEA, ServiceLocation.China, ServiceType.Development, CloudService.Datastream),  "https://mstream-dev.sunseaiot.com/");
+        __sCloudServiceURLProvider.put(key(CloudProvider.SUNSEA, ServiceLocation.China, ServiceType.Development, CloudService.mdssSubscription),"https://mdss-dev.sunseaiot.com/");
+        __sCloudServiceURLProvider.put(key(CloudProvider.SUNSEA, ServiceLocation.China, ServiceType.Development, CloudService.Rules),"https://rulesservice-dev.ayla.com.cn/");
+        __sCloudServiceURLProvider.put(key(CloudProvider.SUNSEA, ServiceLocation.China, ServiceType.Field, CloudService.User), "https://user-field.sunseaiot.com/");
+        __sCloudServiceURLProvider.put(key(CloudProvider.SUNSEA, ServiceLocation.China, ServiceType.Field, CloudService.Log), "https://log.sunseaiot.com/");
+        __sCloudServiceURLProvider.put(key(CloudProvider.SUNSEA, ServiceLocation.China, ServiceType.Field, CloudService.Metrics), "https://metric-field.ayla.com.cn/");
+        __sCloudServiceURLProvider.put(key(CloudProvider.SUNSEA, ServiceLocation.China, ServiceType.Field, CloudService.Device), "https://ads-field.sunseaiot.com/");
+        __sCloudServiceURLProvider.put(key(CloudProvider.SUNSEA, ServiceLocation.China, ServiceType.Field, CloudService.Datastream), "https://mstream-field.sunseaiot.com/");
+        __sCloudServiceURLProvider.put(key(CloudProvider.SUNSEA, ServiceLocation.China, ServiceType.Field, CloudService.mdssSubscription), "https://mdss-field.sunseaiot.com/");
+        __sCloudServiceURLProvider.put(key(CloudProvider.SUNSEA, ServiceLocation.China, ServiceType.Field, CloudService.Rules), "https://rulesservice-field.ayla.com.cn/");
     }
 
 }

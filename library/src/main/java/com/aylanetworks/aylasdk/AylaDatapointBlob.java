@@ -232,16 +232,16 @@ public class AylaDatapointBlob extends AylaDatapoint<String> implements AsyncDat
             }
             return null;
         }
-        AylaAPIRequest<AylaDatapointBlob.Wrapper> request = new
+        AylaAPIRequest<Wrapper> request = new
                 AylaAPIRequest<>(
                 Request.Method.GET,
                 url,
                 null,
-                AylaDatapointBlob.Wrapper.class,
+                Wrapper.class,
                 sessionManager,
-                new Response.Listener<AylaDatapointBlob.Wrapper>() {
+                new Response.Listener<Wrapper>() {
                     @Override
-                    public void onResponse(AylaDatapointBlob.Wrapper response) {
+                    public void onResponse(Wrapper response) {
                         AylaDatapointBlob datapointBlob = response.datapoint;
                         downLoadFromAWS(progressListener, datapointBlob.file, filePath,
                                 successListener, errorListener);
@@ -379,7 +379,7 @@ public class AylaDatapointBlob extends AylaDatapoint<String> implements AsyncDat
             if (_sendFetchFlagStatus) {
                 markAsFetched(successListener, errorListener, progressListener);
             } else {
-                successListener.onResponse(new AylaAPIRequest.EmptyResponse());
+                successListener.onResponse(new EmptyResponse());
             }
         }
     }

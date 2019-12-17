@@ -93,7 +93,7 @@ public class AylaError extends Exception {
             if (volleyError.networkResponse != null) {
                 responseData = volleyError.networkResponse.data;
             }
-            aylaError = new com.aylanetworks.aylasdk.error.ServerError(
+            aylaError = new ServerError(
                     responseCode, responseData, responseString, volleyError);
         } else if ( volleyError instanceof com.android.volley.TimeoutError ) {
             aylaError = new TimeoutError("Request timed out", volleyError);

@@ -51,7 +51,7 @@ public class AylaSetupMetric extends AylaMetric {
      * @param methodName Name of the method from which this metric was generated.
      * @param setupSessionId Unique identifier for this setup session.
      * @param result Result of the sign-in. One of the types defined in
-     * {@link com.aylanetworks.aylasdk.metrics.AylaMetric.Result}
+     * {@link Result}
      * @param error Error information if operation failed.
      */
     public AylaSetupMetric(LogLevel logLevel, MetricType metricType, String

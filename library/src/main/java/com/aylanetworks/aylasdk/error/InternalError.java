@@ -11,8 +11,8 @@ package com.aylanetworks.aylasdk.error;
  */
 public class InternalError extends AylaError {
     public InternalError(String detailMessage) {
-        super(AylaError.ErrorType.Internal, detailMessage);
+        super(ErrorType.Internal, detailMessage);
     }
     public InternalError(String detailMessage, Throwable cause) {
-        super(AylaError.ErrorType.Internal, detailMessage, cause);
+        super(ErrorType.Internal, detailMessage, cause);
     }}

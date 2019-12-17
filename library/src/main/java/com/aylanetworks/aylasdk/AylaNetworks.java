@@ -315,9 +315,9 @@ public class AylaNetworks {
     /**
      * Returns the service URL of the specified cloud service type, optionally appending the
      * specified path. The method takes into account the
-     * {@link com.aylanetworks.aylasdk.AylaSystemSettings.CloudProvider},
-     * {@link com.aylanetworks.aylasdk.AylaSystemSettings.ServiceType}
-     * and {@link com.aylanetworks.aylasdk.AylaSystemSettings.ServiceLocation} values from the
+     * {@link AylaSystemSettings.CloudProvider},
+     * {@link AylaSystemSettings.ServiceType}
+     * and {@link AylaSystemSettings.ServiceLocation} values from the
      * {@link AylaSystemSettings} object used to initialize the core manager when determining the
      * correct base URL.
      * <p>

@@ -9,6 +9,7 @@ import androidx.multidex.MultiDexApplication;
 import com.aylanetworks.aylasdk.AylaNetworks;
 import com.aylanetworks.aylasdk.AylaSystemSettings;
 import com.dream.onehome.utils.AppUtils;
+import com.sunseaiot.phoneservice.PhoneServerManager;
 
 public class OneHomeAplication extends MultiDexApplication {
 
@@ -24,6 +25,10 @@ public class OneHomeAplication extends MultiDexApplication {
         aylaSystemSettings.appId = Const.APP_ID;
         aylaSystemSettings.appSecret = Const.AYLA_SECRET;
         aylaSystemSettings.context = this;
+        aylaSystemSettings.cloudProvider = AylaSystemSettings.CloudProvider.SUNSEA;
+        aylaSystemSettings.serviceType = AylaSystemSettings.ServiceType.Development;
+        aylaSystemSettings.serviceLocation = AylaSystemSettings.ServiceLocation.China;
+        aylaSystemSettings.defaultNetworkTimeoutMs = aylaSystemSettings.defaultNetworkTimeoutMs*2;
         AylaNetworks.initialize(aylaSystemSettings);
         Log.d(getClass().getName(),"onCreate...");
     }

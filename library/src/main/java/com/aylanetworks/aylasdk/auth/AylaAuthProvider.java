@@ -27,7 +27,7 @@ public interface AylaAuthProvider {
     /**
      * Called by AylaLoginManager, this method should perform the necessary operations to sign in
      * a user. On successful sign-in, the method should call the provided listener via
-     * {@link com.aylanetworks.aylasdk.auth.AylaAuthProvider.AuthProviderListener#didAuthenticate
+     * {@link AuthProviderListener#didAuthenticate
      * didAuthenticate}
      * and provide the AylaAuthorization object with the necessary authenticated credentials.
      *
@@ -40,7 +40,7 @@ public interface AylaAuthProvider {
     /**
      * Called by AylaLoginManager, this method should perform the necessary operations to sign in
      * a user. On successful sign-in, the method should call the provided listener via
-     * {@link com.aylanetworks.aylasdk.auth.AylaAuthProvider.AuthProviderListener#didAuthenticate
+     * {@link AuthProviderListener#didAuthenticate
      * didAuthenticate}
      * and provide the AylaAuthorization object with the necessary authenticated credentials.
      *

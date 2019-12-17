@@ -800,7 +800,7 @@ public class AylaLanOTADevice extends AylaDevice {
                     break;
                 }
             }
-            return android.util.Base64.encodeToString(buffer, Base64.NO_WRAP);
+            return Base64.encodeToString(buffer, Base64.NO_WRAP);
         } catch (FileNotFoundException ex) {
             if (errorListener != null) {
                 errorListener.onErrorResponse(new InternalError("FileNotFoundException getHeader"

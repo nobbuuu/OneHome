@@ -1349,8 +1349,8 @@ public class AylaProperty<T> {
         }
         String url = deviceManager.deviceServiceUrl("apiv1/triggers/" + propertyTriggerKey + ".json");
 
-        AylaAPIRequest<AylaAPIRequest.EmptyResponse> request = new AylaAPIRequest<EmptyResponse>(
-                Request.Method.DELETE, url, null, AylaAPIRequest.EmptyResponse.class,
+        AylaAPIRequest<EmptyResponse> request = new AylaAPIRequest<EmptyResponse>(
+                Request.Method.DELETE, url, null, EmptyResponse.class,
                 sessionManager, successListener, errorListener){
             @Override
             protected Response<EmptyResponse> parseNetworkResponse(NetworkResponse response) {

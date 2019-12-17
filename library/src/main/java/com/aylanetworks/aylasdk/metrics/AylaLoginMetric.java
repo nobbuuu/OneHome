@@ -51,7 +51,7 @@ public class AylaLoginMetric extends AylaMetric {
      * @param methodName Name of the method from which this metric was generated.
      * @param authProvider Type of auth provider for this login session.
      * @param result Result of the sign-in. One of the types defined in
-     * {@link com.aylanetworks.aylasdk.metrics.AylaMetric.Result}
+     * {@link Result}
      * @param error Error information if sign-in failed.
      */
     public AylaLoginMetric(LogLevel logLevel, MetricType metricType, String methodName,

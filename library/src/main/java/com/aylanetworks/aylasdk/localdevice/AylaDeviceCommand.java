@@ -107,7 +107,7 @@ public class AylaDeviceCommand {
         return null;
     }
 
-    public static AylaDeviceCommand[] unwrap(AylaDeviceCommand.Wrapper[] wrapped) {
+    public static AylaDeviceCommand[] unwrap(Wrapper[] wrapped) {
         if (wrapped == null) {
             return null;
         }

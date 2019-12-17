@@ -185,7 +185,7 @@ public class AylaDevice {
                     return regType;
                 }
             }
-            return AylaDevice.RegistrationType.None;
+            return RegistrationType.None;
         }
     }
 
@@ -372,10 +372,10 @@ public class AylaDevice {
     }
 
     /**
-     * Returns {@link AylaDevice.RegistrationType} for this device
+     * Returns {@link RegistrationType} for this device
      */
     public RegistrationType getRegistrationType(){
-        for (AylaDevice.RegistrationType type : AylaDevice.RegistrationType.values()) {
+        for (RegistrationType type : RegistrationType.values()) {
             if (registrationType.equals(type.stringValue())) {
                 return type;
             }
@@ -521,9 +521,9 @@ public class AylaDevice {
      * Returns the DataSource representing the service used to last update this device's status.
      * @return the DataSource last used to update this device's status. May be one of:
      * <ul>
-     *     <li>{@link AylaDevice.DataSource#LAN} last update came from device via LAN</li>
-     *     <li>{@link AylaDevice.DataSource#DSS} last update came from Device Stream Service</li>
-     *     <li>{@link AylaDevice.DataSource#CLOUD} last update came from Ayla Cloud Service</li>
+     *     <li>{@link DataSource#LAN} last update came from device via LAN</li>
+     *     <li>{@link DataSource#DSS} last update came from Device Stream Service</li>
+     *     <li>{@link DataSource#CLOUD} last update came from Ayla Cloud Service</li>
      * </ul>
      */
     public DataSource getLastUpdateSource() {
@@ -821,7 +821,7 @@ public class AylaDevice {
 
         AylaAPIRequest<AylaProperty.Wrapper[]> request = new
                 AylaAPIRequest<>(
-                Request.Method.GET,
+                Method.GET,
                 url,
                 null,
                 AylaProperty.Wrapper[].class,
@@ -998,7 +998,7 @@ public class AylaDevice {
         String url = deviceManager.deviceServiceUrl("apiv1/dsns/" + getDsn() + "/lan.json");
         final AylaLanConfig finalLoadingcachedConfig = cachedConfig;
         AylaAPIRequest<AylaLanConfig.Wrapper> request =
-                new AylaAPIRequest<>(Request.Method.GET,
+                new AylaAPIRequest<>(Method.GET,
                         url,
                         null,
                         AylaLanConfig.Wrapper.class,
@@ -1439,7 +1439,7 @@ public class AylaDevice {
         }
         final String bodyText = datumObject.toString();
         AylaAPIRequest<AylaDatum.Wrapper> request = new AylaJsonRequest<AylaDatum.Wrapper>(
-                Request.Method.POST, url, bodyText, null, AylaDatum.Wrapper.class, sessionManager,
+                Method.POST, url, bodyText, null, AylaDatum.Wrapper.class, sessionManager,
                 new Response.Listener<AylaDatum.Wrapper>() {
                     @Override
                     public void onResponse(AylaDatum.Wrapper response) {
@@ -1623,7 +1623,7 @@ public class AylaDevice {
         final String bodyText = datumObject.toString();
         String url = deviceManager.deviceServiceUrl("apiv1/dsns/" + dsn + "/data/" + key + ".json");
         AylaAPIRequest<AylaDatum.Wrapper> request = new AylaJsonRequest<>(
-                Request.Method.PUT, url, bodyText, null, AylaDatum.Wrapper.class, sessionManager,
+                Method.PUT, url, bodyText, null, AylaDatum.Wrapper.class, sessionManager,
                 new Response.Listener<AylaDatum.Wrapper>() {
                     @Override
                     public void onResponse(AylaDatum.Wrapper response) {
@@ -1662,7 +1662,7 @@ public class AylaDevice {
         }
         String url = deviceManager.deviceServiceUrl("apiv1/dsns/" + dsn + "/data/" + key + ".json");
         AylaAPIRequest<EmptyResponse> request = new AylaAPIRequest<EmptyResponse>(
-                Request.Method.DELETE, url, null, EmptyResponse.class, sessionManager,
+                Method.DELETE, url, null, EmptyResponse.class, sessionManager,
                 successListener, errorListener) {
             @Override
             protected Response<EmptyResponse> parseNetworkResponse(NetworkResponse response) {
@@ -1707,7 +1707,7 @@ public class AylaDevice {
         String url = deviceManager.deviceServiceUrl("apiv1/devices/" + getKey() + ".json");
 
         AylaAPIRequest<EmptyResponse> request = new AylaAPIRequest<EmptyResponse>(
-                Request.Method.DELETE, url, null, EmptyResponse.class, sessionManager,
+                Method.DELETE, url, null, EmptyResponse.class, sessionManager,
                 successListener, errorListener) {
             @Override
             protected Response<EmptyResponse> parseNetworkResponse(NetworkResponse response) {
@@ -1937,22 +1937,22 @@ public class AylaDevice {
         device.productName= displayName;
 
         String url = deviceManager.deviceServiceUrl("apiv1/devices/" + getKey() + ".json");
-        AylaDevice.Wrapper deviceWrapper = new AylaDevice.Wrapper();
+        Wrapper deviceWrapper = new Wrapper();
         deviceWrapper.device = device;
         final String postBodyString = AylaNetworks.sharedInstance().getGson().toJson
-                (deviceWrapper, AylaDevice.Wrapper.class);
+                (deviceWrapper, Wrapper.class);
         final byte[] bodyData = postBodyString.getBytes();
 
         AylaAPIRequest<EmptyResponse> request = new AylaJsonRequest<>(
-                Request.Method.PUT,
+                Method.PUT,
                 url,
                 postBodyString,
                 null,
-                AylaAPIRequest.EmptyResponse.class,
+                EmptyResponse.class,
                 sessionManager,
-                new Response.Listener<AylaAPIRequest.EmptyResponse>(){
+                new Response.Listener<EmptyResponse>(){
                     @Override
-                    public void onResponse(AylaAPIRequest.EmptyResponse response) {
+                    public void onResponse(EmptyResponse response) {
                         AylaDevice.this.productName=displayName;
                         successListener.onResponse(response);
                     }
@@ -2003,7 +2003,7 @@ public class AylaDevice {
                 "/notifications.json");
 
         final AylaAPIRequest request = new AylaJsonRequest<AylaDeviceNotification.Wrapper>(
-                Request.Method.POST,
+                Method.POST,
                 url,
                 postBodyString,
                 null,
@@ -2069,7 +2069,7 @@ public class AylaDevice {
         String url = deviceManager.deviceServiceUrl("apiv1/notifications/" + notificationId + ".json");
 
         AylaAPIRequest request = new AylaJsonRequest<AylaDeviceNotification.Wrapper>(
-                Request.Method.PUT,
+                Method.PUT,
                 url,
                 postBodyString,
                 null,
@@ -2121,7 +2121,7 @@ public class AylaDevice {
                 "/notifications.json");
 
         AylaAPIRequest request = new AylaAPIRequest<>(
-                Request.Method.GET,
+                Method.GET,
                 url,
                 null,
                 AylaDeviceNotification.Wrapper[].class,
@@ -2179,7 +2179,7 @@ public class AylaDevice {
         String url = deviceManager.deviceServiceUrl("apiv1/notifications/" + notificationId + ".json");
 
         AylaAPIRequest<EmptyResponse> request = new AylaAPIRequest<>(
-                Request.Method.DELETE, url, null, AylaAPIRequest.EmptyResponse.class,
+                Method.DELETE, url, null, EmptyResponse.class,
                 sessionManager, successListener, errorListener);
 
         deviceManager.sendDeviceServiceRequest(request);
@@ -2346,7 +2346,7 @@ public class AylaDevice {
         final String postBodyString = getGsonNullable().toJson
                 (scheduleWrapper, AylaSchedule.Wrapper.class);
         AylaAPIRequest request = new AylaJsonRequest<>(
-                Request.Method.PUT,
+                Method.PUT,
                 url,
                 postBodyString,
                 null,
@@ -2399,7 +2399,7 @@ public class AylaDevice {
         }
         String url = deviceManager.deviceServiceUrl("apiv1/devices/" + deviceKey + "/schedules.json");
         AylaAPIRequest request = new AylaAPIRequest<>(
-                Request.Method.GET,
+                Method.GET,
                 url,
                 null,
                 AylaSchedule.Wrapper[].class,
@@ -2491,7 +2491,7 @@ public class AylaDevice {
         String url = deviceManager.deviceServiceUrl("apiv1/devices/" + deviceKey + "/schedules.json");
 
         AylaAPIRequest request = new AylaJsonRequest<>(
-                Request.Method.POST,
+                Method.POST,
                 url,
                 postBodyString,
                 null,
@@ -2521,7 +2521,7 @@ public class AylaDevice {
      */
     @Deprecated
     public AylaAPIRequest deleteSchedule(final AylaSchedule schedule,
-                                         final Response.Listener<AylaAPIRequest.EmptyResponse>
+                                         final Response.Listener<EmptyResponse>
                                                  successListener,
                                          final ErrorListener errorListener) {
         AylaDeviceManager deviceManager = getDeviceManager();
@@ -2556,8 +2556,8 @@ public class AylaDevice {
         }
 
         String url = deviceManager.deviceServiceUrl("apiv1/schedules/" + scheduleKey + ".json");
-        AylaAPIRequest<AylaAPIRequest.EmptyResponse> request = new AylaAPIRequest<>(
-                Request.Method.DELETE, url, null, AylaAPIRequest.EmptyResponse.class,
+        AylaAPIRequest<EmptyResponse> request = new AylaAPIRequest<>(
+                Method.DELETE, url, null, EmptyResponse.class,
                 sessionManager, successListener, errorListener);
 
         deviceManager.sendDeviceServiceRequest(request);

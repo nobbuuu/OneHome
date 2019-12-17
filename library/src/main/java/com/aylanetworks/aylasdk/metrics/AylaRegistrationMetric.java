@@ -53,7 +53,7 @@ public class AylaRegistrationMetric extends AylaMetric {
      * @param registrationType Device registration type.
      * @param dsn DSN of the device.
      * @param result Result of the operation.
-     * {@link com.aylanetworks.aylasdk.metrics.AylaMetric.Result}
+     * {@link Result}
      * @param error Error information if register or unregister failed.
      */
     public AylaRegistrationMetric(LogLevel logLevel, MetricType metricType,

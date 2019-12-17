@@ -54,7 +54,7 @@ public class AylaDevicePropertyMetric extends AylaMetric {
      * @param dsn DSN of the device.
      * @param propertyName Name of the property.
      * @param result Result of the operation.
-     * {@link com.aylanetworks.aylasdk.metrics.AylaMetric.Result}
+     * {@link Result}
      * @param error Error information if an error occurred.
      */
     public AylaDevicePropertyMetric(LogLevel logLevel, MetricType metricType,

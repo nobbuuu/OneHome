@@ -61,7 +61,7 @@ public class AylaBLEWiFiSetupDevice extends AylaBLEDevice {
 
     @Override
     public RegistrationType getRegistrationType() {
-        for (AylaDevice.RegistrationType type : AylaDevice.RegistrationType.values()) {
+        for (RegistrationType type : RegistrationType.values()) {
             if (registrationType.equals(type.stringValue())) {
                 return type;
             }

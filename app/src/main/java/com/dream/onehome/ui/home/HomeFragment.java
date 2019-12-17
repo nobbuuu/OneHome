@@ -15,6 +15,7 @@ import com.dream.onehome.R;
 import com.dream.onehome.base.BaseFragment;
 import com.dream.onehome.ui.Activity.AddDeviceActivity;
 import com.dream.onehome.ui.Activity.ConnectDeviceActivity;
+import com.dream.onehome.ui.Activity.WifiSetActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -53,7 +54,7 @@ public class HomeFragment extends BaseFragment {
 
     @OnClick(R.id.addimg_iv)
     public void onViewClicked() {
-        Intent intent = new Intent(getActivity(), AddDeviceActivity.class);
+        Intent intent = new Intent(getActivity(), WifiSetActivity.class);
         startActivity(intent);
     }
 }
