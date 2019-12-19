@@ -1,4 +1,4 @@
 include ':app'
-include ':library'
-include ':websocketLibs'
+//include ':library'
+//include ':websocketLibs'
 rootProject.name='OneHome'

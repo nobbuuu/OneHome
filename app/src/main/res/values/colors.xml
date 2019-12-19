@@ -23,5 +23,7 @@
     <color name="rect">#F08980</color>
     <color name="triangle">#A1E3A1</color>
     <color name="orange">#FE4302</color>
+    <color name="reset">#677FC5</color>
+    <color name="reset_dark">#D0D9F5</color>
 
 </resources>

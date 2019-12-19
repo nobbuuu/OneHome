@@ -51,6 +51,12 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initView() {
+       String pwd = passwordEdt.getText().toString();
+        if (pwd.length() >= 6) {
+            login.setBackgroundResource(R.drawable.select_surebtn);
+            login.setEnabled(true);
+        }
+
     }
 
     @Override

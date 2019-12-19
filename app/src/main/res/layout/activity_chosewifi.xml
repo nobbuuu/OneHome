@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <RelativeLayout
+        android:id="@+id/action_bar"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="@dimen/dp_15"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/back_iv"
+            android:layout_width="@dimen/dp_23"
+            android:src="@drawable/miuisupport_action_bar_back_normal_light"
+            android:layout_height="@dimen/dp_23"></ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="选择设备Wi-Fi"
+            android:layout_centerInParent="true"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sp_15"
+            android:layout_height="wrap_content"></TextView>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/action_bar"
+        android:background="@color/divider_bg"
+        android:layout_height="0.5dp"></View>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="将手机Wi-Fi连接到Ayla-XXXX后，返回APP"
+        app:layout_constraintBottom_toTopOf="@+id/currentwifi_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="@dimen/sp_16"
+        android:textColor="@color/color333"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="@dimen/dp_25"
+        android:layout_height="wrap_content"></TextView>
+
+    <TextView
+        android:id="@+id/currentwifi_tv"
+        android:layout_width="wrap_content"
+        android:text="当前Wi-Fi："
+        app:layout_constraintBottom_toTopOf="@+id/sure_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="@dimen/dp_35"
+        android:layout_height="wrap_content"></TextView>
+    <Button
+        android:id="@+id/sure_tv"
+        android:layout_width="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="@dimen/dp_10"
+        android:text="切换Wi-Fi"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:background="@drawable/select_surebtn"
+        android:layout_marginStart="@dimen/dp_67"
+        android:layout_marginEnd="@dimen/dp_67"
+        android:layout_marginBottom="@dimen/dp_17"
+        android:layout_height="wrap_content"></Button>
+</androidx.constraintlayout.widget.ConstraintLayout>

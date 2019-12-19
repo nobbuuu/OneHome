@@ -4,12 +4,14 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.HandlerThread;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -22,21 +24,13 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.android.volley.Response;
-import com.aylanetworks.aylasdk.AylaNetworks;
-import com.aylanetworks.aylasdk.error.AylaError;
-import com.aylanetworks.aylasdk.error.ErrorListener;
-import com.aylanetworks.aylasdk.setup.AylaSetup;
-import com.aylanetworks.aylasdk.setup.AylaSetupDevice;
 import com.dream.onehome.R;
 import com.dream.onehome.base.BaseActivity;
 import com.dream.onehome.common.Const;
 import com.dream.onehome.receiver.NetBroadcastReceiver;
 
-import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -78,6 +72,7 @@ public class WifiSetActivity extends BaseActivity {
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         this.registerReceiver(receiver, filter);
 
+
     }
 
     @Override
@@ -89,8 +84,9 @@ public class WifiSetActivity extends BaseActivity {
 
                 Log.d(TAG, "netconnected = " + isConnected);
                 Log.d(TAG, "networkInfo = " + networkInfo.toString());
-                if (isConnected) {
-                    getConnectWifiSsid();
+                if (!isConnected) {
+                    //手机没有连接Wi-Fi  弹窗提示连接
+//                    getConnectWifiSsid();
                 }
             }
         });
@@ -154,61 +150,52 @@ public class WifiSetActivity extends BaseActivity {
                 }
             }
         });
-
-        mSureTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String wifiName = mWifiNameEdt.getText().toString();
-                String wifiPwd = mWifiPwdEdt.getText().toString();
-
-                Intent intent = new Intent(getBaseContext(), ConnectDeviceActivity.class);
-                intent.putExtra("wifiName", wifiName);
-                intent.putExtra("wifiPwd", wifiPwd);
-                startActivity(intent);
-            }
-        });
-
     }
 
     private String getConnectWifiSsid() {
         WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-        Log.d(TAG, "connect wifi name = " + wifiInfo.getSSID());
-        List<WifiConfiguration> networks = wifiManager.getConfiguredNetworks();
+        String ssid = wifiInfo.getSSID();
+        String wifiName = ssid.replace("\"", "");
 
-        if (networks.size() > 0) {
-//            String name = wifiInfo.getSSID().replace("\"", "");
-            String name = networks.get(networks.size() - 1).SSID.replace("\"", "");
-            mWifiNameEdt.setText(name);
+        Log.d(TAG, "connect wifi name = " + wifiName);
+        if(ssid!=null){
+            mWifiNameEdt.setText(wifiName);
         }
 
-        for (int i = 0; i < networks.size(); i++) {
-
-            WifiConfiguration wifiConfiguration = networks.get(i);
-            Log.d(TAG, "wifi name = " + wifiConfiguration.SSID);
-        }
-
-
-        return mWifiNameEdt.getText().toString();
+        return wifiName;
     }
 
     public void requestPermission() {
         // checkSelfPermission 判断是否已经申请了此权限
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             //如果应用之前请求过此权限但用户拒绝了请求，shouldShowRequestPermissionRationale将返回 true。
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
 
             } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,}, 121);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 121);
             }
+        }else {
+            getConnectWifiSsid();
         }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 121){
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
+
+                getConnectWifiSsid();
+
+            }else {
+
+            }
+        }
+
 
     }
 
@@ -227,6 +214,14 @@ public class WifiSetActivity extends BaseActivity {
                 break;
             case R.id.sure_tv:
 
+                String wifiName = mWifiNameEdt.getText().toString();
+                String wifiPwd = mWifiPwdEdt.getText().toString();
+
+                Intent intent = new Intent(getBaseContext(), WifiChangeActivity.class);
+                intent.putExtra(Const.WiFiName, wifiName);
+                intent.putExtra(Const.WiFiPwd, wifiPwd);
+                startActivityForResult(intent,1218);
+
                 break;
         }
     }
@@ -234,27 +229,16 @@ public class WifiSetActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1217){
-            String connectWifiSsid = getConnectWifiSsid();
-            try {
-                AylaSetup aylaSetup = new AylaSetup(getBaseContext(), AylaNetworks.sharedInstance().getSessionManager(Const.APP_NAME));
-                aylaSetup.connectToNewDevice(connectWifiSsid, 30, new Response.Listener<AylaSetupDevice>() {
-                    @Override
-                    public void onResponse(AylaSetupDevice response) {
-                        Log.d(TAG,"method  connectToNewDevice  onResponse...");
-                    }
-                }, new ErrorListener() {
-                    @Override
-                    public void onErrorResponse(AylaError error) {
-                        Log.e(TAG,"AylaError  = " + error.getMessage());
-                    }
-                });
 
-            } catch (AylaError aylaError) {
-                aylaError.printStackTrace();
-                Log.e(TAG,"AylaError  = " + aylaError.getMessage());
-            }
+        if (requestCode == 1217){
+            getConnectWifiSsid();
+
+        }
+
+        if (requestCode == 1218){
 
         }
     }
+
+
 }

@@ -81,6 +81,7 @@
             android:text="房间"></com.google.android.material.tabs.TabItem>
     </com.google.android.material.tabs.TabLayout>
 
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -92,17 +93,61 @@
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/home_tab"></TextView>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/device_lay"
+        app:layout_constraintTop_toBottomOf="@+id/action_bar"
+        android:layout_width="match_parent"
+        android:background="@drawable/shape_corner_white"
+        android:layout_margin="@dimen/dp_15"
+        android:visibility="gone"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/ykq_icon"
+            android:layout_width="@dimen/dp_80"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:src="@drawable/yaokongqi"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_height="@dimen/dp_100"></ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="万能遥控器"
+            app:layout_constraintLeft_toRightOf="@+id/ykq_icon"
+            app:layout_constraintTop_toTopOf="@+id/ykq_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/ykq_icon"
+            android:textSize="@dimen/sp_16"
+            android:textColor="@color/black"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_height="wrap_content"></TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="@dimen/dp_15"
+            android:text="在线"
+            android:background="@drawable/shape_reset_click"
+            android:paddingLeft="@dimen/dp_15"
+            android:paddingRight="@dimen/dp_15"
+            android:paddingTop="@dimen/dp_5"
+            android:paddingBottom="@dimen/dp_5"
+            android:layout_height="wrap_content"></TextView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <ImageView
         android:id="@+id/addimg_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/add_device_big"
+        android:background="@mipmap/add_device_big"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></ImageView>
 
     <TextView
+        android:id="@+id/addsuma_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="添加遥控器"

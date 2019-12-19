@@ -13,9 +13,9 @@
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/back_iv"
-            android:layout_width="@dimen/dp_30"
+            android:layout_width="@dimen/dp_20"
             android:src="@drawable/miuisupport_action_bar_back_normal_light"
-            android:layout_height="@dimen/dp_30"></ImageView>
+            android:layout_height="@dimen/dp_20"></ImageView>
 
         <TextView
             android:layout_width="wrap_content"
@@ -72,7 +72,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:progColor="@color/color_summbg"
         app:progWidth="8dp"
-        app:progress="30" />
+        app:progress="0" />
 
     <TextView
         android:id="@+id/progress_tv"
@@ -83,80 +83,94 @@
         android:layout_width="wrap_content"
         android:textSize="@dimen/sp_25"
         android:textColor="@color/black"
-        android:text="30%"
+        android:text="0%"
         android:layout_height="wrap_content"></TextView>
 
-    <LinearLayout
-        android:id="@+id/step_lay1"
+    <Button
+        android:id="@+id/sure_tv"
         android:layout_width="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/step_lay2"
-        app:layout_constraintLeft_toLeftOf="@+id/step_lay2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="@dimen/dp_10"
+        android:text="完成"
+        android:textColor="@android:color/white"
         android:gravity="center"
-        android:layout_marginBottom="@dimen/dp_5"
+        android:background="@drawable/select_surebtn"
+        android:paddingStart="@dimen/dp_67"
+        android:visibility="gone"
+        android:paddingEnd="@dimen/dp_67"
+        android:layout_marginBottom="@dimen/dp_30"
+        android:layout_height="wrap_content"></Button>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/step_lay"
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/dp_20"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_height="wrap_content">
 
         <ImageView
+            android:id="@+id/step_iv1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             android:layout_width="@dimen/dp_10"
             android:background="@drawable/shape_circle_stroke_gray"
             android:layout_height="@dimen/dp_10">
         </ImageView>
 
         <TextView
+            android:id="@+id/step_tv1"
+            app:layout_constraintLeft_toRightOf="@+id/step_iv1"
+            app:layout_constraintTop_toTopOf="@id/step_iv1"
+            app:layout_constraintBottom_toBottomOf="@+id/step_iv1"
             android:layout_width="wrap_content"
             android:text="找到设备"
             android:layout_marginLeft="@dimen/dp_5"
             android:textSize="@dimen/sp_12"
             android:layout_height="wrap_content"></TextView>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/step_lay2"
-        android:layout_width="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/step_lay3"
-        app:layout_constraintLeft_toLeftOf="@+id/step_lay3"
-        android:gravity="center"
-        android:layout_marginBottom="@dimen/dp_5"
-        android:layout_height="wrap_content">
-
         <ImageView
+            android:id="@+id/step_iv2"
+            app:layout_constraintTop_toBottomOf="@+id/step_iv1"
+            app:layout_constraintLeft_toLeftOf="parent"
             android:layout_width="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
             android:background="@drawable/shape_circle_stroke_gray"
             android:layout_height="@dimen/dp_10">
         </ImageView>
 
         <TextView
             android:layout_width="wrap_content"
-            android:text="设备注册到云智能"
+            android:text="绑定设备"
             android:layout_marginLeft="@dimen/dp_5"
             android:textSize="@dimen/sp_12"
+            app:layout_constraintTop_toTopOf="@+id/step_iv2"
+            app:layout_constraintBottom_toBottomOf="@+id/step_iv2"
+            app:layout_constraintLeft_toRightOf="@+id/step_iv2"
             android:layout_height="wrap_content"></TextView>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/step_lay3"
-        android:layout_width="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:gravity="center"
-        android:layout_marginBottom="@dimen/dp_30"
-        android:layout_height="wrap_content">
 
         <ImageView
+            android:id="@+id/step_iv3"
+            app:layout_constraintTop_toBottomOf="@+id/step_iv2"
+            app:layout_constraintLeft_toLeftOf="parent"
             android:layout_width="@dimen/dp_10"
             android:background="@drawable/shape_circle_stroke_gray"
+            android:layout_marginTop="@dimen/dp_10"
             android:layout_height="@dimen/dp_10">
         </ImageView>
 
         <TextView
             android:layout_width="wrap_content"
-            android:text="设备初始化"
+            android:text="初始化设备"
             android:layout_marginLeft="@dimen/dp_5"
             android:textSize="@dimen/sp_12"
+            app:layout_constraintTop_toTopOf="@+id/step_iv3"
+            app:layout_constraintBottom_toBottomOf="@+id/step_iv3"
+            app:layout_constraintLeft_toRightOf="@+id/step_iv3"
             android:layout_height="wrap_content"></TextView>
-    </LinearLayout>
-
-
-
-
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

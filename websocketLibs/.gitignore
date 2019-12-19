@@ -1,9 +1,0 @@
-bin/*
-gen/*
-build/*
-!gen/PLACEHOLDER
-*.jar
-!libs/*
-.sconsign.dblite
-.classpath
-_upload

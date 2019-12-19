@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -24,6 +25,10 @@ public class HomeFragment extends BaseFragment {
 
     @BindView(R.id.addimg_iv)
     ImageView addimgIv;
+
+    @BindView(R.id.device_lay)
+    ConstraintLayout mDeviceLay;
+
     private HomeViewModel homeViewModel;
 
     @Override
@@ -39,6 +44,12 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void resume() {
 
+        if (ConnectDeviceActivity.isConnectSuccess){
+            mDeviceLay.setVisibility(View.VISIBLE);
+        }else {
+            mDeviceLay.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
@@ -52,9 +63,18 @@ public class HomeFragment extends BaseFragment {
     }
 
 
-    @OnClick(R.id.addimg_iv)
-    public void onViewClicked() {
-        Intent intent = new Intent(getActivity(), WifiSetActivity.class);
-        startActivity(intent);
+    @OnClick({R.id.addimg_iv,R.id.device_lay})
+    public void onViewClicked(View view) {
+        switch (view.getId()){
+            case R.id.addimg_iv:
+
+                Intent intent = new Intent(getActivity(), AddDeviceActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.device_lay:
+
+
+                break;
+        }
     }
 }

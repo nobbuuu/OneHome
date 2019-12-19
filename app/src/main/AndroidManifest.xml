@@ -17,7 +17,8 @@
         android:name=".common.OneHomeAplication"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.Activity.MainActivity"
+            android:name=".ui.Activity.LoginActivity"
+            android:launchMode="singleTask"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,15 +27,29 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.Activity.AddDeviceActivity">
+        <activity android:name=".ui.Activity.AddDeviceActivity"
+            android:launchMode="singleTask"
+            >
         </activity>
-        <activity android:name=".ui.Activity.ConnectDeviceActivity">
+        <activity android:name=".ui.Activity.ConnectDeviceActivity"
+            android:launchMode="singleTask"
+            >
         </activity>
-        <activity android:name=".ui.Activity.LoginActivity"></activity>
+        <activity android:name=".ui.Activity.MainActivity"
+            android:launchMode="singleTask"
+            ></activity>
         <activity android:name=".ui.Activity.RegisterValiActivity">
         </activity>
         <activity android:name=".ui.Activity.PasswordLoginActivity"></activity>
-        <activity android:name=".ui.Activity.WifiSetActivity"></activity>
+        <activity android:name=".ui.Activity.WifiSetActivity"
+            android:launchMode="singleTask"
+            ></activity>
+        <activity android:name=".ui.Activity.WifiChangeActivity"
+            android:launchMode="singleTask"
+            >
+
+        </activity>
     </application>
+
 
 </manifest>

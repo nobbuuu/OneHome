@@ -44,7 +44,7 @@ public class AddDeviceActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.sure_tv:
-                Intent intent = new Intent(this,ConnectDeviceActivity.class);
+                Intent intent = new Intent(this,WifiSetActivity.class);
                 startActivity(intent);
                 break;
         }

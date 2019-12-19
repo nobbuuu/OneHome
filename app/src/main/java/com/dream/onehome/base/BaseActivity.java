@@ -16,6 +16,7 @@ import com.dream.onehome.dialog.LoadingDialog;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.disposables.CompositeDisposable;
 
 /**
  * Created by Administrator on 2017/4/7/007.
@@ -31,6 +32,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     public LinearLayout root_lay;*/
     private static final int PERMISSION_REQUESTCODE = 100;
     public Dialog mLoading;
+    public CompositeDisposable mCompositeDisposable = new CompositeDisposable();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +63,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         mUnbinder.unbind();
+        mCompositeDisposable.clear();
     }
 
     public abstract int getLayoutId();

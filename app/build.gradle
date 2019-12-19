@@ -62,6 +62,9 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
 
+    //volly
+    api 'com.android.volley:volley:1.1.1'
+
     //rxjava
     implementation 'io.reactivex.rxjava2:rxjava:2.2.3'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
@@ -74,8 +77,8 @@ dependencies {
 //    implementation  'com.google.dagger:dagger:2.x'
 //    annotationProcessor 'com.google.dagger:dagger-compiler:2.x'
     compileOnly 'org.glassfish:javax.annotation:10.0-b28'
-    implementation project(path: ':websocketLibs')
-    implementation project(path: ':library')
+//    implementation project(path: ':websocketLibs')
+//    implementation project(path: ':library')
 //    compile(name: 'phoneservicesdk-release', ext: 'aar')
 //    annotationProcessor 'com.google.dagger:dagger-compiler:2.5'
 //    implementation 'com.google.dagger:dagger:2.5'
@@ -85,5 +88,12 @@ dependencies {
 
     //loading
     implementation 'com.ldoublem.loadingview:loadingviewlib:1.0'
+
+    implementation 'org.nanohttpd:nanohttpd:2.2.0'
+    implementation 'org.nanohttpd:nanohttpd-nanolets:2.2.0'
+    implementation 'com.madgag.spongycastle:core:1.54.0.0'
+    implementation 'com.madgag.spongycastle:prov:1.54.0.0'
+    implementation 'com.madgag.spongycastle:pg:1.54.0.0'
+
 
 }

@@ -36,6 +36,14 @@ public class Const {
 
     //userinfo
     public static final String TOKEN = "token";
+    public static final String SETUP_TOKEN = "setuptoken";
+
+    //wifi
+
+    public static final String WiFiName = "wifiName";
+    public static final String WiFiPwd = "wifiPwd";
+    public static final String AylaWifi = "AylaWifi";
+
 
 
 }
