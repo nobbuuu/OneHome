@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -15,20 +19,32 @@ import com.dream.onehome.common.OneHomeAplication;
 
 public class RVBaseHolder extends RecyclerView.ViewHolder {
   public View itemView;
+  public ViewDataBinding mBinding;
   public RVBaseHolder(View itemView){
     super(itemView);
     this.itemView = itemView;
   }
   //供adapter调用，返回holder
   public static <T extends RVBaseHolder> T getHolder(Context cxt, ViewGroup parent, int layoutId){
-
-    return (T) new RVBaseHolder(LayoutInflater.from(cxt).inflate(layoutId, parent,false));
+    View inflate = LayoutInflater.from(cxt).inflate(layoutId, parent, false);
+    DataBindingUtil.bind(inflate);
+    return (T) new RVBaseHolder(inflate);
   }
   //根据Item中的控件Id获取控件（不建议从views中取，响应速度慢，影响性能）
   public <T extends View> T getView(int viewId){
     View childreView = itemView.findViewById(viewId);
     return (T) childreView;
   }
+
+
+  /**
+   * 如果使用了 DataBinding 绑定 View，可调用此方法获取 [ViewDataBinding]
+   * @return B?
+   */
+  public <T extends ViewDataBinding> T getBindingView() {
+    return (T) DataBindingUtil.getBinding(itemView);
+  }
+
   //根据Item中的控件Id向控件添加事件监听
   public RVBaseHolder setOnClickListener(int viewId, View.OnClickListener listener){
     View view = getView(viewId);

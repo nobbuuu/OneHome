@@ -95,5 +95,12 @@ dependencies {
     implementation 'com.madgag.spongycastle:prov:1.54.0.0'
     implementation 'com.madgag.spongycastle:pg:1.54.0.0'
 
+    //lifecycle
+
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    implementation "android.arch.lifecycle:reactivestreams:1.1.1"
+
+    //statubar
+    implementation "com.gyf.immersionbar:immersionbar:3.0.0"
 
 }

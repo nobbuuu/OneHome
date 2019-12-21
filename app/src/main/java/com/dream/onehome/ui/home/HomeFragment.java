@@ -2,6 +2,7 @@ package com.dream.onehome.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,10 @@ import com.dream.onehome.R;
 import com.dream.onehome.base.BaseFragment;
 import com.dream.onehome.ui.Activity.AddDeviceActivity;
 import com.dream.onehome.ui.Activity.ConnectDeviceActivity;
+import com.dream.onehome.ui.Activity.RemoteControlListActivity;
 import com.dream.onehome.ui.Activity.WifiSetActivity;
+import com.dream.onehome.utils.StringUtils;
+import com.google.gson.JsonObject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -44,7 +48,7 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void resume() {
 
-        if (ConnectDeviceActivity.isConnectSuccess){
+        if (!ConnectDeviceActivity.isConnectSuccess){
             mDeviceLay.setVisibility(View.VISIBLE);
         }else {
             mDeviceLay.setVisibility(View.GONE);
@@ -72,8 +76,7 @@ public class HomeFragment extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.device_lay:
-
-
+                startActivity(new Intent(getActivity(), RemoteControlListActivity.class));
                 break;
         }
     }

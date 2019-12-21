@@ -2,7 +2,6 @@ package com.dream.onehome.ui.Activity;
 
 import android.content.Intent;
 import android.location.Location;
-import android.os.HandlerThread;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +13,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.android.volley.Response;
 import com.aylanetworks.aylasdk.AylaAPIRequest;
 import com.aylanetworks.aylasdk.AylaDevice;
-import com.aylanetworks.aylasdk.AylaDeviceManager;
 import com.aylanetworks.aylasdk.AylaNetworks;
 import com.aylanetworks.aylasdk.AylaSessionManager;
 import com.aylanetworks.aylasdk.error.AylaError;
@@ -28,19 +26,13 @@ import com.dream.onehome.R;
 import com.dream.onehome.base.BaseActivity;
 import com.dream.onehome.common.Const;
 import com.dream.onehome.customview.CircularProgressView;
-import com.dream.onehome.utils.FinishActivityManager;
+import com.dream.onehome.utils.ActivityUtils;
 import com.dream.onehome.utils.LocationUtil;
 import com.dream.onehome.utils.SpUtils;
 import com.dream.onehome.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
 
 public class ConnectDeviceActivity extends BaseActivity {
 
@@ -175,9 +167,9 @@ public class ConnectDeviceActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.sure_tv:
-                FinishActivityManager.getManager().finishActivity(WifiSetActivity.class);
+                ActivityUtils.getManager().finishActivity(WifiSetActivity.class);
                 if (isConnectSuccess){
-                    FinishActivityManager.getManager().finishActivity(AddDeviceActivity.class);
+                    ActivityUtils.getManager().finishActivity(AddDeviceActivity.class);
                 }
                 onBackPressed();
                 break;

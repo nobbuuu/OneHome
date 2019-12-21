@@ -3,6 +3,8 @@ package com.dream.onehome.base;
 import android.content.Context;
 import android.view.ViewGroup;
 
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -54,7 +56,6 @@ public abstract class RVBaseAdapter<T> extends RecyclerView.Adapter<RVBaseHolder
 
     @Override
     public void onBindViewHolder(RVBaseHolder holder, int position) {
-
         onBind(holder, data.get(position), position);
     }
 

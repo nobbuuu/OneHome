@@ -6,16 +6,16 @@ import java.lang.ref.WeakReference;
 import java.util.Iterator;
 import java.util.Stack;
 
-public class FinishActivityManager{
-    private FinishActivityManager() {
+public class ActivityUtils {
+    private ActivityUtils() {
     }
-    private static FinishActivityManager sManager;
+    private static ActivityUtils sManager;
     private Stack<WeakReference<Activity>> mActivityStack;
-    public static FinishActivityManager getManager() {
+    public static ActivityUtils getManager() {
         if (sManager == null) {
-            synchronized (FinishActivityManager.class) {
+            synchronized (ActivityUtils.class) {
                 if (sManager == null) {
-                    sManager = new FinishActivityManager();
+                    sManager = new ActivityUtils();
                 }
             }
         }

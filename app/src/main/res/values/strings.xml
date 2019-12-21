@@ -4,6 +4,17 @@
     <string name="title_dashboard">智能</string>
     <string name="title_notifications">我的</string>
 
+    <string name="show_error_content">发生意外错误。\n抱歉，给您带来不便。</string>
+    <string name="restart_app">重新启动</string>
+    <string name="close_app">关闭程序</string>
+    <string name="error_content">错误日志</string>
+    <string name="error_detail">错误详情</string>
+    <string name="close">关闭</string>
+    <string name="copy_content">复制日志</string>
+    <string name="error_details">错误信息</string>
+    <string name="layout_id_error">\n\t布局Id错误\n\t请设置 activity 的@ContentView注解 \n\t 注解样例: @ContentView(R.layout.main_activity)</string>
+    <string name="content_view_empty">\n\t请设置布局注解 @ContentView \n\t注解案例: @ContentView(R.layout.main_activity)</string>
+
     <string name="failconnect">系统错误，请联系管理员</string>
     <string name="timeout">连接超时</string>
     <string name="noNetwork">网络异常</string>

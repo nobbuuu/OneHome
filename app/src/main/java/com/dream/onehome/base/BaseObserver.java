@@ -3,12 +3,11 @@ package com.dream.onehome.base;
 
 import com.dream.onehome.R;
 import com.dream.onehome.common.Const;
+import com.dream.onehome.utils.LogUtils;
 import com.dream.onehome.utils.ResourcesUtils;
 import com.dream.onehome.utils.ToastUtils;
 
 import io.reactivex.Observer;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 
 /**
  * 响应实体类型result为对象类型
@@ -17,30 +16,22 @@ import io.reactivex.disposables.Disposable;
 
 public abstract class BaseObserver<T> implements Observer<BaseBean<T>> {
 
-    private BaseContract.BaseView mBaseView;
-    protected CompositeDisposable mCompositeSubscription;
+     @Override
+    public void onComplete() {
 
-    protected void unSubscribe() {
-        if (mCompositeSubscription != null) {
-            mCompositeSubscription.dispose();
-        }
-    }
-
-    protected void addSubscrebe(Disposable disposable) {
-        if (mCompositeSubscription == null) {
-            mCompositeSubscription = new CompositeDisposable();
-        }
-        mCompositeSubscription.add(disposable);
     }
 
     @Override
-    public void onSubscribe(Disposable d) {
-        addSubscrebe(d);
+    public void onError(Throwable e) {
+        if (e.toString().contains("timeout")){
+            ToastUtils.Toast_long(ResourcesUtils.getString(R.string.timeout));
+        }else if (e.toString().contains("Failed to connect")){
+            ToastUtils.Toast_long(ResourcesUtils.getString(R.string.noNetwork));
+        } else {
+            ToastUtils.Toast_long(ResourcesUtils.getString(R.string.failconnect));
+        }
     }
 
-    public BaseObserver(BaseContract.BaseView baseView) {
-        mBaseView = baseView;
-    }
 
     @Override
     public void onNext(BaseBean<T> tBaseBean) {
@@ -57,43 +48,21 @@ public abstract class BaseObserver<T> implements Observer<BaseBean<T>> {
         }
     }
 
-
-    @Override
-    public void onError(Throwable e) {
-        mBaseView.showError();
-        if (e.toString().contains("timeout")){
-            ToastUtils.Toast_short(ResourcesUtils.getString(R.string.timeout));
-        }else if (e.toString().contains("Failed to connect")){
-            ToastUtils.Toast_short(ResourcesUtils.getString(R.string.noNetwork));
-        } else {
-            ToastUtils.Toast_short(ResourcesUtils.getString(R.string.failconnect));
-        }
-    }
     /**
-     * 响应码错误
+     * 响应吗错误
      *
      * @param errorCode
      * @param errorMsg
      */
     private void onCodeError(String errorCode, String errorMsg) {
 //        ToastUtils.Toast_short(errorMsg);
-        mBaseView.showError();
+        LogUtils.e("errorLog","errorCode = " + errorCode + "  errorMsg = " + errorMsg);
         if (errorCode.equals("-10107")){//token失效
             //重新登录
-//            CommonAction.clearUserData();
-//            EventBus.getDefault().post(new LoginBus(Const.reLogin));
         }else {
-            ToastUtils.Toast_short(errorMsg);
+            ToastUtils.Toast_long(errorMsg);
         }
     }
 
-    @Override
-    public void onComplete() {
-        mBaseView.complete();
-        unSubscribe();
-    }
-
     public abstract void onSuccess(T results);
-
-
 }

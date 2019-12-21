@@ -28,26 +28,24 @@
         </activity>
 
         <activity android:name=".ui.Activity.AddDeviceActivity"
-            android:launchMode="singleTask"
-            >
+            android:launchMode="singleTask">
         </activity>
         <activity android:name=".ui.Activity.ConnectDeviceActivity"
-            android:launchMode="singleTask"
-            >
+            android:launchMode="singleTask">
         </activity>
         <activity android:name=".ui.Activity.MainActivity"
-            android:launchMode="singleTask"
-            ></activity>
+            android:launchMode="singleTask"></activity>
         <activity android:name=".ui.Activity.RegisterValiActivity">
         </activity>
         <activity android:name=".ui.Activity.PasswordLoginActivity"></activity>
         <activity android:name=".ui.Activity.WifiSetActivity"
-            android:launchMode="singleTask"
-            ></activity>
-        <activity android:name=".ui.Activity.WifiChangeActivity"
-            android:launchMode="singleTask"
-            >
+            android:launchMode="singleTask"></activity>
 
+        <activity android:name=".ui.Activity.WifiChangeActivity"
+            android:launchMode="singleTask">
+        </activity>
+
+        <activity android:name=".ui.Activity.RemoteControlListActivity">
         </activity>
     </application>
 

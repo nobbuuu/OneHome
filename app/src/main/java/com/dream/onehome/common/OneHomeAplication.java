@@ -13,19 +13,18 @@ import androidx.multidex.MultiDexApplication;
 import com.aylanetworks.aylasdk.AylaNetworks;
 import com.aylanetworks.aylasdk.AylaSystemSettings;
 import com.dream.onehome.utils.AppUtils;
-import com.dream.onehome.utils.FinishActivityManager;
-import com.sunseaiot.phoneservice.PhoneServerManager;
+import com.dream.onehome.utils.ActivityUtils;
 
 public class OneHomeAplication extends MultiDexApplication implements Application.ActivityLifecycleCallbacks {
 
     private static OneHomeAplication mApplication;
 
-    private FinishActivityManager mActivityManager;
+    private ActivityUtils mActivityManager;
     @Override
     public void onCreate() {
         super.onCreate();
         mApplication = this;
-        mActivityManager = FinishActivityManager.getManager();
+        mActivityManager = ActivityUtils.getManager();
         AppUtils.init(this);
         // 初始化MultiDex
         MultiDex.install(this);
