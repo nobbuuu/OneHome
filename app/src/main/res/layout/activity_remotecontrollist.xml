@@ -15,7 +15,7 @@
 
 
         <RelativeLayout
-            android:id="@+id/action_bar"
+            android:id="@+id/action_relay"
             android:layout_width="match_parent"
             app:layout_constraintTop_toTopOf="parent"
             android:background="@color/white"
@@ -48,7 +48,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/remote_rv"
             android:layout_width="match_parent"
-            app:layout_constraintTop_toBottomOf="@+id/action_bar"
+            app:layout_constraintTop_toBottomOf="@+id/action_relay"
             tools:listitem="@layout/rvitem_remotecontrol"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"

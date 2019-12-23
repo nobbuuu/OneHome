@@ -23,11 +23,12 @@ public class RVBaseHolder extends RecyclerView.ViewHolder {
   public RVBaseHolder(View itemView){
     super(itemView);
     this.itemView = itemView;
+//    DataBindingUtil.bind(this.itemView);
   }
   //供adapter调用，返回holder
   public static <T extends RVBaseHolder> T getHolder(Context cxt, ViewGroup parent, int layoutId){
     View inflate = LayoutInflater.from(cxt).inflate(layoutId, parent, false);
-    DataBindingUtil.bind(inflate);
+//    DataBindingUtil.bind(inflate);
     return (T) new RVBaseHolder(inflate);
   }
   //根据Item中的控件Id获取控件（不建议从views中取，响应速度慢，影响性能）

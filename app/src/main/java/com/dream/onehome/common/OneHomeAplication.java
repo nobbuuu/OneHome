@@ -12,6 +12,7 @@ import androidx.multidex.MultiDexApplication;
 
 import com.aylanetworks.aylasdk.AylaNetworks;
 import com.aylanetworks.aylasdk.AylaSystemSettings;
+import com.dream.onehome.http.NetWorkManager;
 import com.dream.onehome.utils.AppUtils;
 import com.dream.onehome.utils.ActivityUtils;
 
@@ -28,6 +29,7 @@ public class OneHomeAplication extends MultiDexApplication implements Applicatio
         AppUtils.init(this);
         // 初始化MultiDex
         MultiDex.install(this);
+        NetWorkManager.getInstance().init();
         AylaSystemSettings aylaSystemSettings = new AylaSystemSettings();
         aylaSystemSettings.appId = Const.APP_ID;
         aylaSystemSettings.appSecret = Const.AYLA_SECRET;

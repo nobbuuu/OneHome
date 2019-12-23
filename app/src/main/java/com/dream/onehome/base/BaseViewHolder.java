@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
+
 import com.bumptech.glide.Glide;
 import com.dream.onehome.common.OneHomeAplication;
 import com.dream.onehome.listener.NoDoubleClickListener;
@@ -26,8 +29,10 @@ public class BaseViewHolder {
         this.mPosition = position;  
         this.mViews = new SparseArray<View>();
         itemView = LayoutInflater.from(context).inflate(layoutId, parent, false);
-        // setTag  
+        DataBindingUtil.bind(itemView);
+        // setTag
         itemView.setTag(this);
+
     }  
   
     /** 
@@ -65,8 +70,16 @@ public class BaseViewHolder {
             mViews.put(viewId, view);  
         }  
         return (T) view;  
-    }  
-  
+    }
+
+
+    /**
+     * 如果使用了 DataBinding 绑定 View，可调用此方法获取 [ViewDataBinding]
+     * @return B?
+     */
+    public <T extends ViewDataBinding> T getBindingView() {
+        return (T) DataBindingUtil.getBinding(itemView);
+    }
 
     public BaseViewHolder setOnClickListener(int viewId, NoDoubleClickListener listener)
     {

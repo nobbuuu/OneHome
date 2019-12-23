@@ -5,6 +5,7 @@ public class Const {
     public static final String BASE_URL = "";
     public static final String SUCCESS = "0";
     public static final String ERROR = "1";
+    public static final String MAC = "afc1d387b4ab661d";
 
     //时间格式
     public static final String Y_M_D = "yyyy-MM-dd";

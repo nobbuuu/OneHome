@@ -47,6 +47,10 @@
 
         <activity android:name=".ui.Activity.RemoteControlListActivity">
         </activity>
+        <activity android:name=".ui.Activity.SelectDeviceTypeActivity">
+        </activity>
+        <activity android:name=".ui.Activity.BrandActivity">
+        </activity>
     </application>
 
 

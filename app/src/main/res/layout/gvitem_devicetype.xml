@@ -20,6 +20,7 @@
             android:layout_height="@dimen/dp_50"></ImageView>
 
         <TextView
+            android:id="@+id/typesName_tv"
             android:layout_width="wrap_content"
             android:text="电视"
             android:textColor="@color/orange"
