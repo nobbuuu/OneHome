@@ -5,6 +5,9 @@ import com.dream.onehome.base.BaseObserver;
 import com.dream.onehome.bean.BrandBean;
 import com.dream.onehome.bean.DeviceTypeBean;
 import com.dream.onehome.bean.EmptyBean;
+import com.dream.onehome.bean.KeyIrCodeBean;
+import com.dream.onehome.bean.KeysBean;
+import com.dream.onehome.bean.ModelBean;
 
 import java.util.List;
 
@@ -34,8 +37,17 @@ public interface ApiService {
     @POST("getbrandlist.asp")
     Observable<List<BrandBean>> getBrandList(@Field("mac") String mac,@Field("device_id") String device_id);
 
-    @GET("getmodellist.asp")
-    Observable<List<DeviceTypeBean>> getModelList();
+    @FormUrlEncoded
+    @POST("getmodellist.asp")
+    Observable<List<ModelBean>> getModellist(@Field("mac") String mac, @Field("device_id") String device_id, @Field("brand_id") String brand_id);
+
+    @FormUrlEncoded
+    @POST("getkeylist.asp")
+    Observable<KeysBean> getKeyList(@Field("mac") String mac, @Field("kfid") String kfid);
+
+    @FormUrlEncoded
+    @POST("keyevent.asp")
+    Observable<KeyIrCodeBean> getKeyCode(@Field("mac") String mac, @Field("kfid") String kfid, @Field("keyid") String keyid);
 
 
 

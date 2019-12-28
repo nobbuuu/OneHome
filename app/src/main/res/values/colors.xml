@@ -25,5 +25,11 @@
     <color name="orange">#FE4302</color>
     <color name="reset">#677FC5</color>
     <color name="reset_dark">#D0D9F5</color>
+    <color name="master_normal">#181818</color>
+    <color name="master_press">#2A2A2A</color>
+    <color name="master_text_color">#282828</color>
+    <color name="number_color">#5E5E5E</color>
+    <color name="color_default">#FBFBFB</color>
+    <color name="color_default_press">#99FBFBFB</color>
 
 </resources>

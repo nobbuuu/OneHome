@@ -38,6 +38,13 @@ public class RemoteControlListActivity extends BaseMVVMActivity<NoViewModel, Act
                 startActivity(new Intent(getBaseContext(), SelectDeviceTypeActivity.class));
             }
         });
+
+        bindingView.backIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     @Override

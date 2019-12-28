@@ -15,17 +15,23 @@
 
 
         <RelativeLayout
-            android:id="@+id/action_relay"
+            android:id="@+id/action_bar"
             android:layout_width="match_parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:paddingRight="@dimen/dp_15"
             android:background="@color/white"
-            android:padding="@dimen/dp_10"
-            android:layout_height="wrap_content">
-            <ImageView
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="@dimen/dp_45">
+            <RelativeLayout
                 android:id="@+id/back_iv"
-                android:layout_width="@dimen/dp_23"
-                android:src="@drawable/miuisupport_action_bar_back_normal_light"
-                android:layout_height="@dimen/dp_23"></ImageView>
+                android:layout_width="@dimen/dp_45"
+                android:paddingLeft="@dimen/dp_10"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="@dimen/dp_20"
+                    android:src="@drawable/back_normal_light"
+                    android:layout_centerVertical="true"
+                    android:layout_height="wrap_content"></ImageView>
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -40,6 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_alignParentRight="true"
                 android:src="@drawable/scene_add"
+                android:layout_centerVertical="true"
                 android:layout_height="wrap_content"></ImageView>
         </RelativeLayout>
 
@@ -48,7 +55,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/remote_rv"
             android:layout_width="match_parent"
-            app:layout_constraintTop_toBottomOf="@+id/action_relay"
+            app:layout_constraintTop_toBottomOf="@+id/action_bar"
             tools:listitem="@layout/rvitem_remotecontrol"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"

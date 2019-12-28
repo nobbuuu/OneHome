@@ -51,6 +51,10 @@
         </activity>
         <activity android:name=".ui.Activity.BrandActivity">
         </activity>
+        <activity android:name=".ui.Activity.MainCtrolerActivity">
+        </activity>
+        <activity android:name=".ui.Activity.AirConditionActivity">
+        </activity>
     </application>
 
 

@@ -2,6 +2,6 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <item android:drawable="@drawable/miuisupport_action_bar_back_normal_light" android:state_pressed="false"></item>
-    <item android:drawable="@drawable/miuisupport_action_bar_back_normal_dark" android:state_pressed="true"></item>
+    <item android:drawable="@drawable/back_normal_light" android:state_pressed="false"></item>
+    <item android:drawable="@drawable/back_normal_dark" android:state_pressed="true"></item>
 </selector>

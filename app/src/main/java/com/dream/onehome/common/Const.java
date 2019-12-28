@@ -5,7 +5,7 @@ public class Const {
     public static final String BASE_URL = "";
     public static final String SUCCESS = "0";
     public static final String ERROR = "1";
-    public static final String MAC = "afc1d387b4ab661d";
+    public static final String MAC = "ea6a69613ef7098f";
 
     //时间格式
     public static final String Y_M_D = "yyyy-MM-dd";
@@ -34,16 +34,21 @@ public class Const {
 //    public static final String AYLA_Appid = "123517a749a30359f32465243326e105d64c1a";
     public static final String AYLA_SECRET = "YK-1nmoNdOpgEhe5KozpAkai4x4KPU";
     public static final String AreaCode = "86";
+    public static final String DSN = "dsn";
+    public static final String Longitude = "Longitude";
+    public static final String Latitude = "Latitude";
 
     //userinfo
     public static final String TOKEN = "token";
     public static final String SETUP_TOKEN = "setuptoken";
 
     //wifi
-
     public static final String WiFiName = "wifiName";
     public static final String WiFiPwd = "wifiPwd";
     public static final String AylaWifi = "AylaWifi";
+
+    //IR
+    public static final String IR_Send_code = "IR_Send_code";
 
 
 

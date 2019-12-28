@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public abstract class RVBaseAdapter<T> extends RecyclerView.Adapter<RVBaseHolder> {
-    Context context;
+    public Context context;
     public List<T> data;
     int[] layoutIds;//布局资源Id数组layoutIds中
 

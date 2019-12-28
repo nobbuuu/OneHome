@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:paddingTop="@dimen/dp_25"
+        android:paddingBottom="@dimen/dp_50"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_corner_white"
+            android:paddingLeft="@dimen/dp_14"
+            android:paddingTop="@dimen/dp_14"
+            android:paddingRight="@dimen/dp_14"
+            android:paddingBottom="@dimen/dp_14"
+            android:src="@mipmap/menu"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+        <ImageView
+            android:id="@+id/home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_corner_white"
+            android:paddingLeft="@dimen/dp_14"
+            android:paddingTop="@dimen/dp_14"
+            android:paddingRight="@dimen/dp_14"
+            android:paddingBottom="@dimen/dp_14"
+            android:src="@mipmap/home"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_25"
+            android:src="@mipmap/direction_bg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+        <ImageView
+            android:id="@+id/sure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_25"
+            android:background="@drawable/shape_stroke_gray"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_13"
+            android:paddingRight="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_13"
+            android:src="@drawable/ok"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_35"
+            android:src="@mipmap/sup"
+            app:layout_constraintBottom_toTopOf="@+id/sure"
+            app:layout_constraintLeft_toLeftOf="@+id/sure"
+            app:layout_constraintRight_toRightOf="@+id/sure"></ImageView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_35"
+            android:src="@mipmap/sleft"
+            app:layout_constraintBottom_toBottomOf="@+id/sure"
+            app:layout_constraintRight_toLeftOf="@+id/sure"
+            app:layout_constraintTop_toTopOf="@+id/sure"></ImageView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_35"
+            android:src="@mipmap/sright"
+            app:layout_constraintBottom_toBottomOf="@+id/sure"
+            app:layout_constraintLeft_toRightOf="@+id/sure"
+            app:layout_constraintTop_toTopOf="@+id/sure"></ImageView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_35"
+            android:src="@mipmap/sdown"
+            app:layout_constraintLeft_toLeftOf="@+id/sure"
+            app:layout_constraintRight_toRightOf="@+id/sure"
+            app:layout_constraintTop_toBottomOf="@+id/sure"></ImageView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_corner_white"
+            android:padding="@dimen/dp_14"
+            android:src="@mipmap/sback"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"></ImageView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_corner_white"
+            android:padding="@dimen/dp_14"
+            android:src="@mipmap/rback"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"></ImageView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

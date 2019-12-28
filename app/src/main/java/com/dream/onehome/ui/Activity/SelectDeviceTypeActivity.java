@@ -61,6 +61,13 @@ public class SelectDeviceTypeActivity extends BaseMVVMActivity<SelectDeviceTypeM
             }
         });
 
+        bindingView.backIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
     }
 
     @Override

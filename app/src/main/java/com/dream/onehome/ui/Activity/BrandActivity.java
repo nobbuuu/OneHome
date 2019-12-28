@@ -2,6 +2,7 @@ package com.dream.onehome.ui.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.dream.onehome.R;
 import com.dream.onehome.adapter.BrandAdapter;
@@ -31,6 +32,7 @@ public class BrandActivity extends BaseMVVMActivity<BrandViewModel, ActivitySele
             @Override
             public void onResults(List<BrandBean> data) {
                 BrandAdapter brandAdapter = new BrandAdapter(BrandActivity.this, data, R.layout.rvitem_brand);
+                brandAdapter.setDeviceId(String.valueOf(device_id));
                 bindingView.brandRv.setAdapter(brandAdapter);
             }
         });
@@ -39,6 +41,13 @@ public class BrandActivity extends BaseMVVMActivity<BrandViewModel, ActivitySele
 
     @Override
     protected void onEvent() {
+
+        bindingView.backIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
     }
 

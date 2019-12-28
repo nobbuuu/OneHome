@@ -1,6 +1,8 @@
 package com.dream.onehome.base;
 
 
+import android.util.Log;
+
 import com.dream.onehome.R;
 import com.dream.onehome.common.Const;
 import com.dream.onehome.utils.LogUtils;
@@ -23,6 +25,7 @@ public abstract class NoBaseBeanObserver<T> implements Observer<T> {
 
     @Override
     public void onError(Throwable e) {
+        Log.e("onError","errormsg = " + e.getMessage());
         if (e.toString().contains("timeout")){
             ToastUtils.Toast_long(ResourcesUtils.getString(R.string.timeout));
         }else if (e.toString().contains("Failed to connect")){

@@ -14,7 +14,7 @@
         <ImageView
             android:id="@+id/back_iv"
             android:layout_width="@dimen/dp_20"
-            android:src="@drawable/miuisupport_action_bar_back_normal_light"
+            android:src="@drawable/back_normal_light"
             android:layout_height="@dimen/dp_20"></ImageView>
 
         <TextView

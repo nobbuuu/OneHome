@@ -15,6 +15,7 @@ import com.aylanetworks.aylasdk.AylaSystemSettings;
 import com.dream.onehome.http.NetWorkManager;
 import com.dream.onehome.utils.AppUtils;
 import com.dream.onehome.utils.ActivityUtils;
+import com.dream.onehome.utils.SP;
 
 public class OneHomeAplication extends MultiDexApplication implements Application.ActivityLifecycleCallbacks {
 
@@ -27,6 +28,7 @@ public class OneHomeAplication extends MultiDexApplication implements Applicatio
         mApplication = this;
         mActivityManager = ActivityUtils.getManager();
         AppUtils.init(this);
+        SP.init(this);
         // 初始化MultiDex
         MultiDex.install(this);
         NetWorkManager.getInstance().init();

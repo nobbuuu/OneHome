@@ -17,10 +17,11 @@
             android:background="@color/white"
             android:paddingLeft="@dimen/dp_12"
             android:paddingRight="@dimen/dp_12"
-            android:paddingTop="@dimen/dp_10"
-            android:paddingBottom="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_12"
+            android:paddingBottom="@dimen/dp_12"
             android:layout_height="wrap_content">
             <ImageView
+                android:id="@+id/back_iv"
                 android:layout_width="@dimen/dp_20"
                 android:src="@drawable/selector_back"
                 android:layout_height="@dimen/dp_20"></ImageView>
