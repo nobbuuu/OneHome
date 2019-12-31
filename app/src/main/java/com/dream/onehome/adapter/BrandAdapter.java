@@ -11,6 +11,7 @@ import com.dream.onehome.base.RVBaseAdapter;
 import com.dream.onehome.base.RVBaseHolder;
 import com.dream.onehome.bean.BrandBean;
 import com.dream.onehome.bean.RemoteControlBean;
+import com.dream.onehome.common.Const;
 import com.dream.onehome.databinding.RvitemBrandBinding;
 import com.dream.onehome.ui.Activity.AirConditionActivity;
 import com.dream.onehome.ui.Activity.MainCtrolerActivity;
@@ -25,6 +26,7 @@ import java.util.List;
 public class BrandAdapter extends RVBaseAdapter<BrandBean> {
 
     private String deviceId;
+    private String deviceName;
 
     public BrandAdapter(Context context, List<BrandBean> data, int layoutId) {
         super(context, data, layoutId);
@@ -32,7 +34,8 @@ public class BrandAdapter extends RVBaseAdapter<BrandBean> {
 
     @Override
     public void onBind(RVBaseHolder holder, BrandBean brandBean, int position) {
-        holder.setText(R.id.brandName_tv, StringUtils.decode(brandBean.getBn()));
+        final String brandName = StringUtils.decode(brandBean.getBn());
+        holder.setText(R.id.brandName_tv, brandName);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,14 +48,17 @@ public class BrandAdapter extends RVBaseAdapter<BrandBean> {
                         intent = new Intent(context, MainCtrolerActivity.class);
                         break;
                 }
-                intent.putExtra("brand_id",String.valueOf(brandBean.getId()));
-                intent.putExtra("device_id",deviceId);
+                intent.putExtra(Const.brand_id,String.valueOf(brandBean.getId()));
+                intent.putExtra(Const.device_id,deviceId);
+                intent.putExtra(Const.deviceName,deviceName);
+                intent.putExtra(Const.brandName, brandName);
                 context.startActivity(intent);
             }
         });
     }
 
-    public void setDeviceId (String deviceId){
+    public void setDevice (String deviceId,String deviceName){
         this.deviceId = deviceId;
+        this.deviceName = deviceName;
     }
 }

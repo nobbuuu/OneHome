@@ -10,6 +10,7 @@ import com.dream.onehome.R;
 import com.dream.onehome.adapter.SelectDeviceTypeAdapter;
 import com.dream.onehome.base.BaseMVVMActivity;
 import com.dream.onehome.bean.DeviceTypeBean;
+import com.dream.onehome.common.Const;
 import com.dream.onehome.constract.IResultLisrener;
 import com.dream.onehome.databinding.ActivitySelectDevicetypeBinding;
 import com.dream.onehome.ui.ViewModel.SelectDeviceTypeModel;
@@ -55,7 +56,8 @@ public class SelectDeviceTypeActivity extends BaseMVVMActivity<SelectDeviceTypeM
                 int device_id = deviceTypeBean.getId();
 
                 Intent intent = new Intent(SelectDeviceTypeActivity.this,BrandActivity.class);
-                intent.putExtra("device_id",device_id);
+                intent.putExtra(Const.device_id,device_id);
+                intent.putExtra(Const.deviceName,deviceTypeBean.getDevice_name());
                 startActivity(intent);
 
             }

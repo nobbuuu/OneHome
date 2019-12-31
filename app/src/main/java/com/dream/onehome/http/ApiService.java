@@ -49,6 +49,10 @@ public interface ApiService {
     @POST("keyevent.asp")
     Observable<KeyIrCodeBean> getKeyCode(@Field("mac") String mac, @Field("kfid") String kfid, @Field("keyid") String keyid);
 
+    @FormUrlEncoded
+    @POST("keyevent.asp")
+    Observable<KeyIrCodeBean> getKeyCode(@Field("mac") String mac);
+
 
 
 

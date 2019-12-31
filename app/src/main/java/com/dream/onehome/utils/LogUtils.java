@@ -23,7 +23,8 @@ import java.util.Date;
 public class LogUtils {
     private static Boolean LOG_SWITCH = false; // 日志文件总开关
     private static Boolean LOG_TO_FILE = false; // 日志写入文件开关
-    private static String LOG_TAG = "BookReader"; // 默认的tag
+    private static String LOG_TAG = "oneHome"; // 默认的tag
+    private static String AYLA_TAG = "AylaLog"; // 默认的tag
     private static char LOG_TYPE = 'v';// 输入日志类型，v代表输出所有信息,w则只输出警告...
     private static int LOG_SAVE_DAYS = 7;// sd卡中日志文件的最多保存天数
 
@@ -65,13 +66,6 @@ public class LogUtils {
 
     public static void e(String tag, Object msg, Throwable tr) {
         log(tag, msg.toString(), tr, 'e');
-    }
-
-    /***************************
-     * Debug
-     ********************************/
-    public static void d(Object msg) {
-        d(LOG_TAG, msg);
     }
 
     public static void d(String tag, Object msg) {// 调试信息
@@ -164,6 +158,13 @@ public class LogUtils {
         String message = (functionName == null ? msg
                 : (functionName + " - " + msg));
         return message;
+    }
+
+    public static void d(Object msg){
+        Log.d(AYLA_TAG,"\""+msg+"\" = " + msg);
+    }
+    public static void e(String msg){
+        Log.e(AYLA_TAG,"aylaError = " + msg);
     }
 
     /**

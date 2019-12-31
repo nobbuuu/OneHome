@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:paddingTop="@dimen/dp_25"
-        android:paddingBottom="@dimen/dp_50"
+        android:layout_centerInParent="true"
         android:layout_height="wrap_content">
-
 
         <ImageView
             android:id="@+id/menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_corner_white"
+            android:background="@drawable/select_master"
+            android:clickable="true"
             android:paddingLeft="@dimen/dp_14"
             android:paddingTop="@dimen/dp_14"
             android:paddingRight="@dimen/dp_14"
@@ -26,7 +27,8 @@
             android:id="@+id/home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_corner_white"
+            android:background="@drawable/select_master"
+            android:clickable="true"
             android:paddingLeft="@dimen/dp_14"
             android:paddingTop="@dimen/dp_14"
             android:paddingRight="@dimen/dp_14"
@@ -50,7 +52,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_25"
-            android:background="@drawable/shape_stroke_gray"
+            android:background="@drawable/select_master_ok"
+            android:clickable="true"
             android:paddingLeft="@dimen/dp_10"
             android:paddingTop="@dimen/dp_13"
             android:paddingRight="@dimen/dp_10"
@@ -62,58 +65,86 @@
             app:layout_constraintTop_toTopOf="parent"></ImageView>
 
         <ImageView
+            android:id="@+id/topiv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp_35"
+            android:paddingTop="@dimen/dp_17"
+            android:paddingBottom="@dimen/dp_17"
+            android:paddingLeft="@dimen/dp_25"
+            android:paddingRight="@dimen/dp_25"
+            android:layout_marginBottom="@dimen/dp_18"
             android:src="@mipmap/sup"
+            android:clickable="true"
             app:layout_constraintBottom_toTopOf="@+id/sure"
             app:layout_constraintLeft_toLeftOf="@+id/sure"
             app:layout_constraintRight_toRightOf="@+id/sure"></ImageView>
 
         <ImageView
+            android:id="@+id/leftiv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/dp_35"
+            android:layout_marginRight="@dimen/dp_19"
+            android:paddingTop="@dimen/dp_24"
+            android:paddingBottom="@dimen/dp_24"
+            android:paddingLeft="@dimen/dp_15"
+            android:paddingRight="@dimen/dp_16"
             android:src="@mipmap/sleft"
             app:layout_constraintBottom_toBottomOf="@+id/sure"
             app:layout_constraintRight_toLeftOf="@+id/sure"
             app:layout_constraintTop_toTopOf="@+id/sure"></ImageView>
 
         <ImageView
+            android:id="@+id/rightiv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_35"
+            android:paddingTop="@dimen/dp_24"
+            android:paddingBottom="@dimen/dp_24"
+            android:paddingLeft="@dimen/dp_15"
+            android:paddingRight="@dimen/dp_15"
+            android:layout_marginLeft="@dimen/dp_17"
             android:src="@mipmap/sright"
             app:layout_constraintBottom_toBottomOf="@+id/sure"
             app:layout_constraintLeft_toRightOf="@+id/sure"
             app:layout_constraintTop_toTopOf="@+id/sure"></ImageView>
-
+0
         <ImageView
+            android:id="@+id/downiv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_35"
+            android:paddingTop="@dimen/dp_17"
+            android:paddingBottom="@dimen/dp_17"
+            android:paddingLeft="@dimen/dp_25"
+            android:paddingRight="@dimen/dp_25"
+            android:layout_marginTop="@dimen/dp_18"
             android:src="@mipmap/sdown"
             app:layout_constraintLeft_toLeftOf="@+id/sure"
             app:layout_constraintRight_toRightOf="@+id/sure"
             app:layout_constraintTop_toBottomOf="@+id/sure"></ImageView>
 
         <ImageView
+            android:id="@+id/backiv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_corner_white"
+            android:background="@drawable/select_master"
+            android:clickable="true"
             android:padding="@dimen/dp_14"
             android:src="@mipmap/sback"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/leftiv"
+            android:layout_marginTop="@dimen/dp_30"
             app:layout_constraintLeft_toLeftOf="parent"></ImageView>
 
         <ImageView
+            android:id="@+id/nextiv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_corner_white"
+            android:background="@drawable/select_master"
+            android:clickable="true"
             android:padding="@dimen/dp_14"
+            app:layout_constraintTop_toBottomOf="@+id/rightiv"
+            android:layout_marginTop="@dimen/dp_30"
             android:src="@mipmap/rback"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"></ImageView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</RelativeLayout>

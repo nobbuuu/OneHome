@@ -1,5 +1,6 @@
 package com.dream.onehome.base;
 
+import android.app.Dialog;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.dream.onehome.dialog.DialogUtils;
 import com.dream.onehome.utils.ClassUtil;
 import com.dream.onehome.utils.ToastUtils;
 import com.dream.onehome.utils.annotations.InjectManager;
@@ -27,21 +29,25 @@ public abstract class BaseMVVMActivity<VM extends AndroidViewModel, SV extends V
     // 布局view
     protected SV bindingView;
 
+    public Dialog mLoadingDialog;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         bindingView = DataBindingUtil.setContentView(this, InjectManager.inject(this));
         //沉浸式
-        if (ImmersionBar.hasNotchScreen(this)) {//如果有刘海屏则让布局不与状态栏重合，如果没有刘海屏则全屏布局
+        /*if (ImmersionBar.hasNotchScreen(this)) {//如果有刘海屏则让布局不与状态栏重合，如果没有刘海屏则全屏布局
             ImmersionBar.with(this).statusBarDarkFont(true).hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR).fitsSystemWindows(true).statusBarDarkFont(true).keyboardEnable(true).init();
         } else {
             ImmersionBar.with(this).statusBarDarkFont(true).hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR).keyboardEnable(true).init();
-        }
+        }*/
         initViewModel();
         initIntent();
         initView(savedInstanceState);
         onEvent();
+        mLoadingDialog = DialogUtils.initLoadingDialog(this);
+
     }
 
     /**
@@ -54,12 +60,13 @@ public abstract class BaseMVVMActivity<VM extends AndroidViewModel, SV extends V
         }
     }
 
-    protected void toast(String string){
+    protected void toast(String string) {
         ToastUtils.Toast_long(string);
     }
 
     //初始化获取Intent数据
     protected abstract void initIntent();
+
     protected abstract void onEvent();
 
     //初始化视图

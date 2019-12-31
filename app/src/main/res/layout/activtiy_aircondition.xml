@@ -10,7 +10,7 @@
             type="com.dream.onehome.bean.KeyIrCodeBean" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -40,16 +40,17 @@
                 android:layout_height="wrap_content"
                 android:text="空调"
                 android:textColor="#282828"
-                android:textSize="@dimen/sp_19"
+                android:textSize="@dimen/sp_17"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
             <ImageView
-                android:layout_width="@dimen/dp_5"
-                android:layout_height="@dimen/dp_5"
-                android:layout_marginLeft="@dimen/dp_3"
+                android:id="@+id/sign_iv"
+                android:layout_width="@dimen/dp_9"
+                android:layout_height="@dimen/dp_9"
+                android:layout_marginLeft="@dimen/dp_5"
                 android:background="@drawable/shape_circle_gray"
                 app:layout_constraintBottom_toBottomOf="@+id/center_tv"
                 app:layout_constraintLeft_toRightOf="@+id/center_tv"
@@ -61,15 +62,18 @@
                 android:src="@drawable/edit"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
+                android:visibility="gone"
                 app:layout_constraintTop_toTopOf="parent"></ImageView>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/dp_65"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp_50"
             android:paddingLeft="@dimen/dp_35"
             android:paddingRight="@dimen/dp_35"
+            android:layout_above="@+id/addsure_lay"
+            android:layout_below="@+id/action_bar"
             app:layout_constraintBottom_toTopOf="@+id/addsure_lay"
             app:layout_constraintTop_toBottomOf="@+id/action_bar">
 
@@ -266,6 +270,7 @@
             android:layout_height="wrap_content"
             android:background="#FFFCE6"
             android:padding="@dimen/dp_15"
+            android:layout_alignParentBottom="true"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <TextView
@@ -316,7 +321,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 
 </layout>
 

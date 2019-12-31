@@ -50,6 +50,18 @@ public class Const {
     //IR
     public static final String IR_Send_code = "IR_Send_code";
 
+    //RemoteControlBean
+    public static final String device_id = "device_id";
+    public static final String deviceName = "deviceName";
+    public static final String brand_id = "brand_id";
+    public static final String brandName = "brandName";
+    public static final String kfid = "kfid";
+
+    //tempJson
+    public static final String KeyList = "KeyList";
+
+
+
 
 
 }

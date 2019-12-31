@@ -15,15 +15,16 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:id="@+id/type_iv"
             android:layout_width="@dimen/dp_50"
-            android:src="@drawable/tvicon"
+            android:src="@drawable/airtiao"
             android:layout_height="@dimen/dp_50"></ImageView>
 
         <TextView
             android:id="@+id/typesName_tv"
             android:layout_width="wrap_content"
             android:text="电视"
-            android:textColor="@color/orange"
+            android:textColor="@color/color333"
             android:textSize="@dimen/sp_15"
             android:layout_marginTop="@dimen/dp_6"
             android:layout_height="wrap_content">

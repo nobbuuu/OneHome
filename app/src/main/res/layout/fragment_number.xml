@@ -85,7 +85,7 @@
             app:layout_constraintTop_toBottomOf="@+id/five"></TextView>
 
         <TextView
-            android:id="@+id/ten"
+            android:id="@+id/night"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="9"
@@ -105,6 +105,7 @@
             app:layout_constraintTop_toBottomOf="@+id/eight"></TextView>
 
         <ImageView
+            android:id="@+id/collect_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/select_master"
@@ -118,6 +119,7 @@
             app:layout_constraintTop_toTopOf="@+id/zaro"></ImageView>
 
         <ImageView
+            android:id="@+id/return_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/select_master"

@@ -82,4 +82,23 @@ public class ModelViewModel extends BaseViewModel {
 
     }
 
+    public void getKeyCode (IResultLisrener<KeyIrCodeBean> lisrener) {
+
+        NetWorkManager.getRequest().getKeyCode(Const.MAC)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new NoBaseBeanObserver<KeyIrCodeBean>() {
+                    @Override
+                    public void onSuccess(KeyIrCodeBean results) {
+                        lisrener.onResults(results);
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        compositeDisposable.add(d);
+                    }
+                });
+
+    }
+
 }

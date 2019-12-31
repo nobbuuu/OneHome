@@ -4,15 +4,13 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.view.Window;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import com.dream.onehome.dialog.LoadingDialog;
+import com.dream.onehome.dialog.DialogUtils;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -50,7 +48,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         initView();
         loadDatas();
         eventListener();
-        mLoading = LoadingDialog.initLoadingDialog(this);
+        mLoading = DialogUtils.initLoadingDialog(this);
     }
 
     @Override

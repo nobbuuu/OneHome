@@ -16,6 +16,7 @@ import com.dream.onehome.ui.Activity.RemoteControlListActivity;
 import com.dream.onehome.utils.SpUtils;
 import com.dream.onehome.utils.StringUtils;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -30,12 +31,13 @@ public class DeviceAdapter extends RVBaseAdapter<AylaDevice> {
 
     @Override
     public void onBind(RVBaseHolder holder, AylaDevice deviceBean, int position) {
-
+        holder.setText(R.id.rcname_tv,"万能遥控器"+(position+1));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SpUtils.savaUserInfo(Const.DSN,deviceBean.getDsn());
-                context.startActivity(new Intent(context, RemoteControlListActivity.class));
+                Intent intent = new Intent(context, RemoteControlListActivity.class);
+                context.startActivity(intent);
             }
         });
     }

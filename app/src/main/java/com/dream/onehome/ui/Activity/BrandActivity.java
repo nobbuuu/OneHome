@@ -8,6 +8,7 @@ import com.dream.onehome.R;
 import com.dream.onehome.adapter.BrandAdapter;
 import com.dream.onehome.base.BaseMVVMActivity;
 import com.dream.onehome.bean.BrandBean;
+import com.dream.onehome.common.Const;
 import com.dream.onehome.constract.IResultLisrener;
 import com.dream.onehome.databinding.ActivitySelectbrandBinding;
 import com.dream.onehome.ui.ViewModel.BrandViewModel;
@@ -26,13 +27,14 @@ public class BrandActivity extends BaseMVVMActivity<BrandViewModel, ActivitySele
     protected void initIntent() {
 
         Intent intent = getIntent();
-        int device_id = intent.getIntExtra("device_id",0);
+        int device_id = intent.getIntExtra(Const.device_id,0);
+        String deviceName = intent.getStringExtra(Const.deviceName);
 
         viewModel.getBrandList(String.valueOf(device_id), new IResultLisrener<List<BrandBean>>() {
             @Override
             public void onResults(List<BrandBean> data) {
                 BrandAdapter brandAdapter = new BrandAdapter(BrandActivity.this, data, R.layout.rvitem_brand);
-                brandAdapter.setDeviceId(String.valueOf(device_id));
+                brandAdapter.setDevice(String.valueOf(device_id),deviceName);
                 bindingView.brandRv.setAdapter(brandAdapter);
             }
         });

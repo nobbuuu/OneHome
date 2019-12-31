@@ -21,6 +21,7 @@
             android:layout_width="wrap_content"
             android:text="一科万能遥控器"
             android:layout_centerInParent="true"
+            android:textSize="@dimen/sp_16"
             android:textColor="@android:color/black"
             android:layout_height="wrap_content"></TextView>
     </RelativeLayout>
@@ -42,21 +43,41 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="@dimen/dp_40"
         android:text="接通电源，长按底部复位键5秒左右，待指示灯闪烁\n注意：重置设备后，请在三分钟内完成配网操作"
-        android:textSize="@dimen/sp_11"
-        android:textColor="#4E4E4E"
-        android:lineSpacingExtra="@dimen/dp_3"
+        android:textSize="@dimen/sp_14"
+        android:textColor="@color/color333"
+        android:lineSpacingExtra="@dimen/dp_4"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"></TextView>
 
-    <ImageView
-        android:id="@+id/apnet_iv"
+    <RelativeLayout
+        android:layout_width="match_parent"
         app:layout_constraintTop_toBottomOf="@+id/summary_tv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_width="wrap_content"
-        android:src="@mipmap/apnet"
-        android:layout_marginTop="@dimen/dp_50"
-        android:layout_height="wrap_content"></ImageView>
+        android:background="@drawable/shape_corner_gray1"
+        android:layout_margin="@dimen/dp_70"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/apnet_iv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:src="@drawable/iconswich"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/dp_50"
+            android:layout_height="wrap_content"></ImageView>
+
+        <ImageView
+            android:id="@+id/flash_iv"
+            android:layout_width="wrap_content"
+            android:src="@drawable/valiconr"
+            android:layout_marginLeft="@dimen/dp_80"
+            android:layout_marginTop="@dimen/dp_113"
+            android:layout_height="wrap_content"></ImageView>
+    </RelativeLayout>
 
     <Button
         android:id="@+id/sure_tv"

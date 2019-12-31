@@ -33,7 +33,17 @@
         android:background="@color/divider_bg"
         android:layout_height="0.5dp"></View>
 
+    <ImageView
+        android:layout_width="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/action_bar"
+        app:layout_constraintBottom_toTopOf="@+id/tip_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:src="@drawable/wifitip"
+        android:layout_height="wrap_content"></ImageView>
+
     <TextView
+        android:id="@+id/tip_tv"
         android:layout_width="wrap_content"
         android:text="将手机Wi-Fi连接到Ayla-XXXX后，返回APP"
         app:layout_constraintBottom_toTopOf="@+id/currentwifi_tv"

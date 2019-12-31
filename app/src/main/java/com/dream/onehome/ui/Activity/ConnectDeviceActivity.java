@@ -62,7 +62,7 @@ public class ConnectDeviceActivity extends BaseActivity {
     public static boolean isConnectSuccess = false;
     private int mCurrentProgress = 0;
     private int reBindingNum;
-    private LatLng mLatLng;
+    private LatLng mLatLng = new LatLng(114.0645520000,22.5484560000);
 
     @Override
     public int getLayoutId() {
@@ -201,24 +201,7 @@ public class ConnectDeviceActivity extends BaseActivity {
                                     Log.d(TAG, "reconnectToOriginalNetwork  success ....");
                                     onAylaRequestSuccess();
 
-
-                                    aylaSetup.confirmDeviceConnected(10, dsn, setupToken, new Response.Listener<AylaSetupDevice>() {
-                                        @Override
-                                        public void onResponse(AylaSetupDevice response) {
-
-                                            Log.d(TAG, "confirmDeviceConnected  success ....");
-
-                                            onAylaRequestSuccess();
-
-                                            bindingDevice(response, dsn, setupToken);
-
-                                        }
-                                    }, new ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(AylaError aylaError) {
-                                            onAylaEroor(aylaError);
-                                        }
-                                    });
+                                    confirmDeviceConnected(dsn, setupToken);
 
 
                                 }
@@ -239,13 +222,35 @@ public class ConnectDeviceActivity extends BaseActivity {
         }
     }
 
-    private void bindingDevice(AylaSetupDevice response, String dsn, String setupToken) {
+    private void confirmDeviceConnected(String dsn, String setupToken) {
+        aylaSetup.confirmDeviceConnected(30, dsn, setupToken, new Response.Listener<AylaSetupDevice>() {
+            @Override
+            public void onResponse(AylaSetupDevice response) {
+
+                Log.d(TAG, "confirmDeviceConnected  success ....");
+
+                onAylaRequestSuccess();
+
+                bindingDevice(response,dsn, setupToken);
+
+            }
+        }, new ErrorListener() {
+            @Override
+            public void onErrorResponse(AylaError aylaError) {
+
+//                bindingDevice(dsn, setupToken);
+                onAylaEroor(aylaError);
+            }
+        });
+    }
+
+    private void bindingDevice(AylaSetupDevice response,String dsn, String setupToken) {
         final AylaRegistration aylaRegistration = mSessionManager.getDeviceManager().getAylaRegistration();
         if (aylaRegistration != null) {
             AylaRegistrationCandidate candidate = new AylaRegistrationCandidate();
             candidate.setDsn(dsn);
-            candidate.setLanIp(response.getLanIp());
             candidate.setSetupToken(setupToken);
+            candidate.setLanIp(response.getLanIp());
             if (response.getRegToken() != null) {
                 candidate.setRegistrationToken(response.getRegToken());
             }
@@ -264,7 +269,7 @@ public class ConnectDeviceActivity extends BaseActivity {
 
                     SystemClock.sleep(1000);
 
-                    bindingDevice(response, dsn, setupToken);
+                    bindingDevice(response,dsn, setupToken);
 
                     if (reBindingNum == 60) {
                         onAylaEroor(aylaError);

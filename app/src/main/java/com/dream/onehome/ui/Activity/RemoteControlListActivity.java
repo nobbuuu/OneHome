@@ -2,16 +2,29 @@ package com.dream.onehome.ui.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
+import com.android.volley.Response;
+import com.aylanetworks.aylasdk.AylaDatum;
+import com.aylanetworks.aylasdk.AylaDevice;
+import com.aylanetworks.aylasdk.AylaNetworks;
+import com.aylanetworks.aylasdk.AylaSessionManager;
+import com.aylanetworks.aylasdk.error.AylaError;
+import com.aylanetworks.aylasdk.error.ErrorListener;
 import com.dream.onehome.R;
 import com.dream.onehome.adapter.RemoteControlListAdapter;
 import com.dream.onehome.base.BaseMVVMActivity;
 import com.dream.onehome.base.NoViewModel;
 import com.dream.onehome.bean.RemoteControlBean;
+import com.dream.onehome.common.Const;
 import com.dream.onehome.databinding.ActivityRemotecontrollistBinding;
+import com.dream.onehome.utils.LogUtils;
+import com.dream.onehome.utils.SpUtils;
 import com.dream.onehome.utils.annotations.ContentView;
+import com.google.gson.Gson;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,10 +37,14 @@ public class RemoteControlListActivity extends BaseMVVMActivity<NoViewModel, Act
 
 
     private RemoteControlListAdapter mListAdapter;
+    private List<RemoteControlBean> dataList = new ArrayList<>();
 
+    private String dsn;
     @Override
     protected void initIntent() {
-
+        dsn = (String) SpUtils.getParam(Const.DSN,"");
+        mListAdapter = new RemoteControlListAdapter(RemoteControlListActivity.this, dataList, R.layout.rvitem_remotecontrol);
+        bindingView.remoteRv.setAdapter(mListAdapter);
     }
 
     @Override
@@ -45,17 +62,54 @@ public class RemoteControlListActivity extends BaseMVVMActivity<NoViewModel, Act
                 onBackPressed();
             }
         });
+
+        mListAdapter.setDeleteListener(new RemoteControlListAdapter.IActionListener() {
+            @Override
+            public void onResult() {
+                refreshData();
+            }
+        });
     }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        List<RemoteControlBean> dataList = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            dataList.add(new RemoteControlBean());
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshData();
+    }
+
+    private void refreshData() {
+        if (!dsn.isEmpty()) {
+            AylaSessionManager sessionManager = AylaNetworks.sharedInstance().getSessionManager(Const.APP_NAME);
+            if (sessionManager != null){
+                AylaDevice aylaDevice = sessionManager.getDeviceManager().deviceWithDSN(dsn);
+                if (aylaDevice != null){
+                    aylaDevice.fetchAylaDatums(new Response.Listener<AylaDatum[]>() {
+                        @Override
+                        public void onResponse(AylaDatum[] response) {
+                            Log.d("AylaLog", "response.length = " + response.length);
+                            Gson gson = new Gson();
+                            dataList.clear();
+                            for (int i = 0; i < response.length; i++) {
+                                RemoteControlBean remoteControlBean = gson.fromJson(response[i].getValue(), RemoteControlBean.class);
+                                if (remoteControlBean != null) {
+                                    dataList.add(remoteControlBean);
+                                }
+                            }
+                            mListAdapter.notifyDataSetChanged();
+                        }
+                    }, new ErrorListener() {
+                        @Override
+                        public void onErrorResponse(AylaError aylaError) {
+                            LogUtils.e(aylaError.getMessage());
+                        }
+                    });
+                }
+            }
         }
-
-        mListAdapter = new RemoteControlListAdapter(this, dataList, R.layout.rvitem_remotecontrol);
-        bindingView.remoteRv.setAdapter(mListAdapter);
-
     }
 }

@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.dream.onehome.dialog.DialogUtils;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -38,6 +40,7 @@ public abstract class BaseFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         rootView = view;
         bind = ButterKnife.bind(this, view);
+        mLoadingDialog = DialogUtils.initLoadingDialog(getContext());
        /* BaseComponent build = DaggerBaseComponent.builder()
                 .appComponent(OneHomeAplication.getInstance().getAppComponent())
                 .build();*/

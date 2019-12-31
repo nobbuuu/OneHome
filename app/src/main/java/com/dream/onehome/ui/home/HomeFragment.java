@@ -7,18 +7,22 @@ import android.widget.ImageView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Response;
+import com.aylanetworks.aylasdk.AylaDatum;
 import com.aylanetworks.aylasdk.AylaDevice;
 import com.aylanetworks.aylasdk.AylaDeviceManager;
 import com.aylanetworks.aylasdk.AylaNetworks;
 import com.aylanetworks.aylasdk.AylaSessionManager;
 import com.aylanetworks.aylasdk.change.ListChange;
 import com.aylanetworks.aylasdk.error.AylaError;
+import com.aylanetworks.aylasdk.error.ErrorListener;
 import com.dream.onehome.R;
 import com.dream.onehome.adapter.DeviceAdapter;
 import com.dream.onehome.base.BaseFragment;
 import com.dream.onehome.common.Const;
 import com.dream.onehome.ui.Activity.AddDeviceActivity;
 import com.dream.onehome.ui.Activity.RemoteControlListActivity;
+import com.dream.onehome.utils.LogUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -70,10 +74,10 @@ public class HomeFragment extends BaseFragment {
 
                     @Override
                     public void deviceListChanged(ListChange listChange) {
-                        Log.d("AylaLog","listchange = " + listChange);
+                        Log.d("AylaLog","listChange = " + listChange);
                         if (listChange != null && devices.size() == 0){
                             List<AylaDevice> addedItems = listChange.getAddedItems();
-                            if (addedItems != null) {
+                            if (addedItems != null && deviceRv != null) {
                                 DeviceAdapter deviceAdapter = new DeviceAdapter(getContext(), addedItems, R.layout.rvitem_device);
                                 deviceRv.setAdapter(deviceAdapter);
                             }
@@ -107,10 +111,11 @@ public class HomeFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.addimg_iv})
+    @OnClick({R.id.addimg_iv,R.id.adddevice_iv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.addimg_iv:
+            case R.id.adddevice_iv:
                 Intent intent = new Intent(getActivity(), AddDeviceActivity.class);
                 startActivity(intent);
                 break;

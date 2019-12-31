@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimary">#00574B</color>
+    <color name="colorPrimaryDark">#008577</color>
     <color name="colorAccent">#D81B60</color>
 
     <color name="color_them">#44C9D0</color>
@@ -30,6 +30,6 @@
     <color name="master_text_color">#282828</color>
     <color name="number_color">#5E5E5E</color>
     <color name="color_default">#FBFBFB</color>
-    <color name="color_default_press">#99FBFBFB</color>
+    <color name="color_default_press">#4DFBFBFB</color>
 
 </resources>
