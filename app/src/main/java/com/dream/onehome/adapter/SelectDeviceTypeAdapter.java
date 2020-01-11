@@ -25,7 +25,12 @@ public class SelectDeviceTypeAdapter extends CommonAdapter<DeviceTypeBean> {
 
     @Override
     public void convert(BaseViewHolder holder, DeviceTypeBean deviceTypeBean, int position) {
-        holder.setText(R.id.typesName_tv, StringUtils.decode(deviceTypeBean.getDevice_name()));
+        String name = StringUtils.decode(deviceTypeBean.getDevice_name());
+        if (name.contains("IPTV")){
+            holder.setText(R.id.typesName_tv, "网络盒子");
+        }else {
+            holder.setText(R.id.typesName_tv, name);
+        }
         GvitemDevicetypeBinding bindingView = holder.getBindingView();
 
         int id = deviceTypeBean.getId();

@@ -24,6 +24,7 @@ import com.aylanetworks.aylasdk.error.ErrorListener;
 import com.dream.onehome.R;
 import com.dream.onehome.base.BaseActivity;
 import com.dream.onehome.common.Const;
+import com.dream.onehome.utils.LogUtils;
 import com.dream.onehome.utils.ToastUtils;
 import com.sunseaiot.phoneservice.PhoneServerManager;
 
@@ -71,6 +72,7 @@ public class RegisterValiActivity extends BaseActivity {
     private int time = 60;
 
     private CountDownTimer mCountDownTimer;
+    private boolean isResetPwd;
 
     @Override
     public int getLayoutId() {
@@ -79,18 +81,29 @@ public class RegisterValiActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        mCountDownTimer = new CountDownTimer(6000,1000) {
+        mCountDownTimer = new CountDownTimer(6000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 onvarcodeTv.setText(time-- + "s");
+                if (time == 0) {
+                    onvarcodeTv.setText("重新发送");
+                    mCountDownTimer.cancel();
+                    time = 60;
+                }
             }
 
             @Override
             public void onFinish() {
-                onvarcodeTv.setText("重新发送");
-                mCountDownTimer.cancel();
+
             }
         };
+
+        String phone = getIntent().getStringExtra(Const.PHONE);
+        if (phone != null && !phone.isEmpty()) {
+            userphoneEdt.setText(phone);
+            login.setText("确定");
+            isResetPwd = true;
+        }
 
     }
 
@@ -154,6 +167,7 @@ public class RegisterValiActivity extends BaseActivity {
                     pwdLay.setVisibility(View.VISIBLE);
                     onvarcodeTv.setText("重新发送");
                     mCountDownTimer.cancel();
+                    time = 60;
                 }
             }
         });
@@ -171,7 +185,7 @@ public class RegisterValiActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.length()>= 6){
+                if (s.length() >= 6) {
                     login.setBackgroundResource(R.drawable.select_surebtn);
                     login.setEnabled(true);
                 }
@@ -191,7 +205,11 @@ public class RegisterValiActivity extends BaseActivity {
                 if (phone.isEmpty()) {
                     ToastUtils.Toast_long(this, "请先输入手机号");
                 } else {
-                    PhoneServerManager.getInstance().getSmsCode(phone, Const.APP_NAME, Const.oemId, Const.APP_ID, Const.AYLA_SECRET, Const.TYPE_register,
+                    String type = Const.TYPE_register;
+                    if (isResetPwd) {
+                        type = Const.TYPE_forgotpwd;
+                    }
+                    PhoneServerManager.getInstance().getSmsCode(phone, Const.APP_NAME, Const.oemId, Const.APP_ID, Const.AYLA_SECRET, type,
                             "chinese", Const.AreaCode, Const.AYLA_Appid, new Response.Listener<AylaAPIRequest.EmptyResponse>() {
                                 @Override
                                 public void onResponse(AylaAPIRequest.EmptyResponse response) {
@@ -201,8 +219,12 @@ public class RegisterValiActivity extends BaseActivity {
                             }, new ErrorListener() {
                                 @Override
                                 public void onErrorResponse(AylaError error) {
-                                    Log.d(getLocalClassName(), "getSmsCode  onErrorResponse ..");
-                                    Log.d(getLocalClassName(), "error = " + error.getMessage());
+                                    LogUtils.e(error.getMessage());
+                                    if (error.getMessage().contains("phone registered")) {
+                                        ToastUtils.Toast_long("手机号已注册");
+                                    }
+                                    mCountDownTimer.cancel();
+                                    time = 60;
                                 }
                             });
                     mCountDownTimer.start();
@@ -213,30 +235,70 @@ public class RegisterValiActivity extends BaseActivity {
                 String pwd = passwordEdt.getText().toString();
                 String phoneNum = userphoneEdt.getText().toString();
                 String valiCode = varifyEdt.getText().toString();
-                if (pwd.isEmpty()){
-                    ToastUtils.Toast_long("请输入密码");
-                }else {
-                    PhoneServerManager.getInstance().idpSignUp(phoneNum, pwd, "条子", "tiaozi", "axiba", valiCode, Const.AreaCode,
-                            Const.oemId, new Response.Listener<PhoneServerManager.IdentityProviderAuth.UserBean>() {
-                                @Override
-                                public void onResponse(PhoneServerManager.IdentityProviderAuth.UserBean response) {
-                                    Log.d(getLocalClassName(), "idpSignUp  onResponse ..");
-                                    ToastUtils.Toast_long("注册成功");
-                                    Intent intent = getIntent();
-                                    intent.putExtra("phone",phoneNum);
-                                    setResult(1213,intent);
-                                    onBackPressed();
-                                }
-                            }, new ErrorListener() {
-                                @Override
-                                public void onErrorResponse(AylaError error) {
-                                    Log.d(getLocalClassName(), "idpSignUp  error = " + error.getMessage());
-                                    ToastUtils.Toast_long(error.getMessage());
-                                }
-                            });
+                if (checkInput()) {
+
+                    if (isResetPwd) {
+                        PhoneServerManager.getInstance().requestPasswordUpdate(valiCode, pwd, phoneNum, Const.oemId, Const.APP_ID, Const.AYLA_SECRET, new Response.Listener<AylaAPIRequest.EmptyResponse>() {
+                            @Override
+                            public void onResponse(AylaAPIRequest.EmptyResponse response) {
+                                ToastUtils.Toast_long("重置成功");
+                                setResultAction(phoneNum, pwd);
+                            }
+                        }, new ErrorListener() {
+                            @Override
+                            public void onErrorResponse(AylaError aylaError) {
+
+                            }
+                        });
+                    } else {
+
+                        PhoneServerManager.getInstance().idpSignUp(phoneNum, pwd, "条子", "tiaozi", "axiba", valiCode, Const.AreaCode,
+                                Const.oemId, new Response.Listener<PhoneServerManager.IdentityProviderAuth.UserBean>() {
+                                    @Override
+                                    public void onResponse(PhoneServerManager.IdentityProviderAuth.UserBean response) {
+                                        ToastUtils.Toast_long("注册成功");
+                                        setResultAction(phoneNum, pwd);
+                                    }
+                                }, new ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(AylaError error) {
+                                        Log.d(getLocalClassName(), "idpSignUp  error = " + error.getMessage());
+                                        ToastUtils.Toast_long(error.getMessage());
+                                    }
+                                });
+                    }
+
                 }
                 break;
         }
+    }
+
+    private void setResultAction(String phoneNum, String pwd) {
+        Intent intent = getIntent();
+        intent.putExtra(Const.PHONE, phoneNum);
+        intent.putExtra(Const.PWD, pwd);
+        setResult(1213, intent);
+        onBackPressed();
+    }
+
+    private boolean checkInput() {
+        String pwd = passwordEdt.getText().toString();
+        String phoneNum = userphoneEdt.getText().toString();
+        String valiCode = varifyEdt.getText().toString();
+        if (phoneNum.isEmpty()) {
+            ToastUtils.Toast_long("请输入手机号");
+            return false;
+        }
+        if (valiCode.isEmpty()) {
+            ToastUtils.Toast_long("请输入验证码");
+            return false;
+        }
+        if (pwd.isEmpty()) {
+            ToastUtils.Toast_long("请输入密码");
+            return false;
+        }
+
+        return true;
     }
 
 }

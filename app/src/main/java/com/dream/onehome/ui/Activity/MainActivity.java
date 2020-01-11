@@ -62,8 +62,8 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onSuccess(Location location) {
                 Log.d(TAG,"Longitude = " + location.getLongitude() +  "  Latitude = " + location.getLatitude());
-                SpUtils.savaUserInfo("Latitude",String.valueOf(location.getLatitude()));
-                SpUtils.savaUserInfo("Longitude",String.valueOf(location.getLongitude()));
+                SpUtils.savaUserInfo(Const.Latitude,String.valueOf(location.getLatitude()));
+                SpUtils.savaUserInfo(Const.Longitude,String.valueOf(location.getLongitude()));
             }
 
             @Override
@@ -111,12 +111,10 @@ public class MainActivity extends BaseActivity {
         if (requestCode == 121){
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 initLocation();
-
             }else {
 
             }
         }
-
     }
 
 }

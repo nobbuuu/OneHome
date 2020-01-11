@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -52,6 +52,10 @@
         <activity android:name=".ui.Activity.MainCtrolerActivity">
         </activity>
         <activity android:name=".ui.Activity.AirConditionActivity">
+        </activity>
+        <activity android:name=".ui.Activity.FanActivity">
+        </activity>
+        <activity android:name=".ui.Activity.AirFilterActivity">
         </activity>
     </application>
 

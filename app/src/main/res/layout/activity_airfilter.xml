@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:background="#38CA79"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/action_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
+                android:id="@+id/back_iv"
+                android:layout_width="@dimen/dp_45"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    android:src="@drawable/tysmart_back_white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_15"
+                    app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/center_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="空气净化器"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_19"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></TextView>
+
+            <ImageView
+                android:layout_width="@dimen/dp_5"
+                android:layout_height="@dimen/dp_5"
+                android:layout_marginLeft="@dimen/dp_3"
+                android:background="@drawable/shape_circle_gray"
+                app:layout_constraintBottom_toBottomOf="@+id/center_tv"
+                app:layout_constraintLeft_toRightOf="@+id/center_tv"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="@+id/center_tv"></ImageView>
+
+            <ImageView
+                android:layout_width="@dimen/dp_18"
+                android:layout_height="@dimen/dp_18"
+                android:src="@drawable/edit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"></ImageView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/filter_iv"
+            android:layout_width="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/action_bar"
+            app:layout_constraintBottom_toTopOf="@+id/menu_lay"
+            android:src="@mipmap/filter"
+            android:layout_height="wrap_content"></ImageView>
+
+        <LinearLayout
+            android:id="@+id/menu_lay"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dp_56"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@+id/swich_iv"
+            android:layout_marginBottom="@dimen/dp_30"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/auto_tv"
+                android:layout_width="wrap_content"
+                android:text="自动"
+                android:textColor="@color/white"
+                android:drawableTop="@mipmap/autowhite"
+                android:gravity="center"
+                android:drawablePadding="@dimen/dp_8"
+                android:layout_height="wrap_content"></TextView>
+
+            <TextView
+                android:id="@+id/sleep_tv"
+                android:layout_width="wrap_content"
+                android:text="睡眠"
+                android:textColor="@color/white"
+                android:drawableTop="@mipmap/sleep"
+                android:gravity="center"
+                android:drawablePadding="@dimen/dp_8"
+                android:layout_marginLeft="@dimen/dp_41"
+                android:layout_height="wrap_content"></TextView>
+
+            <TextView
+                android:id="@+id/windspeed_tv"
+                android:layout_width="wrap_content"
+                android:text="风速"
+                android:textColor="@color/white"
+                android:drawableTop="@mipmap/leaf"
+                android:gravity="center"
+                android:drawablePadding="@dimen/dp_8"
+                android:layout_marginLeft="@dimen/dp_41"
+                android:layout_height="wrap_content"></TextView>
+
+            <TextView
+                android:id="@+id/extent_tv"
+                android:layout_width="wrap_content"
+                android:text="扩展"
+                android:textColor="@color/white"
+                android:drawableTop="@mipmap/extension"
+                android:gravity="center"
+                android:drawablePadding="@dimen/dp_8"
+                android:layout_marginLeft="@dimen/dp_41"
+                android:layout_height="wrap_content"></TextView>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/swich_iv"
+            android:layout_width="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/addsure_lay"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginBottom="@dimen/dp_30"
+            android:src="@mipmap/swichwhite"
+            android:padding="@dimen/dp_28"
+            android:background="@mipmap/circleround"
+            android:layout_height="wrap_content"></ImageView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/addsure_lay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFCE6"
+            android:padding="@dimen/dp_15"
+            android:layout_alignParentBottom="true"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_15"
+                android:text="请尝试3个按钮以上使遥控正确控制电器"
+                android:textColor="@color/color333"
+                android:textSize="@dimen/sp_13"
+                app:layout_constraintBottom_toTopOf="@+id/addremotecontrol_tv"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></TextView>
+
+            <TextView
+                android:id="@+id/addremotecontrol_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/select_surebtn"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingTop="@dimen/dp_7"
+                android:paddingBottom="@dimen/dp_7"
+                android:text="可以用"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/chosemodel_tv"></TextView>
+
+            <TextView
+                android:id="@+id/chosemodel_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_80"
+                android:background="@drawable/select_reset"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingTop="@dimen/dp_7"
+                android:paddingBottom="@dimen/dp_7"
+                android:text="下一个（1 / 34）"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toRightOf="@+id/addremotecontrol_tv"
+                app:layout_constraintRight_toRightOf="parent"></TextView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

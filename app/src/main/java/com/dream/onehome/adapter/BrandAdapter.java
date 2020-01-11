@@ -14,6 +14,8 @@ import com.dream.onehome.bean.RemoteControlBean;
 import com.dream.onehome.common.Const;
 import com.dream.onehome.databinding.RvitemBrandBinding;
 import com.dream.onehome.ui.Activity.AirConditionActivity;
+import com.dream.onehome.ui.Activity.AirFilterActivity;
+import com.dream.onehome.ui.Activity.FanActivity;
 import com.dream.onehome.ui.Activity.MainCtrolerActivity;
 import com.dream.onehome.utils.StringUtils;
 
@@ -44,8 +46,11 @@ public class BrandAdapter extends RVBaseAdapter<BrandBean> {
                     case "1":
                         intent = new Intent(context, AirConditionActivity.class);
                         break;
-                    case "2":
-                        intent = new Intent(context, MainCtrolerActivity.class);
+                    case "5":
+                        intent = new Intent(context, FanActivity.class);
+                        break;
+                    case "6":
+                        intent = new Intent(context, AirFilterActivity.class);
                         break;
                 }
                 intent.putExtra(Const.brand_id,String.valueOf(brandBean.getId()));

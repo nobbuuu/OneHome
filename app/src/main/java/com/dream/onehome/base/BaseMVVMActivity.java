@@ -35,6 +35,7 @@ public abstract class BaseMVVMActivity<VM extends AndroidViewModel, SV extends V
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
+        mLoadingDialog = DialogUtils.initLoadingDialog(this);
         bindingView = DataBindingUtil.setContentView(this, InjectManager.inject(this));
         //沉浸式
         /*if (ImmersionBar.hasNotchScreen(this)) {//如果有刘海屏则让布局不与状态栏重合，如果没有刘海屏则全屏布局
@@ -46,7 +47,6 @@ public abstract class BaseMVVMActivity<VM extends AndroidViewModel, SV extends V
         initIntent();
         initView(savedInstanceState);
         onEvent();
-        mLoadingDialog = DialogUtils.initLoadingDialog(this);
 
     }
 

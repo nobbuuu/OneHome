@@ -21,7 +21,7 @@ import java.util.Date;
  * @date 16/4/9.
  */
 public class LogUtils {
-    private static Boolean LOG_SWITCH = false; // 日志文件总开关
+    private static Boolean LOG_SWITCH = true; // 日志文件总开关
     private static Boolean LOG_TO_FILE = false; // 日志写入文件开关
     private static String LOG_TAG = "oneHome"; // 默认的tag
     private static String AYLA_TAG = "AylaLog"; // 默认的tag

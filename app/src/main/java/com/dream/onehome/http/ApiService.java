@@ -38,6 +38,10 @@ public interface ApiService {
     Observable<List<BrandBean>> getBrandList(@Field("mac") String mac,@Field("device_id") String device_id);
 
     @FormUrlEncoded
+    @POST("getbrandlist.asp")
+    Observable<List<BrandBean>> getBrandList(@Field("mac") String mac,@Field("device_id") String device_id,@Field("mcity") String mcity);
+
+    @FormUrlEncoded
     @POST("getmodellist.asp")
     Observable<List<ModelBean>> getModellist(@Field("mac") String mac, @Field("device_id") String device_id, @Field("brand_id") String brand_id);
 

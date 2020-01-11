@@ -40,6 +40,8 @@ public class Const {
 
     //userinfo
     public static final String TOKEN = "token";
+    public static final String PHONE = "phone";
+    public static final String PWD = "password";
     public static final String SETUP_TOKEN = "setuptoken";
 
     //wifi
@@ -49,6 +51,7 @@ public class Const {
 
     //IR
     public static final String IR_Send_code = "IR_Send_code";
+    public static final String IR_Learn_code = "IR_Learn_code";
 
     //RemoteControlBean
     public static final String device_id = "device_id";

@@ -164,7 +164,6 @@
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginTop="@dimen/dp_20"
                 android:background="@drawable/shape_corner_white"
-                android:visibility="gone"
                 android:layout_height="wrap_content">
 
                 <ImageView
@@ -244,7 +243,6 @@
                     android:paddingBottom="@dimen/dp_11"
                     android:layout_height="wrap_content"></ImageView>
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/channel_lay"
                 android:layout_width="wrap_content"
@@ -254,6 +252,7 @@
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
                 app:layout_constraintRight_toRightOf="parent"
+                android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@+id/mute_iv">
 
                 <ImageView
@@ -364,7 +363,6 @@
                 app:layout_constraintRight_toRightOf="parent"></TextView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

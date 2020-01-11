@@ -235,6 +235,7 @@
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/setlay"
         android:layout_width="match_parent"
         android:padding="@dimen/dp_13"
         android:layout_marginLeft="@dimen/dp_10"
@@ -255,7 +256,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:text="设置"
+            android:text="退出登录"
             app:layout_constraintLeft_toRightOf="@+id/share"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginLeft="@dimen/dp_15"

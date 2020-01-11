@@ -41,5 +41,23 @@ public class BrandViewModel extends BaseViewModel {
                 });
 
     }
+    public void getBrandList(String deviceID,String mcity, IResultLisrener<List<BrandBean>> lisrener){
+
+        NetWorkManager.getRequest().getBrandList(Const.MAC,deviceID,mcity)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new NoBaseBeanObserver<List<BrandBean>>() {
+                    @Override
+                    public void onSuccess(List<BrandBean> results) {
+                        lisrener.onResults(results);
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+                });
+
+    }
 
 }

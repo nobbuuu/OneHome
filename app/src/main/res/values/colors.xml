@@ -31,5 +31,6 @@
     <color name="number_color">#5E5E5E</color>
     <color name="color_default">#FBFBFB</color>
     <color name="color_default_press">#4DFBFBFB</color>
+    <color name="color_anim">#32E97E</color>
 
 </resources>

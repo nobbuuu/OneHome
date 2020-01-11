@@ -19,6 +19,8 @@ import com.dream.onehome.common.Const;
 import com.dream.onehome.constract.IDialogLisrener;
 import com.dream.onehome.dialog.DialogUtils;
 import com.dream.onehome.ui.Activity.AirConditionActivity;
+import com.dream.onehome.ui.Activity.AirFilterActivity;
+import com.dream.onehome.ui.Activity.FanActivity;
 import com.dream.onehome.ui.Activity.MainCtrolerActivity;
 import com.dream.onehome.utils.LogUtils;
 import com.dream.onehome.utils.SpUtils;
@@ -56,16 +58,22 @@ public class RemoteControlListAdapter extends RVBaseAdapter<RemoteControlBean> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, AirConditionActivity.class);
+                Intent intent = new Intent(context, MainCtrolerActivity.class);
                 switch (remoteControlBean.getType()){
                     case "1":
                         intent = new Intent(context, AirConditionActivity.class);
                         break;
-                    case "2":
-                        intent = new Intent(context, MainCtrolerActivity.class);
+                    case "4":
+                        break;
+                    case "5":
+                        intent = new Intent(context, FanActivity.class);
+                        break;
+                    case "6":
+                        intent = new Intent(context, AirFilterActivity.class);
                         break;
                 }
                 intent.putExtra(Const.kfid,remoteControlBean.getKfid());
+                intent.putExtra(Const.device_id,remoteControlBean.getType());
                 context.startActivity(intent);
             }
         });

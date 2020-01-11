@@ -37,7 +37,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/dp_97"
-        android:src="@mipmap/logo"
+        android:src="@mipmap/yike"
         android:layout_height="wrap_content"></ImageView>
 
     <TextView
@@ -93,7 +93,7 @@
         android:textColorHint="@color/color999"
         android:background="@null"
         android:textColor="@color/color333"
-        android:text="147258"
+        android:text="123456"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

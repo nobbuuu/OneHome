@@ -51,7 +51,21 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initView() {
-       String pwd = passwordEdt.getText().toString();
+        String phone = (String) SpUtils.getParam(Const.PHONE, "");
+        String pwd = (String) SpUtils.getParam(Const.PWD, "");
+
+        if (!phone.isEmpty()){
+            userphoneEdt.setText(phone);
+        }else {
+            phone = userphoneEdt.getText().toString();
+        }
+
+        if (!pwd.isEmpty()){
+            passwordEdt.setText(pwd);
+        }else {
+            pwd = passwordEdt.getText().toString();
+        }
+
         if (pwd.length() >= 6) {
             login.setBackgroundResource(R.drawable.select_surebtn);
             login.setEnabled(true);
@@ -131,7 +145,8 @@ public class LoginActivity extends BaseActivity {
                         @Override
                         public void onResponse(AylaAuthorization response) {
                             Log.d(getLocalClassName(),"response = " + response.getAccessToken());
-                            SpUtils.savaUserInfo(Const.TOKEN,response.getAccessToken());
+                            SpUtils.savaUserInfo(Const.TOKEN,phoneNum);
+                            SpUtils.savaUserInfo(Const.PWD,password);
                             ToastUtils.Toast_long("登录成功");
                             mLoading.dismiss();
                             startActivity(new Intent(getBaseContext(),MainActivity.class));
@@ -141,18 +156,23 @@ public class LoginActivity extends BaseActivity {
                         @Override
                         public void onErrorResponse(AylaError error) {
                             Log.d(getLocalClassName(),"error = " + error.getMessage());
+                            if (error.getMessage().contains("password is wrong")){
+                                ToastUtils.Toast_long("密码不正确");
+                            }
                             mLoading.dismiss();
                         }
                     });
                     mLoading.show();
                 }
                 break;
-            case R.id.onvarcode_tv:
+            case R.id.onvarcode_tv://忘记密码
+                Intent intent = new Intent(this, RegisterValiActivity.class);
+                intent.putExtra(Const.PHONE,userphoneEdt.getText().toString());
+                startActivityForResult(intent,1213);
 
                 break;
             case R.id.password_icon:
                 startActivity(new Intent(this, PasswordLoginActivity.class));
-
                 break;
             case R.id.register_tv:
                 startActivityForResult(new Intent(this, RegisterValiActivity.class),1213);
@@ -164,10 +184,15 @@ public class LoginActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 1213 && data != null){
-            String phone = data.getStringExtra("phone");
+            String phone = data.getStringExtra(Const.PHONE);
+            String pwd = data.getStringExtra(Const.PWD);
             if (phone!=null){
                 userphoneEdt.setText(phone);
-                passwordEdt.requestFocus();
+//                passwordEdt.requestFocus();
+            }
+
+            if (pwd != null){
+                passwordEdt.setText(pwd);
             }
         }
     }
