@@ -32,6 +32,8 @@ public class OneHomeAplication extends MultiDexApplication implements Applicatio
         // 初始化MultiDex
         MultiDex.install(this);
         NetWorkManager.getInstance().init();
+
+        //ayla init
         AylaSystemSettings aylaSystemSettings = new AylaSystemSettings();
         aylaSystemSettings.appId = Const.APP_ID;
         aylaSystemSettings.appSecret = Const.AYLA_SECRET;
@@ -40,8 +42,8 @@ public class OneHomeAplication extends MultiDexApplication implements Applicatio
         aylaSystemSettings.serviceType = AylaSystemSettings.ServiceType.Development;
         aylaSystemSettings.serviceLocation = AylaSystemSettings.ServiceLocation.China;
         aylaSystemSettings.defaultNetworkTimeoutMs = aylaSystemSettings.defaultNetworkTimeoutMs*2;
-
         AylaNetworks.initialize(aylaSystemSettings);
+
         registerActivityLifecycleCallbacks(this);
         Log.d(getClass().getName(),"onCreate...");
     }

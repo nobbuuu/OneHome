@@ -12,6 +12,7 @@ import com.aylanetworks.aylasdk.AylaSessionManager;
 import com.aylanetworks.aylasdk.error.AylaError;
 import com.aylanetworks.aylasdk.error.ErrorListener;
 import com.dream.onehome.R;
+import com.dream.onehome.base.NoDoubleClickListener;
 import com.dream.onehome.base.RVBaseAdapter;
 import com.dream.onehome.base.RVBaseHolder;
 import com.dream.onehome.bean.RemoteControlBean;
@@ -21,7 +22,10 @@ import com.dream.onehome.dialog.DialogUtils;
 import com.dream.onehome.ui.Activity.AirConditionActivity;
 import com.dream.onehome.ui.Activity.AirFilterActivity;
 import com.dream.onehome.ui.Activity.FanActivity;
+import com.dream.onehome.ui.Activity.LampActivity;
 import com.dream.onehome.ui.Activity.MainCtrolerActivity;
+import com.dream.onehome.ui.Activity.SoundActivity;
+import com.dream.onehome.ui.Activity.WaterHeaterActivity;
 import com.dream.onehome.utils.LogUtils;
 import com.dream.onehome.utils.SpUtils;
 
@@ -55,9 +59,9 @@ public class RemoteControlListAdapter extends RVBaseAdapter<RemoteControlBean> {
         int index = Integer.valueOf(remoteControlBean.getType());
         holder.setImageResource(R.id.rmcicon_iv,resId[index-1]);
         LogUtils.d(remoteControlBean.getKfid());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new NoDoubleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onNoDoubleClick(View view) {
                 Intent intent = new Intent(context, MainCtrolerActivity.class);
                 switch (remoteControlBean.getType()){
                     case "1":
@@ -70,6 +74,15 @@ public class RemoteControlListAdapter extends RVBaseAdapter<RemoteControlBean> {
                         break;
                     case "6":
                         intent = new Intent(context, AirFilterActivity.class);
+                        break;
+                    case "9":
+                        intent = new Intent(context, SoundActivity.class);
+                        break;
+                    case "10":
+                        intent = new Intent(context, WaterHeaterActivity.class);
+                        break;
+                    case "11":
+                        intent = new Intent(context, LampActivity.class);
                         break;
                 }
                 intent.putExtra(Const.kfid,remoteControlBean.getKfid());

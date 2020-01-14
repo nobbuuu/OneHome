@@ -79,7 +79,13 @@ public class SelectDeviceTypeActivity extends BaseMVVMActivity<SelectDeviceTypeM
             @Override
             public void onResults(List<DeviceTypeBean> data) {
                 dataList.clear();
-                dataList.addAll(data);
+                for (int i = 0; i < data.size(); i++) {
+                    DeviceTypeBean deviceTypeBean = data.get(i);
+                    if (deviceTypeBean.getDevice_name().contains("插座") || deviceTypeBean.getDevice_name().contains("扫地机")){
+                    }else {
+                        dataList.add(deviceTypeBean);
+                    }
+                }
                 mTypeAdapter.notifyDataSetChanged();
             }
         });

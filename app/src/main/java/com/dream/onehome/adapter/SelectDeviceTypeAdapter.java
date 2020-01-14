@@ -28,6 +28,8 @@ public class SelectDeviceTypeAdapter extends CommonAdapter<DeviceTypeBean> {
         String name = StringUtils.decode(deviceTypeBean.getDevice_name());
         if (name.contains("IPTV")){
             holder.setText(R.id.typesName_tv, "网络盒子");
+        }else if (name.contains("功放")){
+            holder.setText(R.id.typesName_tv, "音响");
         }else {
             holder.setText(R.id.typesName_tv, name);
         }

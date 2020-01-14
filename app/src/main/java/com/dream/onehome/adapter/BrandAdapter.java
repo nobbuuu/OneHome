@@ -16,7 +16,10 @@ import com.dream.onehome.databinding.RvitemBrandBinding;
 import com.dream.onehome.ui.Activity.AirConditionActivity;
 import com.dream.onehome.ui.Activity.AirFilterActivity;
 import com.dream.onehome.ui.Activity.FanActivity;
+import com.dream.onehome.ui.Activity.LampActivity;
 import com.dream.onehome.ui.Activity.MainCtrolerActivity;
+import com.dream.onehome.ui.Activity.SoundActivity;
+import com.dream.onehome.ui.Activity.WaterHeaterActivity;
 import com.dream.onehome.utils.StringUtils;
 
 import java.util.List;
@@ -51,6 +54,15 @@ public class BrandAdapter extends RVBaseAdapter<BrandBean> {
                         break;
                     case "6":
                         intent = new Intent(context, AirFilterActivity.class);
+                        break;
+                    case "9":
+                        intent = new Intent(context, SoundActivity.class);
+                        break;
+                    case "10":
+                        intent = new Intent(context, WaterHeaterActivity.class);
+                        break;
+                    case "11":
+                        intent = new Intent(context, LampActivity.class);
                         break;
                 }
                 intent.putExtra(Const.brand_id,String.valueOf(brandBean.getId()));

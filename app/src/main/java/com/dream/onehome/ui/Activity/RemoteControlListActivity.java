@@ -15,6 +15,7 @@ import com.aylanetworks.aylasdk.error.ErrorListener;
 import com.dream.onehome.R;
 import com.dream.onehome.adapter.RemoteControlListAdapter;
 import com.dream.onehome.base.BaseMVVMActivity;
+import com.dream.onehome.base.NoDoubleClickListener;
 import com.dream.onehome.base.NoViewModel;
 import com.dream.onehome.bean.RemoteControlBean;
 import com.dream.onehome.common.Const;
@@ -49,16 +50,16 @@ public class RemoteControlListActivity extends BaseMVVMActivity<NoViewModel, Act
 
     @Override
     protected void onEvent() {
-        bindingView.addimgIv.setOnClickListener(new View.OnClickListener() {
+        bindingView.addimgIv.setOnClickListener(new NoDoubleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onNoDoubleClick(View view) {
                 startActivity(new Intent(getBaseContext(), SelectDeviceTypeActivity.class));
             }
         });
 
-        bindingView.backIv.setOnClickListener(new View.OnClickListener() {
+        bindingView.backIv.setOnClickListener(new NoDoubleClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onNoDoubleClick(View v) {
                 onBackPressed();
             }
         });

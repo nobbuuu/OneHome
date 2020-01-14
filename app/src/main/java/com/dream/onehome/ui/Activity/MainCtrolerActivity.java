@@ -92,6 +92,9 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
                 case "7":
                     bindingView.centerTv.setText("网络盒子");
                     break;
+                case "8":
+                    bindingView.centerTv.setText("投影仪");
+                    break;
             }
         }
         if (deviceName !=null && brandName !=null){

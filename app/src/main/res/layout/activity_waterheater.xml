@@ -4,7 +4,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="#38CA79"
+        android:background="#636DE6"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,9 +35,9 @@
                 android:id="@+id/center_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="空气净化器"
+                android:text="热水器"
                 android:textColor="@color/white"
-                android:textSize="@dimen/sp_19"
+                android:textSize="@dimen/sp_17"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -70,7 +70,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/action_bar"
             app:layout_constraintBottom_toTopOf="@+id/menu_lay"
-            android:src="@mipmap/filter"
+            android:src="@drawable/whicon"
             android:layout_height="wrap_content"></ImageView>
 
         <LinearLayout
@@ -83,32 +83,32 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/auto_tv"
+                android:id="@+id/mode_tv"
                 android:layout_width="wrap_content"
-                android:text="自动"
+                android:text="模式"
                 android:textColor="@color/select_text_white"
-                android:drawableTop="@drawable/select_auto"
+                android:drawableTop="@drawable/select_whmode"
                 android:gravity="center"
                 android:drawablePadding="@dimen/dp_8"
                 android:layout_height="wrap_content"></TextView>
 
             <TextView
-                android:id="@+id/sleep_tv"
+                android:id="@+id/tempadd_tv"
                 android:layout_width="wrap_content"
-                android:text="睡眠"
+                android:text="温度+"
                 android:textColor="@color/select_text_white"
-                android:drawableTop="@drawable/sleep"
+                android:drawableTop="@drawable/select_tempadd"
                 android:gravity="center"
                 android:drawablePadding="@dimen/dp_8"
                 android:layout_marginLeft="@dimen/dp_41"
                 android:layout_height="wrap_content"></TextView>
 
             <TextView
-                android:id="@+id/windspeed_tv"
+                android:id="@+id/templess_tv"
                 android:layout_width="wrap_content"
-                android:text="风速"
+                android:text="温度-"
                 android:textColor="@color/select_text_white"
-                android:drawableTop="@drawable/select_leaf"
+                android:drawableTop="@drawable/select_templess"
                 android:gravity="center"
                 android:drawablePadding="@dimen/dp_8"
                 android:layout_marginLeft="@dimen/dp_41"

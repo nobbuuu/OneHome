@@ -24,7 +24,7 @@
                 android:layout_height="match_parent">
                 <ImageView
                     android:layout_width="@dimen/dp_20"
-                    android:src="@drawable/back_normal_light"
+                    android:src="@drawable/select_backiv"
                     android:layout_centerVertical="true"
                     android:layout_height="wrap_content"></ImageView>
             </RelativeLayout>

@@ -4,8 +4,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="#38CA79"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_gradient_lamp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/action_bar"
@@ -16,17 +16,18 @@
             <RelativeLayout
                 android:id="@+id/back_iv"
                 android:layout_width="@dimen/dp_45"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_height="match_parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_height="match_parent">
+                app:layout_constraintTop_toTopOf="parent">
+
                 <ImageView
                     android:layout_width="@dimen/dp_20"
                     android:layout_height="@dimen/dp_20"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_15"
                     android:src="@drawable/tysmart_back_white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/dp_15"
                     app:layout_constraintTop_toTopOf="parent"></ImageView>
 
             </RelativeLayout>
@@ -35,9 +36,9 @@
                 android:id="@+id/center_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="空气净化器"
+                android:text="灯泡遥控器"
                 android:textColor="@color/white"
-                android:textSize="@dimen/sp_19"
+                android:textSize="@dimen/sp_17"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -48,103 +49,79 @@
                 android:layout_height="@dimen/dp_5"
                 android:layout_marginLeft="@dimen/dp_3"
                 android:background="@drawable/shape_circle_gray"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/center_tv"
                 app:layout_constraintLeft_toRightOf="@+id/center_tv"
-                android:visibility="gone"
                 app:layout_constraintTop_toTopOf="@+id/center_tv"></ImageView>
 
             <ImageView
                 android:layout_width="@dimen/dp_18"
                 android:layout_height="@dimen/dp_18"
                 android:src="@drawable/edit"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:visibility="gone"
                 app:layout_constraintTop_toTopOf="parent"></ImageView>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
-            android:id="@+id/filter_iv"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/lampicon"
+            app:layout_constraintBottom_toBottomOf="@+id/menu_lay"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/action_bar"
-            app:layout_constraintBottom_toTopOf="@+id/menu_lay"
-            android:src="@mipmap/filter"
-            android:layout_height="wrap_content"></ImageView>
+            app:layout_constraintTop_toBottomOf="@+id/action_bar"></ImageView>
 
         <LinearLayout
             android:id="@+id/menu_lay"
-            android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/dp_56"
-            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_27"
             app:layout_constraintBottom_toTopOf="@+id/swich_iv"
-            android:layout_marginBottom="@dimen/dp_30"
-            android:layout_height="wrap_content">
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
 
             <TextView
-                android:id="@+id/auto_tv"
+                android:id="@+id/swich_tv"
                 android:layout_width="wrap_content"
-                android:text="自动"
-                android:textColor="@color/select_text_white"
-                android:drawableTop="@drawable/select_auto"
-                android:gravity="center"
-                android:drawablePadding="@dimen/dp_8"
-                android:layout_height="wrap_content"></TextView>
-
-            <TextView
-                android:id="@+id/sleep_tv"
-                android:layout_width="wrap_content"
-                android:text="睡眠"
-                android:textColor="@color/select_text_white"
-                android:drawableTop="@drawable/sleep"
-                android:gravity="center"
-                android:drawablePadding="@dimen/dp_8"
-                android:layout_marginLeft="@dimen/dp_41"
-                android:layout_height="wrap_content"></TextView>
-
-            <TextView
-                android:id="@+id/windspeed_tv"
-                android:layout_width="wrap_content"
-                android:text="风速"
-                android:textColor="@color/select_text_white"
-                android:drawableTop="@drawable/select_leaf"
-                android:gravity="center"
-                android:drawablePadding="@dimen/dp_8"
-                android:layout_marginLeft="@dimen/dp_41"
-                android:layout_height="wrap_content"></TextView>
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/select_lampswich"
+                android:drawablePadding="@dimen/dp_5"
+                android:text="电源"
+                android:textColor="@color/select_text_white"></TextView>
 
             <TextView
                 android:id="@+id/extent_tv"
                 android:layout_width="wrap_content"
-                android:text="扩展"
-                android:textColor="@color/select_text_white"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_117"
                 android:drawableTop="@drawable/select_extension"
-                android:gravity="center"
-                android:drawablePadding="@dimen/dp_8"
-                android:layout_marginLeft="@dimen/dp_41"
-                android:layout_height="wrap_content"></TextView>
+                android:drawablePadding="@dimen/dp_5"
+                android:text="扩展"
+                android:textColor="@color/select_text_white"></TextView>
         </LinearLayout>
 
         <ImageView
             android:id="@+id/swich_iv"
             android:layout_width="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/addsure_lay"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginBottom="@dimen/dp_30"
-            android:src="@mipmap/swichwhite"
-            android:padding="@dimen/dp_28"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
             android:background="@drawable/select_swich"
-            android:layout_height="wrap_content"></ImageView>
+            android:padding="@dimen/dp_28"
+            android:src="@mipmap/swichwhite"
+            app:layout_constraintBottom_toTopOf="@+id/addsure_lay"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"></ImageView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/addsure_lay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:background="#FFFCE6"
             android:padding="@dimen/dp_15"
-            android:layout_alignParentBottom="true"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <TextView
@@ -194,5 +171,4 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>
