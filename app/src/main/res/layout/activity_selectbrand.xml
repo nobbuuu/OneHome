@@ -47,6 +47,8 @@
             android:background="@drawable/shape_corner_search"
             android:padding="@dimen/dp_10"
             android:textSize="@dimen/sp_12"
+            android:imeOptions="actionSearch"
+            android:singleLine="true"
             android:layout_height="wrap_content"></EditText>
 
 

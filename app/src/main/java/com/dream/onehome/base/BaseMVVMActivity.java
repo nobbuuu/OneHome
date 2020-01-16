@@ -27,7 +27,7 @@ public abstract class BaseMVVMActivity<VM extends AndroidViewModel, SV extends V
     // ViewModel
     protected VM viewModel;
     // 布局view
-    protected SV bindingView;
+    protected SV  bindingView;
 
     public Dialog mLoadingDialog;
 

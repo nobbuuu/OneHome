@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.Response;
 import com.aylanetworks.aylasdk.AylaDatum;
 import com.aylanetworks.aylasdk.AylaDevice;
@@ -68,6 +71,21 @@ public class RemoteControlListActivity extends BaseMVVMActivity<NoViewModel, Act
             @Override
             public void onResult() {
                 refreshData();
+            }
+        });
+
+        bindingView.remoteRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                Log.d("xy","dx = " + dx);
+                Log.d("xy","dy = " + dy);
             }
         });
     }

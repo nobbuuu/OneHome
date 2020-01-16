@@ -78,4 +78,9 @@ public class BrandAdapter extends RVBaseAdapter<BrandBean> {
         this.deviceId = deviceId;
         this.deviceName = deviceName;
     }
+
+    public void setDataList(List<BrandBean> dataList){
+        data = dataList;
+        notifyDataSetChanged();
+    }
 }
