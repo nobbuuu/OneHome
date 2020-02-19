@@ -289,6 +289,7 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
         bindingView.masterTab.setupWithViewPager(bindingView.masterVp);
         bindingView.masterTab.getTabAt(0).setText("123");
         bindingView.masterTab.getTabAt(1).setText("菜单");
+        bindingView.masterTab.getTabAt(2).setText("扩展");
 
         numberFragment.setOnViewClickListener(new NumberFragment.onViewClickListener() {
             @Override

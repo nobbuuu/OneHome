@@ -172,6 +172,8 @@ public class BrandActivity extends BaseMVVMActivity<BrandViewModel, ActivitySele
             public void afterTextChanged(Editable s) {
                 if (s.length() == 0){
                     mBrandAdapter.setDataList(dataList);
+                }else {
+                    searchData();
                 }
             }
         });

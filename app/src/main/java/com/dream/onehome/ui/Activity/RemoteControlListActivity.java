@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,18 +45,20 @@ public class RemoteControlListActivity extends BaseMVVMActivity<NoViewModel, Act
 
     private RemoteControlListAdapter mListAdapter;
     private List<RemoteControlBean> dataList = new ArrayList<>();
-
     private String dsn;
+
+    private boolean isTranslate;
+
     @Override
     protected void initIntent() {
-        dsn = (String) SpUtils.getParam(Const.DSN,"");
+        dsn = (String) SpUtils.getParam(Const.DSN, "");
         mListAdapter = new RemoteControlListAdapter(RemoteControlListActivity.this, dataList, R.layout.rvitem_remotecontrol);
         bindingView.remoteRv.setAdapter(mListAdapter);
     }
 
     @Override
     protected void onEvent() {
-        bindingView.addimgIv.setOnClickListener(new NoDoubleClickListener() {
+        bindingView.addremoteBtn.setOnClickListener(new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View view) {
                 startActivity(new Intent(getBaseContext(), SelectDeviceTypeActivity.class));
@@ -78,16 +83,47 @@ public class RemoteControlListActivity extends BaseMVVMActivity<NoViewModel, Act
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-
             }
 
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                Log.d("xy","dx = " + dx);
-                Log.d("xy","dy = " + dy);
+                Log.d("xy", "dy = " + dy);
+                postAnimator(dy);
             }
         });
+    }
+
+    private void postAnimator(int dy) {
+        TranslateAnimation animation = null;
+        if (dy > 0) {
+            animation = (TranslateAnimation) AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_up_out);
+        }else {
+            animation = (TranslateAnimation) AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_down_in);
+        }
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if (dy > 0){
+                    bindingView.addremoteBtn.setClickable(false);
+                    bindingView.addremoteBtn.setEnabled(false);
+                }else {
+                    bindingView.addremoteBtn.setClickable(true);
+                    bindingView.addremoteBtn.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        bindingView.addremoteBtn.startAnimation(animation);
     }
 
     @Override
@@ -104,9 +140,9 @@ public class RemoteControlListActivity extends BaseMVVMActivity<NoViewModel, Act
     private void refreshData() {
         if (!dsn.isEmpty()) {
             AylaSessionManager sessionManager = AylaNetworks.sharedInstance().getSessionManager(Const.APP_NAME);
-            if (sessionManager != null){
+            if (sessionManager != null) {
                 AylaDevice aylaDevice = sessionManager.getDeviceManager().deviceWithDSN(dsn);
-                if (aylaDevice != null){
+                if (aylaDevice != null) {
                     aylaDevice.fetchAylaDatums(new Response.Listener<AylaDatum[]>() {
                         @Override
                         public void onResponse(AylaDatum[] response) {
