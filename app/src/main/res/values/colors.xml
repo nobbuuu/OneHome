@@ -28,10 +28,12 @@
     <color name="reset_dark">#D0D9F5</color>
     <color name="master_normal">#181818</color>
     <color name="master_press">#2A2A2A</color>
+    <color name="dialog_press">#E6E6E6</color>
     <color name="master_text_color">#282828</color>
     <color name="number_color">#5E5E5E</color>
     <color name="color_default">#FBFBFB</color>
     <color name="color_default_press">#4DFBFBFB</color>
     <color name="color_anim">#32E97E</color>
+    <color name="color_custom">#00BB9C</color>
 
 </resources>

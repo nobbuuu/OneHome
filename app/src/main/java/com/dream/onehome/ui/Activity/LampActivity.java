@@ -49,9 +49,7 @@ public class LampActivity extends BaseMVVMActivity<ModelViewModel, ActivityLampB
 
     private AylaSessionManager mSessionManager;
     private AylaDevice mAylaDevice;
-
     private static final String TAG = "AylaLog";
-
     private AylaProperty mAylaProperty;
 
     private String mKfid;//遥控器id
@@ -142,6 +140,7 @@ public class LampActivity extends BaseMVVMActivity<ModelViewModel, ActivityLampB
 
             }
         });
+
     }
 
     private void refreshUI() {

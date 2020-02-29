@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Response;
+import com.aylanetworks.aylasdk.AylaAPIRequest;
 import com.aylanetworks.aylasdk.AylaDatum;
 import com.aylanetworks.aylasdk.AylaDevice;
 import com.aylanetworks.aylasdk.AylaDeviceManager;
@@ -20,6 +21,9 @@ import com.dream.onehome.R;
 import com.dream.onehome.adapter.DeviceAdapter;
 import com.dream.onehome.base.BaseFragment;
 import com.dream.onehome.common.Const;
+import com.dream.onehome.common.OneHomeAplication;
+import com.dream.onehome.constract.IDialogLisrener;
+import com.dream.onehome.dialog.DialogUtils;
 import com.dream.onehome.ui.Activity.AddDeviceActivity;
 import com.dream.onehome.ui.Activity.RemoteControlListActivity;
 import com.dream.onehome.utils.LogUtils;
@@ -59,7 +63,7 @@ public class HomeFragment extends BaseFragment {
                 List<AylaDevice> devices = deviceManager.getDevices();
                 Log.d("AylaLog","devices.size() = " + devices.size());
                 if (devices != null) {
-                    deviceRv.setAdapter(new DeviceAdapter(getContext(),devices,R.layout.rvitem_device));
+                    setAdapterData(devices);
                 }
                 deviceManager.addListener(new AylaDeviceManager.DeviceManagerListener() {
                     @Override
@@ -78,8 +82,7 @@ public class HomeFragment extends BaseFragment {
                         if (listChange != null && devices.size() == 0){
                             List<AylaDevice> addedItems = listChange.getAddedItems();
                             if (addedItems != null && deviceRv != null) {
-                                DeviceAdapter deviceAdapter = new DeviceAdapter(getContext(), addedItems, R.layout.rvitem_device);
-                                deviceRv.setAdapter(deviceAdapter);
+                                setAdapterData(addedItems);
                             }
                         }
                     }
@@ -98,6 +101,38 @@ public class HomeFragment extends BaseFragment {
 
             }
         }
+    }
+
+    private void setAdapterData(List<AylaDevice> addedItems) {
+        DeviceAdapter deviceAdapter = new DeviceAdapter(getContext(), addedItems, R.layout.rvitem_device);
+        deviceAdapter.setLongListener(new DeviceAdapter.ILongClickListener() {
+            @Override
+            public void onLongClick(AylaDevice device) {
+                DialogUtils.getDeleteDialog(getActivity(), new IDialogLisrener() {
+                    @Override
+                    public void onCancel() {
+
+                    }
+
+                    @Override
+                    public void onSure() {
+                        //删除盒子
+                        /*device.deleteDatum("keyName", new Response.Listener<AylaAPIRequest.EmptyResponse>() {
+                            @Override
+                            public void onResponse(AylaAPIRequest.EmptyResponse response) {
+                                LogUtils.e("删除成功");
+                            }
+                        }, new ErrorListener() {
+                            @Override
+                            public void onErrorResponse(AylaError aylaError) {
+                                LogUtils.e(aylaError.getMessage());
+                            }
+                        });*/
+                    }
+                }).show();
+            }
+        });
+        deviceRv.setAdapter(deviceAdapter);
     }
 
     @Override

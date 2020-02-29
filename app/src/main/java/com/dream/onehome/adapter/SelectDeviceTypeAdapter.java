@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class SelectDeviceTypeAdapter extends CommonAdapter<DeviceTypeBean> {
     private int [] resId = new int[]{R.drawable.airtiao,R.drawable.tv,R.drawable.box,R.drawable.dvd,R.drawable.fan,R.drawable.airpurifier,R.drawable.iptv,
-            R.drawable.projector, R.drawable.speakers,R.drawable.waterheater,R.drawable.lightbulb,R.drawable.socket,R.drawable.sweeper};
+            R.drawable.projector, R.drawable.speakers,R.drawable.waterheater,R.drawable.lightbulb,R.drawable.yaokongqi};
     public SelectDeviceTypeAdapter(Activity context, List<DeviceTypeBean> mDatas, int itemLayoutId) {
         super(context, mDatas, itemLayoutId);
     }

@@ -31,7 +31,7 @@ public class Const {
     public static final String TYPE_register = "register";
     public static final String TYPE_forgotpwd = "forgot-password";
     public static final String AYLA_Appid = "123517";
-//    public static final String AYLA_Appid = "123517a749a30359f32465243326e105d64c1a";
+    //    public static final String AYLA_Appid = "123517a749a30359f32465243326e105d64c1a";
     public static final String AYLA_SECRET = "YK-1nmoNdOpgEhe5KozpAkai4x4KPU";
     public static final String AreaCode = "86";
     public static final String DSN = "dsn";
@@ -52,6 +52,7 @@ public class Const {
     //IR
     public static final String IR_Send_code = "IR_Send_code";
     public static final String IR_Learn_code = "IR_Learn_code";
+    public static final String Working_Mode = "Working_Mode";
 
     //RemoteControlBean
     public static final String device_id = "device_id";
@@ -62,9 +63,6 @@ public class Const {
 
     //tempJson
     public static final String KeyList = "KeyList";
-
-
-
 
 
 }

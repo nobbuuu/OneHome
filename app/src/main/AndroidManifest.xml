@@ -63,6 +63,10 @@
         </activity>
         <activity android:name=".ui.Activity.SoundActivity">
         </activity>
+        <activity android:name=".ui.Activity.CustomRemoteActivity">
+        </activity>
+        <activity android:name=".ui.Activity.LearnActivity">
+        </activity>
     </application>
 
 

@@ -55,11 +55,15 @@ public class SelectDeviceTypeActivity extends BaseMVVMActivity<SelectDeviceTypeM
                 DeviceTypeBean deviceTypeBean = dataList.get(position);
                 int device_id = deviceTypeBean.getId();
 
-                Intent intent = new Intent(SelectDeviceTypeActivity.this,BrandActivity.class);
+                Intent intent = null;
+                if (device_id != 12){
+                    intent = new Intent(SelectDeviceTypeActivity.this,BrandActivity.class);
+                }else {
+                    intent = new Intent(SelectDeviceTypeActivity.this,CustomRemoteActivity.class);
+                }
                 intent.putExtra(Const.device_id,device_id);
                 intent.putExtra(Const.deviceName,deviceTypeBean.getDevice_name());
                 startActivity(intent);
-
             }
         });
 
@@ -86,6 +90,10 @@ public class SelectDeviceTypeActivity extends BaseMVVMActivity<SelectDeviceTypeM
                         dataList.add(deviceTypeBean);
                     }
                 }
+                DeviceTypeBean bean = new DeviceTypeBean();
+                bean.setDevice_name("自定义");
+                bean.setId(12);
+                dataList.add(bean);
                 mTypeAdapter.notifyDataSetChanged();
             }
         });

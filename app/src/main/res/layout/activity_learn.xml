@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/back_iv"
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="@dimen/dp_23"
+                android:src="@drawable/back_normal_light"
+                android:layout_margin="@dimen/dp_10"
+                android:layout_height="@dimen/dp_25"></ImageView>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/center_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/back_iv"
+            app:layout_constraintBottom_toBottomOf="@+id/back_iv"
+            android:text="万能遥控器"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></TextView>
+
+        <View
+            android:layout_width="match_parent"
+            android:background="@color/divider_bg"
+            app:layout_constraintTop_toBottomOf="@+id/center_tv"
+            android:layout_marginTop="@dimen/dp_15"
+            android:layout_height="@dimen/dp_1"></View>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
