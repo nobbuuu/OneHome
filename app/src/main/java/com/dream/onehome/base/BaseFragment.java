@@ -32,14 +32,15 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.savedInstanceState = savedInstanceState;
-       return inflater.inflate(getLayoutId(),container,false);
+        View inflate = inflater.inflate(getLayoutId(), container, false);
+        return inflate;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rootView = view;
-        bind = ButterKnife.bind(this, view);
+        bind = ButterKnife.bind(this, rootView);
         mLoadingDialog = DialogUtils.initLoadingDialog(getContext());
        /* BaseComponent build = DaggerBaseComponent.builder()
                 .appComponent(OneHomeAplication.getInstance().getAppComponent())

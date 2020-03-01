@@ -27,10 +27,10 @@ import com.dream.onehome.constract.IClickLisrener;
 import com.dream.onehome.constract.IResultLisrener;
 import com.dream.onehome.databinding.ActivityMaterBinding;
 import com.dream.onehome.ui.ViewModel.ModelViewModel;
+import com.dream.onehome.ui.fragment.ExtensionFragment;
 import com.dream.onehome.ui.fragment.MenuFragment;
 import com.dream.onehome.ui.fragment.NumberFragment;
 import com.dream.onehome.utils.ActivityUtils;
-import com.dream.onehome.utils.LogUtils;
 import com.dream.onehome.utils.SpUtils;
 import com.dream.onehome.utils.ToastUtils;
 import com.dream.onehome.utils.annotations.ContentView;
@@ -67,6 +67,7 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
     private int[] numIds = new int[]{R.id.zaro,R.id.one, R.id.two, R.id.three, R.id.four, R.id.five, R.id.six, R.id.seven, R.id.eight, R.id.night};
     private RemoteControlBean mControlBean = new RemoteControlBean();
     private boolean isAdded;
+    private ExtensionFragment mExtensionFragment;
 
     @Override
     protected void initIntent() {
@@ -250,16 +251,34 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
             public void onResults(KeysBean data) {
                 index++;
                 bindingView.chosemodelTv.setText("下一个（" + index + " / " + modelList.size() + "）");
+                KeysBean extBean = new KeysBean();
+                int tempdex = 0;
                 List<String> keylist = data.getKeylist();
-                if (keylist != null) {
-                    mKeylist.clear();
-                    mKeylist.addAll(keylist);
-                }
                 List<String> keyvalue = data.getKeyvalue();
+                if (keylist==null||keyvalue==null){
+                    if (keylist.size() != keyvalue.size()){
+                        ToastUtils.Toast_short("码库键值长度不对等");
+                    }
+                    return;
+                }
 
-                if (keyvalue != null) {
-                    mKeyvalues.clear();
-                    mKeyvalues.addAll(keyvalue);
+                mKeylist.clear();
+                mKeylist.addAll(keylist);
+                for (int i = 0; i < keylist.size(); i++) {
+                    if (keylist.get(i).equals("0")){
+                        List<String> subList = keylist.subList(i+1, keylist.size() - 1);
+                        extBean.setKeylist(subList);
+                        tempdex = i+1;
+                        break;
+                    }
+                }
+
+                mKeyvalues.clear();
+                mKeyvalues.addAll(keyvalue);
+                List<String> subList = keyvalue.subList(tempdex, keyvalue.size() - 1);
+                extBean.setKeyvalue(subList);
+                if (mExtensionFragment != null){
+                    mExtensionFragment.setData(extBean);
                 }
             }
         });
@@ -281,11 +300,14 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
         List<Fragment> fragments = new ArrayList<>();
         NumberFragment numberFragment = new NumberFragment();
         MenuFragment menuFragment = new MenuFragment();
+        mExtensionFragment = new ExtensionFragment();
         fragments.add(numberFragment);
         fragments.add(menuFragment);
+        fragments.add(mExtensionFragment);
 
         BaseFraPagerAdapter pagerAdapter = new BaseFraPagerAdapter(getSupportFragmentManager(), fragments);
         bindingView.masterVp.setAdapter(pagerAdapter);
+        bindingView.masterVp.setOffscreenPageLimit(3);
         bindingView.masterTab.setupWithViewPager(bindingView.masterVp);
         bindingView.masterTab.getTabAt(0).setText("123");
         bindingView.masterTab.getTabAt(1).setText("菜单");

@@ -43,5 +43,13 @@
         <item name="android:textColor">@color/number_color</item>
         <item name="android:textSize">@dimen/sp_24</item>
     </style>
+    <style name="number_style_ext">
+        <item name="android:clickable">true</item>
+        <item name="android:background">@drawable/select_master</item>
+        <item name="android:paddingBottom">@dimen/dp_12</item>
+        <item name="android:paddingTop">@dimen/dp_12</item>
+        <item name="android:textColor">@color/number_color</item>
+        <item name="android:textSize">@dimen/sp_17</item>
+    </style>
 
 </resources>

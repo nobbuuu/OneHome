@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="@dimen/dp_15"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:src="@drawable/extension_tv"
+        android:background="@drawable/select_master"
+        android:padding="@dimen/dp_10"
+        android:clickable="true"
+        android:visibility="gone"
+        android:layout_height="wrap_content"></ImageView>
+    <GridView
+        android:id="@+id/extention_rv"
+        android:layout_width="match_parent"
+        android:numColumns="3"
+        android:horizontalSpacing="@dimen/dp_15"
+        android:verticalSpacing="@dimen/dp_15"
+        android:layout_height="match_parent"></GridView>
+</LinearLayout>

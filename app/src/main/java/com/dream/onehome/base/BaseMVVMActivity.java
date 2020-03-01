@@ -47,7 +47,11 @@ public abstract class BaseMVVMActivity<VM extends AndroidViewModel, SV extends V
         initIntent();
         initView(savedInstanceState);
         onEvent();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     /**
