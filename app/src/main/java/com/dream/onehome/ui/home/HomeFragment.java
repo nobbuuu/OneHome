@@ -42,7 +42,8 @@ public class HomeFragment extends BaseFragment {
     RecyclerView deviceRv;
 
     private HomeViewModel homeViewModel;
-
+    private AylaSessionManager mSessionManager;
+    private AylaDeviceManager mDeviceManager;
     @Override
     public void initView() {
 
@@ -56,16 +57,16 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void resume() {
 
-        AylaSessionManager sessionManager = AylaNetworks.sharedInstance().getSessionManager(Const.APP_NAME);
-        if (sessionManager != null) {
-            AylaDeviceManager deviceManager = sessionManager.getDeviceManager();
-            if (deviceManager != null) {
-                List<AylaDevice> devices = deviceManager.getDevices();
-                Log.d("AylaLog","devices.size() = " + devices.size());
+        mSessionManager = AylaNetworks.sharedInstance().getSessionManager(Const.APP_NAME);
+        if (mSessionManager != null) {
+            mDeviceManager = mSessionManager.getDeviceManager();
+            if (mDeviceManager != null) {
+                List<AylaDevice> devices = mDeviceManager.getDevices();
+                Log.d("AylaLog", "devices.size() = " + devices.size());
                 if (devices != null) {
                     setAdapterData(devices);
                 }
-                deviceManager.addListener(new AylaDeviceManager.DeviceManagerListener() {
+                mDeviceManager.addListener(new AylaDeviceManager.DeviceManagerListener() {
                     @Override
                     public void deviceManagerInitComplete(Map<String, AylaError> map) {
 
@@ -78,8 +79,8 @@ public class HomeFragment extends BaseFragment {
 
                     @Override
                     public void deviceListChanged(ListChange listChange) {
-                        Log.d("AylaLog","listChange = " + listChange);
-                        if (listChange != null && devices.size() == 0){
+                        Log.d("AylaLog", "listChange = " + listChange);
+                        if (listChange != null && devices.size() == 0) {
                             List<AylaDevice> addedItems = listChange.getAddedItems();
                             if (addedItems != null && deviceRv != null) {
                                 setAdapterData(addedItems);
@@ -94,7 +95,7 @@ public class HomeFragment extends BaseFragment {
 
                     @Override
                     public void deviceManagerStateChanged(AylaDeviceManager.DeviceManagerState deviceManagerState, AylaDeviceManager.DeviceManagerState deviceManagerState1) {
-                        Log.d("AylaLog","deviceManagerStateChanged = " + deviceManagerState.name());
+                        Log.d("AylaLog", "deviceManagerStateChanged = " + deviceManagerState.name());
 
                     }
                 });
@@ -116,18 +117,21 @@ public class HomeFragment extends BaseFragment {
 
                     @Override
                     public void onSure() {
-                        //删除盒子
-                        /*device.deleteDatum("keyName", new Response.Listener<AylaAPIRequest.EmptyResponse>() {
+                        device.unregister(new Response.Listener<AylaAPIRequest.EmptyResponse>() {
                             @Override
                             public void onResponse(AylaAPIRequest.EmptyResponse response) {
                                 LogUtils.e("删除成功");
+                                List<AylaDevice> data = mDeviceManager.getDevices();
+                                if (data.size()>0){
+                                    setAdapterData(data);
+                                }
                             }
                         }, new ErrorListener() {
                             @Override
                             public void onErrorResponse(AylaError aylaError) {
                                 LogUtils.e(aylaError.getMessage());
                             }
-                        });*/
+                        });
                     }
                 }).show();
             }
@@ -146,7 +150,7 @@ public class HomeFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.addimg_iv,R.id.adddevice_iv})
+    @OnClick({R.id.addimg_iv, R.id.adddevice_iv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.addimg_iv:

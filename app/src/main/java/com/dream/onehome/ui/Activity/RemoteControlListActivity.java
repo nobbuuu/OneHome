@@ -143,9 +143,11 @@ public class RemoteControlListActivity extends BaseMVVMActivity<NoViewModel, Act
             if (sessionManager != null) {
                 AylaDevice aylaDevice = sessionManager.getDeviceManager().deviceWithDSN(dsn);
                 if (aylaDevice != null) {
+                    mLoadingDialog.show();
                     aylaDevice.fetchAylaDatums(new Response.Listener<AylaDatum[]>() {
                         @Override
                         public void onResponse(AylaDatum[] response) {
+                            mLoadingDialog.dismiss();
                             Log.d("AylaLog", "response.length = " + response.length);
                             Gson gson = new Gson();
                             dataList.clear();
@@ -160,6 +162,7 @@ public class RemoteControlListActivity extends BaseMVVMActivity<NoViewModel, Act
                     }, new ErrorListener() {
                         @Override
                         public void onErrorResponse(AylaError aylaError) {
+                            mLoadingDialog.dismiss();
                             LogUtils.e(aylaError.getMessage());
                         }
                     });

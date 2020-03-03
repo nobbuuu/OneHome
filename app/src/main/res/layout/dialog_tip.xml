@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_13"
             android:layout_marginBottom="@dimen/dp_25"
-            android:text="是否确认删除"
+            android:text="是否确认删除?"
             android:textColor="@color/color666"
             android:textSize="@dimen/sp_13"></TextView>
 

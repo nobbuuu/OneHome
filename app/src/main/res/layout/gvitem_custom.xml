@@ -8,10 +8,9 @@
 
         <TextView
             android:id="@+id/keyname_tv"
-            style="@style/number_style"
+            style="@style/learn_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="false"
-            android:textSize="@dimen/sp_18"></TextView>
+            ></TextView>
     </LinearLayout>
 </layout>

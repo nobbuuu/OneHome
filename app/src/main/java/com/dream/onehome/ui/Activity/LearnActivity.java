@@ -39,11 +39,13 @@ public class LearnActivity extends BaseMVVMActivity<ModelViewModel, ActivityLear
     private AylaSessionManager mSessionManager;
     private AylaDevice mAylaDevice;
 
-    private static final String TAG = "AylaLog";
+    private static final String TAG = "LearnTag";
 
     private AylaProperty mAylaProperty;
     private boolean isFetch = true;
-    private String tempCode = SP.get("ircode", "");
+    private String tempCode = "";
+    private final int REQUESTNUM = 16;
+    private int requestSum = 0;
 
     @Override
     protected void initIntent() {
@@ -52,8 +54,22 @@ public class LearnActivity extends BaseMVVMActivity<ModelViewModel, ActivityLear
             String dsn = (String) SpUtils.getParam(Const.DSN, "");
             if (!dsn.isEmpty()) {
                 mAylaDevice = mSessionManager.getDeviceManager().deviceWithDSN(dsn);
-                if (mAylaDevice != null){
-                    resetWorkMode(1);
+                if (mAylaDevice != null) {
+
+                    //进入学习状态（Working_Mode = 1）之前先清除服务器缓存的metadata值 置为""
+                    mAylaProperty = mAylaDevice.getProperty(Const.IR_Learn_code);
+                    mAylaProperty.createDatapoint("", null, new Response.Listener<AylaDatapoint>() {
+                        @Override
+                        public void onResponse(AylaDatapoint response) {
+                            resetWorkMode(1);
+                        }
+                    }, new ErrorListener() {
+                        @Override
+                        public void onErrorResponse(AylaError aylaError) {
+                            ToastUtils.Toast_long(aylaError.getMessage());
+                            Log.e(TAG, "aylaError  = " + aylaError.getMessage());
+                        }
+                    });
                 }
             }
 
@@ -65,14 +81,15 @@ public class LearnActivity extends BaseMVVMActivity<ModelViewModel, ActivityLear
 
     private void resetWorkMode(int mode) {
         mAylaProperty = mAylaDevice.getProperty(Const.Working_Mode);
-        if (mAylaProperty != null){
+        if (mAylaProperty != null) {
             mAylaProperty.createDatapoint(String.valueOf(mode), null, new Response.Listener<AylaDatapoint>() {
                 @Override
                 public void onResponse(AylaDatapoint response) {
+//                    ToastUtils.Toast_long("Working_Mode = " + mode);
                     mAylaProperty = mAylaDevice.getProperty(Const.IR_Learn_code);
-                    if (isFetch){
+                    if (isFetch) {
                         fetchIrCode();
-                    }else {
+                    } else {
                         Intent intent = getIntent();
                         intent.putExtra("irCode", tempCode);
                         setResult(010, intent);
@@ -90,31 +107,41 @@ public class LearnActivity extends BaseMVVMActivity<ModelViewModel, ActivityLear
     }
 
     private void fetchIrCode() {
+        Log.d(TAG, "fetchIrCode.......");
+        requestSum++;
         mAylaProperty.fetchDatapoints(1, null, null, new Response.Listener<AylaDatapoint[]>() {
             @Override
             public void onResponse(AylaDatapoint[] response) {
+                Log.e(TAG, "response.size() = " + response.length);
                 if (response.length != 0) {
-                    Log.e(TAG, "response.size() = " + response.length);
                     AylaDatapoint aylaDatapoint = response[0];
                     Log.e(TAG, "fetchDatapoints  response = " + aylaDatapoint.toString());
                     String irCode = (String) aylaDatapoint.getValue();
-                    if (irCode != null && !tempCode.equals(irCode)) {
+                    LogUtils.d(TAG,"irCode = " + irCode);
+                    if (irCode != null && !irCode.isEmpty()) {
                         LogUtils.e(TAG, "irCode = " + irCode);
                         isFetch = false;
                         tempCode = irCode;
-                        SP.put("ircode", irCode);
                         resetWorkMode(0);
                     }
                 }
-                if (isFetch) {
+                LogUtils.d(TAG,"requestSum = " + requestSum);
+                LogUtils.d(TAG,"isFetch = " + isFetch);
+                if (isFetch && requestSum < REQUESTNUM) {
                     SystemClock.sleep(1500);
                     fetchIrCode();
+                }
+                if (requestSum >= REQUESTNUM) {
+                    ToastUtils.Toast_long("添加超时，请重试");
+                    finish();
                 }
             }
         }, new ErrorListener() {
             @Override
             public void onErrorResponse(AylaError aylaError) {
-                LogUtils.e(aylaError.getMessage());
+                ToastUtils.Toast_long("按键添加超时，请重试");
+                LogUtils.d(TAG,"aylaErrorMsg = " + aylaError.getMessage());
+                finish();
             }
         });
     }

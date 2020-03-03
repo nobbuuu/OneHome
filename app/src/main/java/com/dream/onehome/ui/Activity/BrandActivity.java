@@ -6,6 +6,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -43,7 +44,21 @@ public class BrandActivity extends BaseMVVMActivity<BrandViewModel, ActivitySele
     private String deviceName;
     private BrandAdapter mBrandAdapter;
     private List<BrandBean> dataList = new ArrayList<>();
+    private boolean isLocation = false;
+    private CountDownTimer mCountDownTimer = new CountDownTimer(10000,1000) {
+        @Override
+        public void onTick(long millisUntilFinished) {
 
+        }
+
+        @Override
+        public void onFinish() {
+            if (!isLocation){
+                mLoadingDialog.dismiss();
+                ToastUtils.Toast_long("服务异常，请重启手机后重试");
+            }
+        }
+    };
     @Override
     protected void initIntent() {
 
@@ -61,9 +76,11 @@ public class BrandActivity extends BaseMVVMActivity<BrandViewModel, ActivitySele
             new CityName().execute(new LatLng(Double.valueOf(longitude), Double.valueOf(latitude)));
         } else {
             mLoadingDialog.show();
+            mCountDownTimer.start();
             LocationUtil.getCurrentLocation(this, new LocationUtil.LocationCallBack() {
                 @Override
                 public void onSuccess(Location location) {
+                    isLocation = true;
                     LogUtils.d("location", "Latitude = " + location.getLatitude() + ", Longitude = " + location.getLongitude());
                     SpUtils.savaUserInfo(Const.Latitude, String.valueOf(location.getLatitude()));
                     SpUtils.savaUserInfo(Const.Longitude, String.valueOf(location.getLongitude()));

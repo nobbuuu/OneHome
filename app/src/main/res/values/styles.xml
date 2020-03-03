@@ -43,6 +43,16 @@
         <item name="android:textColor">@color/number_color</item>
         <item name="android:textSize">@dimen/sp_24</item>
     </style>
+    <style name="learn_style">
+        <item name="android:clickable">false</item>
+        <item name="android:background">@drawable/select_master</item>
+        <item name="android:paddingLeft">@dimen/dp_22</item>
+        <item name="android:paddingRight">@dimen/dp_22</item>
+        <item name="android:paddingTop">@dimen/dp_14</item>
+        <item name="android:paddingBottom">@dimen/dp_14</item>
+        <item name="android:textColor">@color/number_color</item>
+        <item name="android:textSize">@dimen/sp_18</item>
+    </style>
     <style name="number_style_ext">
         <item name="android:clickable">true</item>
         <item name="android:background">@drawable/select_master</item>

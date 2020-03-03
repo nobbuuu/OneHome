@@ -4,6 +4,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="match_parent">
         <RelativeLayout
             android:id="@+id/back_iv"
@@ -31,11 +32,33 @@
             android:layout_height="wrap_content"></TextView>
 
         <View
+            android:id="@+id/top_divider"
             android:layout_width="match_parent"
             android:background="@color/divider_bg"
             app:layout_constraintTop_toBottomOf="@+id/center_tv"
             android:layout_marginTop="@dimen/dp_15"
             android:layout_height="@dimen/dp_1"></View>
+
+        <TextView
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/top_divider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/dp_35"
+            android:textColor="@color/black"
+            android:text="对准遥控中心按下相同按键"
+            android:layout_height="wrap_content"></TextView>
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toBottomOf="@+id/top_divider"
+            android:src="@drawable/learntip"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginLeft="@dimen/dp_58"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="@dimen/dp_420"></ImageView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

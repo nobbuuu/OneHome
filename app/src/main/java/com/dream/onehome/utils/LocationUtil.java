@@ -42,10 +42,10 @@ public class LocationUtil {
         // 获取可用的provider,第二个参数标识 provider是否可用.
         String bestProvider = locationM.getBestProvider(cri,true);
 
-        if (!TextUtils.isEmpty(bestProvider)){
+        /*if (!TextUtils.isEmpty(bestProvider)){
             Log.e(TAG,"bestProvider = "+ bestProvider + "可用");
             locationM.requestLocationUpdates(bestProvider,0,0,locationListener);
-        }else if (locationM.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+        }else */if (locationM.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
             Log.e(TAG,LocationManager.NETWORK_PROVIDER + "可用");
             locationM.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,locationListener);
         }else if(locationM.isProviderEnabled(LocationManager.GPS_PROVIDER)){

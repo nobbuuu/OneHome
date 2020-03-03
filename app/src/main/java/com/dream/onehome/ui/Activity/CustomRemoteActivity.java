@@ -33,6 +33,7 @@ import com.dream.onehome.base.NoDoubleClickListener;
 import com.dream.onehome.bean.CustomItemBean;
 import com.dream.onehome.bean.RemoteControlBean;
 import com.dream.onehome.common.Const;
+import com.dream.onehome.constract.IGvItemClickLisrener;
 import com.dream.onehome.databinding.ActivityCustomizeBinding;
 import com.dream.onehome.ui.ViewModel.CustomRemoteModel;
 import com.dream.onehome.utils.SP;
@@ -91,11 +92,11 @@ public class CustomRemoteActivity extends BaseMVVMActivity<CustomRemoteModel, Ac
             String dsn = (String) SpUtils.getParam(Const.DSN, "");
             if (!dsn.isEmpty()) {
                 mAylaDevice = mSessionManager.getDeviceManager().deviceWithDSN(dsn);
-                mAylaProperty = mAylaDevice.getProperty(Const.IR_Send_code);
+                mAylaProperty = mAylaDevice.getProperty(Const.IR_Learn_code);
             }
 
         } else {
-            ToastUtils.Toast_long("aylaSessionManager 初始化失败！");
+            ToastUtils.Toast_long("aylaApi 初始化失败");
             Log.e(TAG, "aylaSessionManager  = " + mSessionManager);
         }
 
@@ -118,13 +119,6 @@ public class CustomRemoteActivity extends BaseMVVMActivity<CustomRemoteModel, Ac
             }
         });
 
-        bindingView.customGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                updateIrCode(dataList.get(position).getIrCode());
-            }
-        });
-
         bindingView.completeTv.setOnClickListener(new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View view) {
@@ -136,6 +130,12 @@ public class CustomRemoteActivity extends BaseMVVMActivity<CustomRemoteModel, Ac
     @Override
     protected void initView(Bundle savedInstanceState) {
         mRemoteAdapter = new CustomRemoteAdapter(this,dataList,R.layout.gvitem_custom);
+        mRemoteAdapter.setOnIGvItemListener(new IGvItemClickLisrener<CustomItemBean>() {
+            @Override
+            public void onItemClick(CustomItemBean dataBean, int position) {
+                updateIrCode(dataList.get(position).getIrCode());
+            }
+        });
         bindingView.customGv.setAdapter(mRemoteAdapter);
     }
 
@@ -259,6 +259,10 @@ public class CustomRemoteActivity extends BaseMVVMActivity<CustomRemoteModel, Ac
 
     private void updateIrCode(String irCode) {
         Log.d(TAG,"ircode = " + irCode);
+        if (mAylaProperty == null ){
+            ToastUtils.Toast_long("数据异常，请重新进入该界面");
+            return;
+        }
         mAylaProperty.createDatapoint(irCode, null, new Response.Listener<AylaDatapoint>() {
             @Override
             public void onResponse(AylaDatapoint response) {
@@ -271,7 +275,6 @@ public class CustomRemoteActivity extends BaseMVVMActivity<CustomRemoteModel, Ac
                 Log.e(TAG, "aylaError  = " + aylaError.getMessage());
             }
         });
-
     }
 
 }
