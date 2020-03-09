@@ -27,6 +27,25 @@
         <item name="android:windowAnimationStyle">@style/ActionSheetDialogAnimation</item>
     </style>
 
+    <style name="popwindow_style" parent="@android:style/Theme.Dialog">
+
+        <!-- 背景透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- 浮于Activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- Dialog以外的区域模糊效果 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 无标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- Dialog进入及退出动画 -->
+        <item name="android:windowAnimationStyle">@style/top2botAnimation</item>
+    </style>
+
     <!-- ActionSheet进出动画 -->
     <style name="ActionSheetDialogAnimation" parent="@android:style/Animation.Dialog">
         <item name="android:windowEnterAnimation">@anim/actionsheet_dialog_in</item>
@@ -62,4 +81,10 @@
         <item name="android:textSize">@dimen/sp_17</item>
     </style>
 
+
+    <!-- animation 样式 -->
+    <style name="top2botAnimation" parent="@android:style/Animation">
+        <item name="android:activityOpenEnterAnimation">@anim/push_up_out</item>
+        <item name="android:activityOpenExitAnimation">@anim/push_down_in</item>
+    </style>
 </resources>

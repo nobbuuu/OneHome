@@ -64,5 +64,8 @@ public class Const {
     //tempJson
     public static final String KeyList = "KeyList";
 
+    public static final String netMode = "netMode";
+
+
 
 }

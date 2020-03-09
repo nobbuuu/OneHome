@@ -24,6 +24,27 @@
             android:textSize="@dimen/sp_16"
             android:textColor="@android:color/black"
             android:layout_height="wrap_content"></TextView>
+        <LinearLayout
+            android:id="@+id/netmode_change"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="配网模式"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_13"
+                android:layout_marginRight="@dimen/dp_6"
+                android:layout_height="wrap_content"></TextView>
+            <ImageView
+                android:layout_width="@dimen/dp_16"
+                android:src="@drawable/config_wifi_change"
+                android:layout_alignParentRight="true"
+                android:layout_height="wrap_content"></ImageView>
+        </LinearLayout>
+
     </RelativeLayout>
 
 
@@ -79,6 +100,19 @@
             android:layout_height="wrap_content"></ImageView>
     </RelativeLayout>
 
+    <RadioButton
+        android:id="@+id/sure_rad"
+        android:layout_width="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/sure_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp_13"
+        android:layout_marginBottom="@dimen/dp_12"
+        android:text="确认指示灯在慢闪"
+        android:layout_height="wrap_content"></RadioButton>
+
+
     <Button
         android:id="@+id/sure_tv"
         android:layout_width="match_parent"
@@ -86,10 +120,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:padding="@dimen/dp_10"
-        android:text="确认指示灯在快闪"
+        android:text="下一步"
         android:textColor="@android:color/white"
         android:gravity="center"
-        android:background="@drawable/select_surebtn"
+        android:enabled="false"
+        android:background="@drawable/shape_voice_unenable_btn"
         android:layout_marginStart="@dimen/dp_67"
         android:layout_marginEnd="@dimen/dp_67"
         android:layout_marginBottom="@dimen/dp_17"

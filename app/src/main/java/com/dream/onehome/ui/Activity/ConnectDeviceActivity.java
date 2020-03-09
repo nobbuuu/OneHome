@@ -30,8 +30,10 @@ import com.dream.onehome.common.Const;
 import com.dream.onehome.customview.CircularProgressView;
 import com.dream.onehome.utils.ActivityUtils;
 import com.dream.onehome.utils.LocationUtil;
+import com.dream.onehome.utils.SP;
 import com.dream.onehome.utils.SpUtils;
 import com.dream.onehome.utils.ToastUtils;
+import com.sunseaiot.larkairkiss.SunAirKiss;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -63,6 +65,7 @@ public class ConnectDeviceActivity extends BaseActivity {
     private int mCurrentProgress = 0;
     private int reBindingNum;
     private LatLng mLatLng = new LatLng(114.0645520000,22.5484560000);
+    private int netMode = SP.get(Const.netMode, 2);
 
     @Override
     public int getLayoutId() {
@@ -71,7 +74,6 @@ public class ConnectDeviceActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
         Intent intent = getIntent();
 
         if (intent != null) {
@@ -80,8 +82,8 @@ public class ConnectDeviceActivity extends BaseActivity {
             aylaWifi = intent.getStringExtra(Const.AylaWifi);
 
 
-            String longitude = (String) SpUtils.getParam(Const.Longitude, "");
             String latitude = (String) SpUtils.getParam(Const.Latitude, "");
+            String longitude = (String) SpUtils.getParam(Const.Longitude, "");
             if (!latitude.isEmpty() && !longitude.isEmpty()) {
                 mLatLng = new LatLng(Double.valueOf(longitude), Double.valueOf(latitude));
                 connectDeviceService();
@@ -103,10 +105,21 @@ public class ConnectDeviceActivity extends BaseActivity {
                 });
 
             }
+            if (netMode == 6){
+                connectNewDevice(aylaWifi);
+            }else {
+                new SunAirKiss().start(this, wifiName, wifiPwd, new SunAirKiss.Callback() {
+                    @Override
+                    public void SunAirkissSuccess(String s, String s1) {
 
-            connectNewDevice(aylaWifi);
+                    }
 
+                    @Override
+                    public void SunAirkissFailed(SunAirKiss.SunResultCode sunResultCode, String s) {
 
+                    }
+                });
+            }
         }
     }
 
@@ -154,8 +167,6 @@ public class ConnectDeviceActivity extends BaseActivity {
                         onAylaRequestSuccess();
                         isConnectNewDevice = true;
                         connectDeviceService();
-
-
                     }
                 }, new ErrorListener() {
                     @Override

@@ -66,8 +66,8 @@ public class BrandActivity extends BaseMVVMActivity<BrandViewModel, ActivitySele
         device_id = intent.getIntExtra(Const.device_id, 0);
         deviceName = intent.getStringExtra(Const.deviceName);
 
-        String latitude = (String) SpUtils.getParam(Const.Latitude, "");
-        String longitude = (String) SpUtils.getParam(Const.Longitude, "");
+        String latitude = (String) SpUtils.getParam(Const.Latitude, "22.5964540000");
+        String longitude = (String) SpUtils.getParam(Const.Longitude, "114.0064820000");
         mBrandAdapter = new BrandAdapter(BrandActivity.this, dataList, R.layout.rvitem_brand);
         mBrandAdapter.setDevice(String.valueOf(device_id),deviceName);
         bindingView.brandRv.setAdapter(mBrandAdapter);

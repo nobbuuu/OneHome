@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/shape_corner_white">
+        <LinearLayout
+            android:id="@+id/wifilay"
+            android:layout_width="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/select_iv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:src="@drawable/ty_list_selected"
+                app:layout_constraintBottom_toBottomOf="@+id/wifi_tv"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/wifi_tv"></ImageView>
+
+            <TextView
+                android:id="@+id/wifi_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp_15"
+                android:text="AirKiss快闪模式"
+                android:textColor="@color/black"
+                app:layout_constraintLeft_toRightOf="@+id/select_iv1"
+                app:layout_constraintTop_toTopOf="parent"></TextView>
+
+            <TextView
+                android:id="@+id/defaut_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:background="@drawable/shape_corner_gray1"
+                android:padding="@dimen/dp_4"
+                android:text="默认"
+                android:textSize="@dimen/sp_12"
+                app:layout_constraintBottom_toBottomOf="@+id/wifi_tv"
+                app:layout_constraintLeft_toRightOf="@+id/wifi_tv"
+                android:layout_marginRight="@dimen/dp_10"
+                app:layout_constraintTop_toTopOf="@+id/wifi_tv"></TextView>
+        </LinearLayout>
+
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:background="@color/divider_bg"
+            app:layout_constraintTop_toBottomOf="@+id/wifi_tv"></View>
+        <LinearLayout
+            android:id="@+id/hotnetlay"
+            android:layout_width="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/select_iv2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/hotnet_tv"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:src="@drawable/ty_list_selected"
+                android:visibility="invisible"
+                app:layout_constraintTop_toTopOf="@+id/hotnet_tv"></ImageView>
+
+            <TextView
+                android:id="@+id/hotnet_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AP慢闪模式"
+                android:textColor="@color/black"
+                app:layout_constraintLeft_toLeftOf="@+id/wifi_tv"
+                android:layout_margin="@dimen/dp_15"
+                app:layout_constraintTop_toBottomOf="@+id/divider"></TextView>
+            <TextView
+                android:id="@+id/defaut_tv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:background="@drawable/shape_corner_gray1"
+                android:padding="@dimen/dp_4"
+                android:text="备选"
+                android:textSize="@dimen/sp_12"
+                app:layout_constraintBottom_toBottomOf="@+id/wifi_tv"
+                app:layout_constraintLeft_toRightOf="@+id/wifi_tv"
+                android:layout_marginRight="@dimen/dp_10"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="@+id/wifi_tv"></TextView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
