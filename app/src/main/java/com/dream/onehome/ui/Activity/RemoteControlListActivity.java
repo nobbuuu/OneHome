@@ -51,8 +51,9 @@ public class RemoteControlListActivity extends BaseMVVMActivity<NoViewModel, Act
 
     @Override
     protected void initIntent() {
-        dsn = (String) SpUtils.getParam(Const.DSN, "");
-        mListAdapter = new RemoteControlListAdapter(RemoteControlListActivity.this, dataList, R.layout.rvitem_remotecontrol);
+//        dsn = (String) SpUtils.getParam(Const.DSN, "");
+        dsn = getIntent().getStringExtra(Const.DSN);
+        mListAdapter = new RemoteControlListAdapter(this, dataList, R.layout.rvitem_remotecontrol);
         bindingView.remoteRv.setAdapter(mListAdapter);
     }
 

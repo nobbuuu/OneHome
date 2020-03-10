@@ -45,7 +45,7 @@ public class AddDeviceActivity extends BaseActivity {
     TextView summaryTv;
 
     private int index;
-    private long modePerTime = 2;
+    private int modePerTime = 2;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(@NonNull Message msg) {

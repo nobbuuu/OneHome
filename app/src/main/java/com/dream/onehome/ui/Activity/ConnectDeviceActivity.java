@@ -66,6 +66,7 @@ public class ConnectDeviceActivity extends BaseActivity {
     private int reBindingNum;
     private LatLng mLatLng = new LatLng(114.0645520000,22.5484560000);
     private int netMode = SP.get(Const.netMode, 2);
+    private SunAirKiss mSunAirKiss;
 
     @Override
     public int getLayoutId() {
@@ -80,7 +81,6 @@ public class ConnectDeviceActivity extends BaseActivity {
             wifiName = intent.getStringExtra(Const.WiFiName);
             wifiPwd = intent.getStringExtra(Const.WiFiPwd);
             aylaWifi = intent.getStringExtra(Const.AylaWifi);
-
 
             String latitude = (String) SpUtils.getParam(Const.Latitude, "");
             String longitude = (String) SpUtils.getParam(Const.Longitude, "");
@@ -105,22 +105,48 @@ public class ConnectDeviceActivity extends BaseActivity {
                 });
 
             }
+            mSessionManager = AylaNetworks.sharedInstance().getSessionManager(Const.APP_NAME);
+            if (mSessionManager != null){
+                try {
+                    aylaSetup = new AylaSetup(getBaseContext(), mSessionManager);
+                } catch (AylaError aylaError) {
+                    aylaError.printStackTrace();
+                    onAylaEroor(aylaError);
+                }
+            }
             if (netMode == 6){
                 connectNewDevice(aylaWifi);
             }else {
-                new SunAirKiss().start(this, wifiName, wifiPwd, new SunAirKiss.Callback() {
-                    @Override
-                    public void SunAirkissSuccess(String s, String s1) {
-
-                    }
-
-                    @Override
-                    public void SunAirkissFailed(SunAirKiss.SunResultCode sunResultCode, String s) {
-
-                    }
-                });
+                if (mSunAirKiss == null){
+                    mSunAirKiss = new SunAirKiss();
+                }
+                airkissStart();
             }
         }
+    }
+
+    private int reStartCount;
+    private void airkissStart() {
+        mSunAirKiss.start(this, wifiName, wifiPwd, new SunAirKiss.Callback() {
+            @Override
+            public void SunAirkissSuccess(String dsn, String setupToken) {
+                Log.d(TAG,"s = " + dsn);
+                Log.d(TAG,"s1 = " + setupToken);
+                SpUtils.savaUserInfo(Const.DSN, dsn);
+                onAylaRequestSuccess();
+                confirmDeviceConnected(dsn,setupToken);
+            }
+
+            @Override
+            public void SunAirkissFailed(SunAirKiss.SunResultCode sunResultCode, String errmsg) {
+                Log.d(TAG,"sunResultCode = " + sunResultCode);
+                Log.d(TAG,"errmsg = " + errmsg);
+                if (reStartCount < 5){
+                    airkissStart();
+                    reStartCount++;
+                }
+            }
+        });
     }
 
     @Override
@@ -156,39 +182,29 @@ public class ConnectDeviceActivity extends BaseActivity {
     }
 
     private void connectNewDevice(String aylaWifi) {
-        try {
-            mSessionManager = AylaNetworks.sharedInstance().getSessionManager(Const.APP_NAME);
-            if (mSessionManager != null) {
-                aylaSetup = new AylaSetup(getBaseContext(), mSessionManager);
-                aylaSetup.connectToNewDevice(aylaWifi, 10, new Response.Listener<AylaSetupDevice>() {
-                    @Override
-                    public void onResponse(AylaSetupDevice response) {
-                        Log.d(TAG, "method  connectToNewDevice  onResponse...");
-                        onAylaRequestSuccess();
-                        isConnectNewDevice = true;
-                        connectDeviceService();
-                    }
-                }, new ErrorListener() {
-                    @Override
-                    public void onErrorResponse(AylaError error) {
-                        Log.e(TAG, "AylaError  = " + error.getMessage());
-                    }
-                });
-            } else {
-                ToastUtils.Toast_long("aylaSessionManager 初始化失败！");
-                Log.e(TAG, "aylaSessionManager  = " + mSessionManager);
+        if (mSessionManager != null && aylaSetup != null) {
+            aylaSetup.connectToNewDevice(aylaWifi, 10, new Response.Listener<AylaSetupDevice>() {
+                @Override
+                public void onResponse(AylaSetupDevice response) {
+                    Log.d(TAG, "method  connectToNewDevice  onResponse...");
+                    onAylaRequestSuccess();
+                    isConnectNewDevice = true;
+                    connectDeviceService();
+                }
+            }, new ErrorListener() {
+                @Override
+                public void onErrorResponse(AylaError error) {
+                    Log.e(TAG, "AylaError  = " + error.getMessage());
+                }
+            });
+        } else {
+            ToastUtils.Toast_long("aylaSessionManager 初始化失败！");
+            Log.e(TAG, "aylaSessionManager  = " + mSessionManager);
 
-            }
-
-        } catch (AylaError aylaError) {
-            aylaError.printStackTrace();
-            onAylaEroor(aylaError);
         }
     }
 
     private void connectDeviceService() {
-
-
         if (!wifiName.isEmpty() && !wifiPwd.isEmpty() && mLatLng != null && isConnectNewDevice) {
 
             final String setupToken = getRandomToken();
@@ -198,7 +214,6 @@ public class ConnectDeviceActivity extends BaseActivity {
                         public void onResponse(AylaWifiStatus response) {
 
                             final String dsn = response.getDsn();
-
                             SpUtils.savaUserInfo(Const.DSN, dsn);
 
                             Log.d(TAG, "connectDeviceToService  success ....");
@@ -234,25 +249,30 @@ public class ConnectDeviceActivity extends BaseActivity {
     }
 
     private void confirmDeviceConnected(String dsn, String setupToken) {
-        aylaSetup.confirmDeviceConnected(30, dsn, setupToken, new Response.Listener<AylaSetupDevice>() {
-            @Override
-            public void onResponse(AylaSetupDevice response) {
+        if (aylaSetup != null){
 
-                Log.d(TAG, "confirmDeviceConnected  success ....");
+            aylaSetup.confirmDeviceConnected(30, dsn, setupToken, new Response.Listener<AylaSetupDevice>() {
+                @Override
+                public void onResponse(AylaSetupDevice response) {
 
-                onAylaRequestSuccess();
+                    Log.d(TAG, "confirmDeviceConnected  success ....");
 
-                bindingDevice(response,dsn, setupToken);
+                    onAylaRequestSuccess();
 
-            }
-        }, new ErrorListener() {
-            @Override
-            public void onErrorResponse(AylaError aylaError) {
+                    bindingDevice(response,dsn, setupToken);
+
+                }
+            }, new ErrorListener() {
+                @Override
+                public void onErrorResponse(AylaError aylaError) {
 
 //                bindingDevice(dsn, setupToken);
-                onAylaEroor(aylaError);
-            }
-        });
+                    onAylaEroor(aylaError);
+                }
+            });
+        }else {
+            ToastUtils.Toast_long("初始化失败！请重试");
+        }
     }
 
     private void bindingDevice(AylaSetupDevice response,String dsn, String setupToken) {
@@ -272,7 +292,9 @@ public class ConnectDeviceActivity extends BaseActivity {
                 public void onResponse(AylaDevice response) {
                     Log.d(TAG, "registerCandidate  success ....");
                     onAylaRequestSuccess();
-
+                    if (netMode == 2 && mSunAirKiss != null){
+                        mSunAirKiss.stop();
+                    }
                 }
             }, new ErrorListener() {
                 @Override
@@ -304,11 +326,18 @@ public class ConnectDeviceActivity extends BaseActivity {
 
     private void onAylaRequestSuccess() {
 
-        mCurrentProgress = mCurrentProgress + 20;
+        if (netMode == 6){
+            mCurrentProgress = mCurrentProgress + 20;
+        }else {
+            mCurrentProgress = mCurrentProgress + 34;
+        }
+        if (mCurrentProgress > 100){
+            mCurrentProgress = 100;
+        }
         mProgressView.setProgress(mCurrentProgress);
         mProgressTv.setText(mCurrentProgress + "%");
 
-        if (mCurrentProgress == 100) {
+        if (mCurrentProgress >= 100) {
             mSteplay.setVisibility(View.GONE);
             mSurebtn.setVisibility(View.VISIBLE);
             isConnectSuccess = true;

@@ -46,6 +46,7 @@ public class DeviceAdapter extends RVBaseAdapter<AylaDevice> {
             public void onClick(View v) {
                 SpUtils.savaUserInfo(Const.DSN,deviceBean.getDsn());
                 Intent intent = new Intent(context, RemoteControlListActivity.class);
+                intent.putExtra(Const.DSN,deviceBean.getDsn());
                 context.startActivity(intent);
             }
         });

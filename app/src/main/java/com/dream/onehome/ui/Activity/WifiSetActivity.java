@@ -28,6 +28,8 @@ import com.dream.onehome.R;
 import com.dream.onehome.base.BaseActivity;
 import com.dream.onehome.common.Const;
 import com.dream.onehome.receiver.NetBroadcastReceiver;
+import com.dream.onehome.utils.SP;
+import com.dream.onehome.utils.WifiUtils;
 
 
 import butterknife.BindView;
@@ -57,6 +59,7 @@ public class WifiSetActivity extends BaseActivity {
     Button mSureTv;
 
     private NetBroadcastReceiver receiver;
+    private int netMode = SP.get(Const.netMode,2);
 
     @Override
     public int getLayoutId() {
@@ -217,10 +220,17 @@ public class WifiSetActivity extends BaseActivity {
                 String wifiName = mWifiNameEdt.getText().toString();
                 String wifiPwd = mWifiPwdEdt.getText().toString();
 
-                Intent intent = new Intent(getBaseContext(), WifiChangeActivity.class);
-                intent.putExtra(Const.WiFiName, wifiName);
-                intent.putExtra(Const.WiFiPwd, wifiPwd);
-                startActivityForResult(intent,1218);
+                if (netMode == 6){
+                    Intent intent = new Intent(getBaseContext(), WifiChangeActivity.class);
+                    intent.putExtra(Const.WiFiName, wifiName);
+                    intent.putExtra(Const.WiFiPwd, wifiPwd);
+                    startActivityForResult(intent,1218);
+                }else {
+                    Intent intent = new Intent(this, ConnectDeviceActivity.class);
+                    intent.putExtra(Const.WiFiName, wifiName);
+                    intent.putExtra(Const.WiFiPwd, wifiPwd);
+                    startActivity(intent);
+                }
 
                 break;
         }
