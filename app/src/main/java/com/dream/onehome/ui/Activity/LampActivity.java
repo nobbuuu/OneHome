@@ -3,7 +3,12 @@ package com.dream.onehome.ui.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 
 import com.android.volley.Response;
 import com.aylanetworks.aylasdk.AylaDatapoint;
@@ -15,6 +20,7 @@ import com.aylanetworks.aylasdk.AylaSessionManager;
 import com.aylanetworks.aylasdk.error.AylaError;
 import com.aylanetworks.aylasdk.error.ErrorListener;
 import com.dream.onehome.R;
+import com.dream.onehome.adapter.ExtGvAdapter;
 import com.dream.onehome.base.BaseMVVMActivity;
 import com.dream.onehome.bean.KeyIrCodeBean;
 import com.dream.onehome.bean.KeysBean;
@@ -22,10 +28,10 @@ import com.dream.onehome.bean.ModelBean;
 import com.dream.onehome.bean.RemoteControlBean;
 import com.dream.onehome.common.Const;
 import com.dream.onehome.constract.IResultLisrener;
-import com.dream.onehome.databinding.ActivityAirfilterBinding;
 import com.dream.onehome.databinding.ActivityLampBinding;
 import com.dream.onehome.ui.ViewModel.ModelViewModel;
 import com.dream.onehome.utils.ActivityUtils;
+import com.dream.onehome.utils.PopWindowUtil;
 import com.dream.onehome.utils.SpUtils;
 import com.dream.onehome.utils.ToastUtils;
 import com.dream.onehome.utils.annotations.ContentView;
@@ -108,7 +114,7 @@ public class LampActivity extends BaseMVVMActivity<ModelViewModel, ActivityLampB
                 mAylaDevice.createDatum(mKfid, value, new Response.Listener<AylaDatum>() {
                     @Override
                     public void onResponse(AylaDatum response) {
-                        Log.d(TAG,"response = " + response.getValue());
+                        Log.d(TAG, "response = " + response.getValue());
                         bindingView.addsureLay.setVisibility(View.GONE);
                         mLoadingDialog.dismiss();
                         isAdded = true;
@@ -116,7 +122,7 @@ public class LampActivity extends BaseMVVMActivity<ModelViewModel, ActivityLampB
                 }, new ErrorListener() {
                     @Override
                     public void onErrorResponse(AylaError aylaError) {
-                        Log.d(TAG,"aylaError = " + aylaError.getMessage());
+                        Log.d(TAG, "aylaError = " + aylaError.getMessage());
                         mLoadingDialog.dismiss();
                     }
                 });
@@ -175,38 +181,44 @@ public class LampActivity extends BaseMVVMActivity<ModelViewModel, ActivityLampB
                     mControlBean.setBrandName(brandName);
                 }
             }, device_id, brand_id);
-        }else {
+        } else {
             isView = true;
             bindingView.addsureLay.setVisibility(View.GONE);
             refreshModel(mKfid);
         }
     }
 
+    private KeysBean mKeysBean;
+
     private void refreshModel(String kfid) {
-        /*if (isView){
-            String keyListJson = (String) SpUtils.getParam(Const.KeyList, "");
-            if (!keyListJson.isEmpty()){
-                mKeylist = mGson.fromJson(keyListJson, new TypeToken<List<String>>() {}.getType());
-            }
-            remoteDevice();
-        }else {
-        }*/
         viewModel.getKeylist(kfid, new IResultLisrener<KeysBean>() {
             @Override
             public void onResults(KeysBean data) {
-
+                mKeysBean = new KeysBean();
+                int tempdex = 0;
                 List<String> keylist = data.getKeylist();
                 if (keylist != null) {
                     mKeylist.clear();
                     mKeylist.addAll(keylist);
-                    SpUtils.savaUserInfo(Const.KeyList,new Gson().toJson(keylist));
                     remoteDevice();
                 }
-                if (!isView){
+                if (!isView) {
                     index++;
                     bindingView.chosemodelTv.setText("下一个（" + index + " / " + modelList.size() + "）");
                 }
+                for (int i = 0; i < keylist.size(); i++) {
+                    if (keylist.get(i).equals("关")) {
+                        if (keylist.size() > (i + 1)) {
+                            List<String> tempKeyList = keylist.subList(i + 1, keylist.size() - 1);
+                            mKeysBean.setKeylist(tempKeyList);
+                            tempdex = i + 1;
+                        }
+                    }
+                }
                 List<String> keyvalue = data.getKeyvalue();
+                List<String> subList = keyvalue.subList(tempdex, keyvalue.size() - 1);
+                mKeysBean.setKeyvalue(subList);
+
                 if (keyvalue != null) {
                     mKeyvalues.clear();
                     mKeyvalues.addAll(keyvalue);
@@ -232,6 +244,17 @@ public class LampActivity extends BaseMVVMActivity<ModelViewModel, ActivityLampB
 //        bindingView.signIv.setImageResource(R.drawable.shape_circle_orange);
     }
 
+    private PopupWindow mPopupWindow;
+
+    private void initExtPop() {
+        View inflate = LayoutInflater.from(this).inflate(R.layout.dialog_extention, null);
+        ImageView closeIv = inflate.findViewById(R.id.closeiv);
+        GridView extentionGv = inflate.findViewById(R.id.extention_gv);
+        extentionGv.setAdapter(new ExtGvAdapter(this, mKeysBean.getKeylist(), R.layout.rvitem_extention));
+        mPopupWindow = PopWindowUtil.getPopupWindow(this, inflate, R.style.top2botAnimation, RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+    }
+
     private void remoteDevice() {
         viewModel.getKeyCode(new IResultLisrener<KeyIrCodeBean>() {
             @Override
@@ -254,7 +277,7 @@ public class LampActivity extends BaseMVVMActivity<ModelViewModel, ActivityLampB
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (!isView && isAdded){
+        if (!isView && isAdded) {
             ActivityUtils.getManager().finishActivity(SelectDeviceTypeActivity.class);
             ActivityUtils.getManager().finishActivity(BrandActivity.class);
         }

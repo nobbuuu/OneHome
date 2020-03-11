@@ -42,7 +42,7 @@ import java.util.List;
 /**
  * Time:2019/12/11
  * Author:TiaoZi
- *
+ * <p>
  * 电视主控界面
  */
 @ContentView(R.layout.activity_mater)
@@ -64,7 +64,7 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
     private String mBrandId;
     private String mKfid;
 
-    private int[] numIds = new int[]{R.id.zaro,R.id.one, R.id.two, R.id.three, R.id.four, R.id.five, R.id.six, R.id.seven, R.id.eight, R.id.night};
+    private int[] numIds = new int[]{R.id.zaro, R.id.one, R.id.two, R.id.three, R.id.four, R.id.five, R.id.six, R.id.seven, R.id.eight, R.id.night};
     private RemoteControlBean mControlBean = new RemoteControlBean();
     private boolean isAdded;
     private ExtensionFragment mExtensionFragment;
@@ -78,9 +78,9 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
         mKfid = intent.getStringExtra(Const.kfid);
         String deviceName = intent.getStringExtra(Const.deviceName);
         String brandName = intent.getStringExtra(Const.brandName);
-        if (mDeviceId != null){
+        if (mDeviceId != null) {
             mControlBean.setType(mDeviceId);
-            switch (mDeviceId){
+            switch (mDeviceId) {
                 case "3":
                     bindingView.centerTv.setText("机顶盒");
                     break;
@@ -98,23 +98,23 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
                     break;
             }
         }
-        if (deviceName !=null && brandName !=null){
+        if (deviceName != null && brandName != null) {
             mControlBean.setName(deviceName);
             mControlBean.setBrandName(brandName);
         }
 
-        mSessionManager =  AylaNetworks.sharedInstance().getSessionManager(Const.APP_NAME);
-        if (mSessionManager != null){
+        mSessionManager = AylaNetworks.sharedInstance().getSessionManager(Const.APP_NAME);
+        if (mSessionManager != null) {
             String dsn = (String) SpUtils.getParam(Const.DSN, "");
-            if (!dsn.isEmpty()){
+            if (!dsn.isEmpty()) {
                 mAylaDevice = mSessionManager.getDeviceManager().deviceWithDSN(dsn);
                 mAylaProperty = mAylaDevice.getProperty(Const.IR_Send_code);
-                Log.e(TAG,"mAylaProperty  = " + mAylaProperty);
+                Log.e(TAG, "mAylaProperty  = " + mAylaProperty);
             }
 
-        }else {
+        } else {
             ToastUtils.Toast_long("aylaSessionManager 初始化失败！");
-            Log.e(TAG,"aylaSessionManager  = " + mSessionManager);
+            Log.e(TAG, "aylaSessionManager  = " + mSessionManager);
         }
 
     }
@@ -141,7 +141,7 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
         bindingView.swichIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mAylaProperty != null){
+                if (mAylaProperty != null) {
                     String irCode = getIrCode("电源");
                     updateIrCode(irCode);
                 }
@@ -163,7 +163,7 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
                 mAylaDevice.createDatum(mKfid, value, new Response.Listener<AylaDatum>() {
                     @Override
                     public void onResponse(AylaDatum response) {
-                        Log.d(TAG,"response = " + response.getValue());
+                        Log.d(TAG, "response = " + response.getValue());
                         bindingView.addsureLay.setVisibility(View.GONE);
                         bindingView.masterTab.setVisibility(View.VISIBLE);
                         bindingView.masterVp.setVisibility(View.VISIBLE);
@@ -174,7 +174,7 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
                 }, new ErrorListener() {
                     @Override
                     public void onErrorResponse(AylaError aylaError) {
-                        Log.e(TAG,"aylaError = " + aylaError.getMessage());
+                        Log.e(TAG, "aylaError = " + aylaError.getMessage());
                         bindingView.addsureLay.setVisibility(View.GONE);
                         bindingView.masterTab.setVisibility(View.VISIBLE);
                         bindingView.masterVp.setVisibility(View.VISIBLE);
@@ -187,25 +187,25 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
     }
 
     private void updateIrCode(String irCode) {
-        Log.d(TAG,"irCode = " + irCode);
-        if (irCode != null && !irCode.isEmpty()){
+        Log.d(TAG, "irCode = " + irCode);
+        if (irCode != null && !irCode.isEmpty()) {
             mAylaProperty.createDatapoint(irCode, null, new Response.Listener<AylaDatapoint>() {
                 @Override
                 public void onResponse(AylaDatapoint response) {
 //                    ToastUtils.Toast_long("发送成功！");
-                    Log.e(TAG,"action  = 码率上传成功！");
+                    Log.e(TAG, "action  = 码率上传成功！");
                 }
             }, new ErrorListener() {
                 @Override
                 public void onErrorResponse(AylaError aylaError) {
                     ToastUtils.Toast_long("发送失败");
-                    Log.e(TAG,"aylaError  = " + aylaError.getMessage());
+                    Log.e(TAG, "aylaError  = " + aylaError.getMessage());
 
                 }
             });
-        }else {
+        } else {
             ToastUtils.Toast_long("暂不支持");
-            Log.e(TAG,"action  = 码库获取失败！！");
+            Log.e(TAG, "action  = 码库获取失败！！");
 
         }
     }
@@ -213,15 +213,15 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
     @Override
     protected void initView(Bundle savedInstanceState) {
 
-        if (mKfid == null){
+        if (mKfid == null) {
             bindingView.masterTab.setVisibility(View.GONE);
             bindingView.masterVp.setVisibility(View.GONE);
-        }else {
+        } else {
             initViewPager();
             bindingView.addsureLay.setVisibility(View.GONE);
         }
 
-        if (mDeviceId != null && mBrandId != null){
+        if (mDeviceId != null && mBrandId != null) {
             viewModel.getModellist(new IResultLisrener<List<ModelBean>>() {
                 @Override
                 public void onResults(List<ModelBean> data) {
@@ -237,7 +237,7 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
                     }
                 }
             }, mDeviceId, mBrandId);
-        }else if (mKfid != null){
+        } else if (mKfid != null) {
             refreshModel(mKfid);
         }
 
@@ -255,8 +255,8 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
                 int tempdex = 0;
                 List<String> keylist = data.getKeylist();
                 List<String> keyvalue = data.getKeyvalue();
-                if (keylist==null||keyvalue==null){
-                    if (keylist.size() != keyvalue.size()){
+                if (keylist == null || keyvalue == null) {
+                    if (keylist.size() != keyvalue.size()) {
                         ToastUtils.Toast_short("码库键值长度不对等");
                     }
                     return;
@@ -265,10 +265,12 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
                 mKeylist.clear();
                 mKeylist.addAll(keylist);
                 for (int i = 0; i < keylist.size(); i++) {
-                    if (keylist.get(i).equals("0")){
-                        List<String> subList = keylist.subList(i+1, keylist.size() - 1);
-                        extBean.setKeylist(subList);
-                        tempdex = i+1;
+                    if (keylist.get(i).equals("0")) {
+                        if (keylist.size() > (i + 1)) {
+                            List<String> subList = keylist.subList(i + 1, keylist.size() - 1);
+                            extBean.setKeylist(subList);
+                            tempdex = i + 1;
+                        }
                         break;
                     }
                 }
@@ -277,19 +279,19 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
                 mKeyvalues.addAll(keyvalue);
                 List<String> subList = keyvalue.subList(tempdex, keyvalue.size() - 1);
                 extBean.setKeyvalue(subList);
-                if (mExtensionFragment != null){
+                if (mExtensionFragment != null) {
                     mExtensionFragment.setData(extBean);
                 }
             }
         });
     }
 
-    private String getIrCode(String keyName){
+    private String getIrCode(String keyName) {
         for (int i = 0; i < mKeylist.size(); i++) {
             String keyStr = mKeylist.get(i);
-            if (keyStr.contains(keyName)){
-                Log.d(TAG,"keyName = " + keyName + "; keyStr = " + keyStr);
-                Log.d(TAG,"index = " + i);
+            if (keyStr.contains(keyName)) {
+                Log.d(TAG, "keyName = " + keyName + "; keyStr = " + keyStr);
+                Log.d(TAG, "index = " + i);
                 return mKeyvalues.get(i);
             }
         }
@@ -316,11 +318,11 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
         numberFragment.setOnViewClickListener(new NumberFragment.onViewClickListener() {
             @Override
             public void onClick(int viewId) {
-                if (viewId == R.id.return_iv){
+                if (viewId == R.id.return_iv) {
                     updateIrCode(getIrCode("返回"));
-                }else {
+                } else {
                     for (int i = 0; i < numIds.length; i++) {
-                        if (viewId == numIds[i]){
+                        if (viewId == numIds[i]) {
                             updateIrCode(getIrCode(String.valueOf(i)));
                             break;
                         }
@@ -332,7 +334,7 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
         menuFragment.setOnViewClickListener(new IClickLisrener() {
             @Override
             public void onClick(int viewId) {
-                switch (viewId){
+                switch (viewId) {
                     case R.id.menu:
                         updateIrCode(getIrCode("菜单"));
                         break;
@@ -367,7 +369,7 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.main_iv:
                 updateIrCode(getIrCode("首页"));
                 break;
@@ -392,7 +394,7 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (isAdded){
+        if (isAdded) {
             ActivityUtils.getManager().finishActivity(SelectDeviceTypeActivity.class);
             ActivityUtils.getManager().finishActivity(BrandActivity.class);
         }

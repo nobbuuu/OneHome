@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/shape_corner_white"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/closeiv"
+        android:layout_width="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/closeimg"
+        android:layout_height="wrap_content"></ImageView>
+
+    <TextView
+        android:id="@+id/elseextention_tv"
+        android:layout_width="wrap_content"
+        android:text="扩展键"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_40"
+        android:textSize="@dimen/sp_17"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content"></TextView>
+
+    <GridView
+        android:id="@+id/extention_gv"
+        android:layout_width="match_parent"
+        android:numColumns="3"
+        android:horizontalSpacing="@dimen/dp_15"
+        android:verticalSpacing="@dimen/dp_15"
+        android:layout_below="@+id/elseextention_tv"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_height="match_parent"></GridView>
+</RelativeLayout>

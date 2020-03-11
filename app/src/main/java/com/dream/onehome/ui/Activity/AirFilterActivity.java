@@ -203,7 +203,7 @@ public class AirFilterActivity extends BaseMVVMActivity<ModelViewModel, Activity
                 if (keylist != null) {
                     mKeylist.clear();
                     mKeylist.addAll(keylist);
-                    SpUtils.savaUserInfo(Const.KeyList,new Gson().toJson(keylist));
+//                    SpUtils.savaUserInfo(Const.KeyList,new Gson().toJson(keylist));
                     remoteDevice();
                 }
                 if (!isView){

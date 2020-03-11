@@ -4,7 +4,7 @@ import android.util.Log;
 import android.widget.GridView;
 
 import com.dream.onehome.R;
-import com.dream.onehome.adapter.ExtRvAdapter;
+import com.dream.onehome.adapter.ExtGvAdapter;
 import com.dream.onehome.base.BaseFragment;
 import com.dream.onehome.bean.KeysBean;
 
@@ -21,7 +21,7 @@ public class ExtensionFragment extends BaseFragment {
     @BindView(R.id.extention_rv)
     GridView extentionRv;
 
-    private ExtRvAdapter mExtRvAdapter;
+    private ExtGvAdapter mExtRvAdapter;
     @Override
     public void initView() {
         Log.d("axiba","extentionRv = "+ extentionRv);
@@ -52,14 +52,8 @@ public class ExtensionFragment extends BaseFragment {
 
     public void setData(KeysBean extBean){
         List<String> keylist = extBean.getKeylist();
-        mExtRvAdapter = new ExtRvAdapter(getActivity(),keylist,R.layout.rvitem_extention);
-//        extentionRv = rootView.findViewById(R.id.extention_rv);
+        mExtRvAdapter = new ExtGvAdapter(getActivity(),keylist,R.layout.rvitem_extention);
         extentionRv.setAdapter(mExtRvAdapter);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d("axiba","onDestroy...................");
-    }
 }

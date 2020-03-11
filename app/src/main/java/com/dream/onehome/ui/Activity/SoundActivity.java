@@ -201,7 +201,7 @@ public class SoundActivity extends BaseMVVMActivity<ModelViewModel, ActivitySoun
                 if (keylist != null) {
                     mKeylist.clear();
                     mKeylist.addAll(keylist);
-                    SpUtils.savaUserInfo(Const.KeyList,new Gson().toJson(keylist));
+//                    SpUtils.savaUserInfo(Const.KeyList,new Gson().toJson(keylist));
                     remoteDevice();
                 }
                 if (!isView){
