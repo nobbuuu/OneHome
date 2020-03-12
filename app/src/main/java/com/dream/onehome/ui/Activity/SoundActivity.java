@@ -24,6 +24,7 @@ import com.dream.onehome.common.Const;
 import com.dream.onehome.constract.IResultLisrener;
 import com.dream.onehome.databinding.ActivityAirfilterBinding;
 import com.dream.onehome.databinding.ActivitySoundBinding;
+import com.dream.onehome.dialog.ExtDialog;
 import com.dream.onehome.ui.ViewModel.ModelViewModel;
 import com.dream.onehome.utils.ActivityUtils;
 import com.dream.onehome.utils.SpUtils;
@@ -58,8 +59,8 @@ public class SoundActivity extends BaseMVVMActivity<ModelViewModel, ActivitySoun
 
     private boolean isView;
     private boolean isAdded;
-    private Gson mGson = new Gson();
-
+    private KeysBean mKeysBean = new KeysBean();
+    private ExtDialog mExtDialog;
     private RemoteControlBean mControlBean = new RemoteControlBean();
 
     @Override
@@ -111,7 +112,7 @@ public class SoundActivity extends BaseMVVMActivity<ModelViewModel, ActivitySoun
                 mAylaDevice.createDatum(mKfid, value, new Response.Listener<AylaDatum>() {
                     @Override
                     public void onResponse(AylaDatum response) {
-                        Log.d(TAG,"response = " + response.getValue());
+                        Log.d(TAG, "response = " + response.getValue());
                         bindingView.addsureLay.setVisibility(View.GONE);
                         mLoadingDialog.dismiss();
                         isAdded = true;
@@ -119,7 +120,7 @@ public class SoundActivity extends BaseMVVMActivity<ModelViewModel, ActivitySoun
                 }, new ErrorListener() {
                     @Override
                     public void onErrorResponse(AylaError aylaError) {
-                        Log.d(TAG,"aylaError = " + aylaError.getMessage());
+                        Log.d(TAG, "aylaError = " + aylaError.getMessage());
                         mLoadingDialog.dismiss();
                     }
                 });
@@ -151,7 +152,7 @@ public class SoundActivity extends BaseMVVMActivity<ModelViewModel, ActivitySoun
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-
+        mExtDialog = new ExtDialog(this);
         Intent intent = getIntent();
         String device_id = intent.getStringExtra(Const.device_id);
         String brand_id = intent.getStringExtra(Const.brand_id);
@@ -177,7 +178,7 @@ public class SoundActivity extends BaseMVVMActivity<ModelViewModel, ActivitySoun
                     mControlBean.setBrandName(brandName);
                 }
             }, device_id, brand_id);
-        }else {
+        } else {
             isView = true;
             bindingView.addsureLay.setVisibility(View.GONE);
             refreshModel(mKfid);
@@ -185,30 +186,22 @@ public class SoundActivity extends BaseMVVMActivity<ModelViewModel, ActivitySoun
     }
 
     private void refreshModel(String kfid) {
-        /*if (isView){
-            String keyListJson = (String) SpUtils.getParam(Const.KeyList, "");
-            if (!keyListJson.isEmpty()){
-                mKeylist = mGson.fromJson(keyListJson, new TypeToken<List<String>>() {}.getType());
-            }
-            remoteDevice();
-        }else {
-        }*/
         viewModel.getKeylist(kfid, new IResultLisrener<KeysBean>() {
             @Override
             public void onResults(KeysBean data) {
-
                 List<String> keylist = data.getKeylist();
+                List<String> keyvalue = data.getKeyvalue();
                 if (keylist != null) {
                     mKeylist.clear();
                     mKeylist.addAll(keylist);
 //                    SpUtils.savaUserInfo(Const.KeyList,new Gson().toJson(keylist));
                     remoteDevice();
                 }
-                if (!isView){
+                if (!isView) {
                     index++;
                     bindingView.chosemodelTv.setText("下一个（" + index + " / " + modelList.size() + "）");
                 }
-                List<String> keyvalue = data.getKeyvalue();
+                initExtentionData(keylist, keyvalue);
                 if (keyvalue != null) {
                     mKeyvalues.clear();
                     mKeyvalues.addAll(keyvalue);
@@ -216,6 +209,36 @@ public class SoundActivity extends BaseMVVMActivity<ModelViewModel, ActivitySoun
                 mControlBean.setKfid(kfid);
             }
         });
+    }
+
+    private void initExtentionData(List<String> keylist, List<String> keyvalue) {
+        String[] mainNames = new String[]{"电源", "音量+", "音量-"};
+        List<Integer> indexList = new ArrayList<>();
+        List<String> tempList = new ArrayList<>();
+        for (int i = 0; i < keylist.size(); i++) {
+            boolean isInclude = false;
+            for (int j = 0; j < mainNames.length; j++) {
+                if (keylist.get(i).equals(mainNames[j])) {
+                    isInclude = true;
+                    break;
+                }
+            }
+            if (!isInclude) {
+                tempList.add(keylist.get(i));
+                indexList.add(i);
+            }
+        }
+        mKeysBean.setKeylist(tempList);
+        List<String> tempValueList = new ArrayList<>();
+        for (int i = 0; i < keyvalue.size(); i++) {
+            for (int j = 0; j < indexList.size(); j++) {
+                if (i == indexList.get(j)) {
+                    tempValueList.add(keyvalue.get(i));
+                    break;
+                }
+            }
+        }
+        mKeysBean.setKeyvalue(tempValueList);
     }
 
     @Override
@@ -231,7 +254,8 @@ public class SoundActivity extends BaseMVVMActivity<ModelViewModel, ActivitySoun
                 updateIrCode(getKeyId("-"));
                 break;
             case R.id.extent_tv://扩展
-
+                mExtDialog.setData(mKeysBean);
+                mExtDialog.show();
                 break;
         }
 //        bindingView.signIv.setImageResource(R.drawable.shape_circle_orange);
@@ -259,7 +283,7 @@ public class SoundActivity extends BaseMVVMActivity<ModelViewModel, ActivitySoun
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (!isView && isAdded){
+        if (!isView && isAdded) {
             ActivityUtils.getManager().finishActivity(SelectDeviceTypeActivity.class);
             ActivityUtils.getManager().finishActivity(BrandActivity.class);
         }

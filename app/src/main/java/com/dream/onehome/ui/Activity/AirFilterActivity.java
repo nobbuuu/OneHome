@@ -16,6 +16,7 @@ import com.aylanetworks.aylasdk.error.AylaError;
 import com.aylanetworks.aylasdk.error.ErrorListener;
 import com.dream.onehome.R;
 import com.dream.onehome.base.BaseMVVMActivity;
+import com.dream.onehome.base.NoDoubleClickListener;
 import com.dream.onehome.bean.KeyIrCodeBean;
 import com.dream.onehome.bean.KeysBean;
 import com.dream.onehome.bean.ModelBean;
@@ -24,6 +25,7 @@ import com.dream.onehome.common.Const;
 import com.dream.onehome.constract.IResultLisrener;
 import com.dream.onehome.databinding.ActivityAirfilterBinding;
 import com.dream.onehome.databinding.ActivtiyAirconditionBinding;
+import com.dream.onehome.dialog.ExtDialog;
 import com.dream.onehome.ui.ViewModel.ModelViewModel;
 import com.dream.onehome.utils.ActivityUtils;
 import com.dream.onehome.utils.SpUtils;
@@ -59,13 +61,12 @@ public class AirFilterActivity extends BaseMVVMActivity<ModelViewModel, Activity
 
     private boolean isView;
     private boolean isAdded;
-    private Gson mGson = new Gson();
-
+    private KeysBean mKeysBean = new KeysBean();
+    private ExtDialog mExtDialog;
     private RemoteControlBean mControlBean = new RemoteControlBean();
 
     @Override
     protected void initIntent() {
-
         mSessionManager = AylaNetworks.sharedInstance().getSessionManager(Const.APP_NAME);
         if (mSessionManager != null) {
             String dsn = (String) SpUtils.getParam(Const.DSN, "");
@@ -113,7 +114,7 @@ public class AirFilterActivity extends BaseMVVMActivity<ModelViewModel, Activity
                 mAylaDevice.createDatum(mKfid, value, new Response.Listener<AylaDatum>() {
                     @Override
                     public void onResponse(AylaDatum response) {
-                        Log.d(TAG,"response = " + response.getValue());
+                        Log.d(TAG, "response = " + response.getValue());
                         bindingView.addsureLay.setVisibility(View.GONE);
                         mLoadingDialog.dismiss();
                         isAdded = true;
@@ -121,7 +122,7 @@ public class AirFilterActivity extends BaseMVVMActivity<ModelViewModel, Activity
                 }, new ErrorListener() {
                     @Override
                     public void onErrorResponse(AylaError aylaError) {
-                        Log.d(TAG,"aylaError = " + aylaError.getMessage());
+                        Log.d(TAG, "aylaError = " + aylaError.getMessage());
                         mLoadingDialog.dismiss();
                     }
                 });
@@ -154,6 +155,7 @@ public class AirFilterActivity extends BaseMVVMActivity<ModelViewModel, Activity
     @Override
     protected void initView(Bundle savedInstanceState) {
 
+        mExtDialog = new ExtDialog(this);
         Intent intent = getIntent();
         String device_id = intent.getStringExtra(Const.device_id);
         String brand_id = intent.getStringExtra(Const.brand_id);
@@ -179,7 +181,7 @@ public class AirFilterActivity extends BaseMVVMActivity<ModelViewModel, Activity
                     mControlBean.setBrandName(brandName);
                 }
             }, device_id, brand_id);
-        }else {
+        } else {
             isView = true;
             bindingView.addsureLay.setVisibility(View.GONE);
             refreshModel(mKfid);
@@ -187,30 +189,22 @@ public class AirFilterActivity extends BaseMVVMActivity<ModelViewModel, Activity
     }
 
     private void refreshModel(String kfid) {
-        /*if (isView){
-            String keyListJson = (String) SpUtils.getParam(Const.KeyList, "");
-            if (!keyListJson.isEmpty()){
-                mKeylist = mGson.fromJson(keyListJson, new TypeToken<List<String>>() {}.getType());
-            }
-            remoteDevice();
-        }else {
-        }*/
         viewModel.getKeylist(kfid, new IResultLisrener<KeysBean>() {
             @Override
             public void onResults(KeysBean data) {
-
                 List<String> keylist = data.getKeylist();
+                List<String> keyvalue = data.getKeyvalue();
                 if (keylist != null) {
                     mKeylist.clear();
                     mKeylist.addAll(keylist);
 //                    SpUtils.savaUserInfo(Const.KeyList,new Gson().toJson(keylist));
                     remoteDevice();
                 }
-                if (!isView){
+                if (!isView) {
                     index++;
                     bindingView.chosemodelTv.setText("下一个（" + index + " / " + modelList.size() + "）");
                 }
-                List<String> keyvalue = data.getKeyvalue();
+                initExtentionData(keylist, keyvalue);
                 if (keyvalue != null) {
                     mKeyvalues.clear();
                     mKeyvalues.addAll(keyvalue);
@@ -218,6 +212,36 @@ public class AirFilterActivity extends BaseMVVMActivity<ModelViewModel, Activity
                 mControlBean.setKfid(kfid);
             }
         });
+    }
+
+    private void initExtentionData(List<String> keylist, List<String> keyvalue) {
+        String[] mainNames = new String[]{"电源", "AUTO", "睡眠", "风速"};
+        List<Integer> indexList = new ArrayList<>();
+        List<String> tempList = new ArrayList<>();
+        for (int i = 0; i < keylist.size(); i++) {
+            boolean isInclude = false;
+            for (int j = 0; j < mainNames.length; j++) {
+                if (keylist.get(i).equals(mainNames[j])) {
+                    isInclude = true;
+                    break;
+                }
+            }
+            if (!isInclude) {
+                tempList.add(keylist.get(i));
+                indexList.add(i);
+            }
+        }
+        mKeysBean.setKeylist(tempList);
+        List<String> tempValueList = new ArrayList<>();
+        for (int i = 0; i < keyvalue.size(); i++) {
+            for (int j = 0; j < indexList.size(); j++) {
+                if (i == indexList.get(j)) {
+                    tempValueList.add(keyvalue.get(i));
+                    break;
+                }
+            }
+        }
+        mKeysBean.setKeyvalue(tempValueList);
     }
 
     @Override
@@ -236,7 +260,8 @@ public class AirFilterActivity extends BaseMVVMActivity<ModelViewModel, Activity
                 updateIrCode(getKeyId("风速"));
                 break;
             case R.id.extent_tv://扩展
-
+                mExtDialog.setData(mKeysBean);
+                mExtDialog.show();
                 break;
         }
 //        bindingView.signIv.setImageResource(R.drawable.shape_circle_orange);
@@ -264,7 +289,7 @@ public class AirFilterActivity extends BaseMVVMActivity<ModelViewModel, Activity
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (!isView && isAdded){
+        if (!isView && isAdded) {
             ActivityUtils.getManager().finishActivity(SelectDeviceTypeActivity.class);
             ActivityUtils.getManager().finishActivity(BrandActivity.class);
         }

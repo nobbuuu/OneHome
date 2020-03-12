@@ -24,6 +24,7 @@ import com.dream.onehome.common.Const;
 import com.dream.onehome.constract.IResultLisrener;
 import com.dream.onehome.databinding.ActivityAirfilterBinding;
 import com.dream.onehome.databinding.ActivityWaterheaterBinding;
+import com.dream.onehome.dialog.ExtDialog;
 import com.dream.onehome.ui.ViewModel.ModelViewModel;
 import com.dream.onehome.utils.ActivityUtils;
 import com.dream.onehome.utils.SpUtils;
@@ -61,10 +62,11 @@ public class WaterHeaterActivity extends BaseMVVMActivity<ModelViewModel, Activi
     private Gson mGson = new Gson();
 
     private RemoteControlBean mControlBean = new RemoteControlBean();
+    private KeysBean mKeysBean = new KeysBean();
+    private ExtDialog mExtDialog;
 
     @Override
     protected void initIntent() {
-
         mSessionManager = AylaNetworks.sharedInstance().getSessionManager(Const.APP_NAME);
         if (mSessionManager != null) {
             String dsn = (String) SpUtils.getParam(Const.DSN, "");
@@ -152,7 +154,7 @@ public class WaterHeaterActivity extends BaseMVVMActivity<ModelViewModel, Activi
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-
+        mExtDialog = new ExtDialog(this);
         Intent intent = getIntent();
         String device_id = intent.getStringExtra(Const.device_id);
         String brand_id = intent.getStringExtra(Const.brand_id);
@@ -197,8 +199,8 @@ public class WaterHeaterActivity extends BaseMVVMActivity<ModelViewModel, Activi
         viewModel.getKeylist(kfid, new IResultLisrener<KeysBean>() {
             @Override
             public void onResults(KeysBean data) {
-
                 List<String> keylist = data.getKeylist();
+                List<String> keyvalue = data.getKeyvalue();
                 if (keylist != null) {
                     mKeylist.clear();
                     mKeylist.addAll(keylist);
@@ -209,7 +211,7 @@ public class WaterHeaterActivity extends BaseMVVMActivity<ModelViewModel, Activi
                     index++;
                     bindingView.chosemodelTv.setText("下一个（" + index + " / " + modelList.size() + "）");
                 }
-                List<String> keyvalue = data.getKeyvalue();
+                initExtentionData(keylist, keyvalue);
                 if (keyvalue != null) {
                     mKeyvalues.clear();
                     mKeyvalues.addAll(keyvalue);
@@ -217,6 +219,36 @@ public class WaterHeaterActivity extends BaseMVVMActivity<ModelViewModel, Activi
                 mControlBean.setKfid(kfid);
             }
         });
+    }
+
+    private void initExtentionData(List<String> keylist, List<String> keyvalue) {
+        String [] mainNames = new String[]{"电源","模式","温度+","温度-"};
+        List<Integer> indexList = new ArrayList<>();
+        List<String> tempList = new ArrayList<>();
+        for (int i = 0; i < keylist.size(); i++) {
+            boolean isInclude = false;
+            for (int j = 0; j < mainNames.length; j++) {
+                if (keylist.get(i).equals(mainNames[j])){
+                    isInclude = true;
+                    break;
+                }
+            }
+            if (!isInclude){
+                tempList.add(keylist.get(i));
+                indexList.add(i);
+            }
+        }
+        mKeysBean.setKeylist(tempList);
+        List<String> tempValueList = new ArrayList<>();
+        for (int i = 0; i < keyvalue.size(); i++) {
+            for (int j = 0; j < indexList.size(); j++) {
+                if (i == indexList.get(j)){
+                    tempValueList.add(keyvalue.get(i));
+                    break;
+                }
+            }
+        }
+        mKeysBean.setKeyvalue(tempValueList);
     }
 
     @Override
@@ -235,7 +267,7 @@ public class WaterHeaterActivity extends BaseMVVMActivity<ModelViewModel, Activi
                 updateIrCode(getKeyId("温度-"));
                 break;
             case R.id.extent_tv://扩展
-
+                mExtDialog.setData(mKeysBean).show();
                 break;
         }
 //        bindingView.signIv.setImageResource(R.drawable.shape_circle_orange);

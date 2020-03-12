@@ -29,6 +29,7 @@ import com.dream.onehome.bean.RemoteControlBean;
 import com.dream.onehome.common.Const;
 import com.dream.onehome.constract.IResultLisrener;
 import com.dream.onehome.databinding.ActivityLampBinding;
+import com.dream.onehome.dialog.ExtDialog;
 import com.dream.onehome.ui.ViewModel.ModelViewModel;
 import com.dream.onehome.utils.ActivityUtils;
 import com.dream.onehome.utils.PopWindowUtil;
@@ -63,6 +64,7 @@ public class LampActivity extends BaseMVVMActivity<ModelViewModel, ActivityLampB
     private boolean isView;
     private boolean isAdded;
     private Gson mGson = new Gson();
+    private ExtDialog mExtDialog;
 
     private RemoteControlBean mControlBean = new RemoteControlBean();
 
@@ -186,6 +188,9 @@ public class LampActivity extends BaseMVVMActivity<ModelViewModel, ActivityLampB
             bindingView.addsureLay.setVisibility(View.GONE);
             refreshModel(mKfid);
         }
+
+        mExtDialog = new ExtDialog(this);
+
     }
 
     private KeysBean mKeysBean;
@@ -238,7 +243,10 @@ public class LampActivity extends BaseMVVMActivity<ModelViewModel, ActivityLampB
                 updateIrCode(getKeyId("开关"));
                 break;
             case R.id.extent_tv://扩展
-
+                if (mKeysBean != null){
+                    mExtDialog.setData(mKeysBean);
+                    mExtDialog.show();
+                }
                 break;
         }
 //        bindingView.signIv.setImageResource(R.drawable.shape_circle_orange);

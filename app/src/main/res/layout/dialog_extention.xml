@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@drawable/shape_corner_white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/default_bg"
     android:layout_height="wrap_content">
 
     <ImageView
@@ -9,6 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_alignParentRight="true"
         android:src="@drawable/closeimg"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_height="wrap_content"></ImageView>
 
     <TextView
@@ -16,8 +19,11 @@
         android:layout_width="wrap_content"
         android:text="扩展键"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp_40"
         android:textSize="@dimen/sp_17"
+        app:layout_constraintTop_toTopOf="@+id/closeiv"
+        app:layout_constraintBottom_toBottomOf="@+id/closeiv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         android:textColor="@color/black"
         android:layout_height="wrap_content"></TextView>
 
@@ -28,6 +34,8 @@
         android:horizontalSpacing="@dimen/dp_15"
         android:verticalSpacing="@dimen/dp_15"
         android:layout_below="@+id/elseextention_tv"
-        android:layout_marginTop="@dimen/dp_30"
-        android:layout_height="match_parent"></GridView>
-</RelativeLayout>
+        android:layout_marginTop="@dimen/dp_15"
+        android:padding="@dimen/dp_15"
+        app:layout_constraintTop_toBottomOf="@+id/elseextention_tv"
+        android:layout_height="wrap_content"></GridView>
+</androidx.constraintlayout.widget.ConstraintLayout>

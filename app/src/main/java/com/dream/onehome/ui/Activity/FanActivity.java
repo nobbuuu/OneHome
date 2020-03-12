@@ -32,6 +32,7 @@ import com.dream.onehome.constract.IClickLisrener;
 import com.dream.onehome.constract.IResultLisrener;
 import com.dream.onehome.databinding.ActivityFanBinding;
 import com.dream.onehome.databinding.ActivityMaterBinding;
+import com.dream.onehome.dialog.ExtDialog;
 import com.dream.onehome.ui.ViewModel.ModelViewModel;
 import com.dream.onehome.ui.fragment.MenuFragment;
 import com.dream.onehome.ui.fragment.NumberFragment;
@@ -76,7 +77,6 @@ public class FanActivity extends BaseMVVMActivity<ModelViewModel, ActivityFanBin
 
     @Override
     protected void initIntent() {
-
         Intent intent = getIntent();
         mDeviceId = intent.getStringExtra(Const.device_id);
         mBrandId = intent.getStringExtra(Const.brand_id);
