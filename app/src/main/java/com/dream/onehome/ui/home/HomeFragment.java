@@ -82,6 +82,7 @@ public class HomeFragment extends BaseFragment {
                         Log.d("AylaLog", "listChange = " + listChange);
                         if (listChange != null && devices.size() == 0) {
                             List<AylaDevice> addedItems = listChange.getAddedItems();
+                            Log.d("AylaLog", "addedItems.size() = " + addedItems.size());
                             if (addedItems != null && deviceRv != null) {
                                 setAdapterData(addedItems);
                             }

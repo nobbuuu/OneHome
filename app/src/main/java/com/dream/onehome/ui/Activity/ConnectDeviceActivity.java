@@ -141,10 +141,11 @@ public class ConnectDeviceActivity extends BaseActivity {
             public void SunAirkissFailed(SunAirKiss.SunResultCode sunResultCode, String errmsg) {
                 Log.d(TAG,"sunResultCode = " + sunResultCode);
                 Log.d(TAG,"errmsg = " + errmsg);
-                if (reStartCount < 5){
+                onAylaEroor(new AylaError(AylaError.ErrorType.Timeout,errmsg));
+                /*if (reStartCount < 5){
                     airkissStart();
                     reStartCount++;
-                }
+                }*/
             }
         });
     }

@@ -172,14 +172,14 @@ public class WifiSetActivity extends BaseActivity {
     public void requestPermission() {
         // checkSelfPermission 判断是否已经申请了此权限
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
+                != PackageManager.PERMISSION_GRANTED || ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)) {//ACCESS_FINE_LOCATION权限未授予
             //如果应用之前请求过此权限但用户拒绝了请求，shouldShowRequestPermissionRationale将返回 true。
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+           /* if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
 
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 121);
-            }
+            } */
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 121);
         }else {
             getConnectWifiSsid();
         }
@@ -220,7 +220,7 @@ public class WifiSetActivity extends BaseActivity {
                 String wifiName = mWifiNameEdt.getText().toString();
                 String wifiPwd = mWifiPwdEdt.getText().toString();
 
-                if (netMode == 6){
+                if (netMode == 6){//AP慢闪模式
                     Intent intent = new Intent(getBaseContext(), WifiChangeActivity.class);
                     intent.putExtra(Const.WiFiName, wifiName);
                     intent.putExtra(Const.WiFiPwd, wifiPwd);

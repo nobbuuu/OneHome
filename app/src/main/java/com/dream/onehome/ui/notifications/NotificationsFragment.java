@@ -33,9 +33,7 @@ public class NotificationsFragment extends Fragment {
 
     private NotificationsViewModel viewModel;
     private AylaSessionManager mSessionManager;
-    private AylaDevice mAylaDevice;
     private static final String TAG = "AylaLog";
-    private AylaProperty mAylaProperty;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -49,17 +47,6 @@ public class NotificationsFragment extends Fragment {
             }
         });
         mSessionManager = AylaNetworks.sharedInstance().getSessionManager(Const.APP_NAME);
-        if (mSessionManager != null) {
-            String dsn = (String) SpUtils.getParam(Const.DSN, "");
-            if (!dsn.isEmpty()) {
-                mAylaDevice = mSessionManager.getDeviceManager().deviceWithDSN(dsn);
-                mAylaProperty = mAylaDevice.getProperty(Const.IR_Send_code);
-            }
-
-        } else {
-            ToastUtils.Toast_long("aylaSessionManager 初始化失败！");
-            Log.e(TAG, "aylaSessionManager  = " + mSessionManager);
-        }
         ConstraintLayout setLay = root.findViewById(R.id.setlay);
 
         setLay.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +67,11 @@ public class NotificationsFragment extends Fragment {
 
                         }
                     });
+                }else {
+                    ToastUtils.Toast_long("账号异常  请重新登录");
+                    Intent intent = new Intent(getContext(),LoginActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
                 }
             }
         });
