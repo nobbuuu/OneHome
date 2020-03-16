@@ -25,6 +25,7 @@
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_height="wrap_content"></TextView>
     <TextView
+        android:id="@+id/status_tv"
         android:layout_width="wrap_content"
         android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="parent"

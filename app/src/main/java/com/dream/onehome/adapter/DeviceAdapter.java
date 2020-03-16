@@ -41,6 +41,11 @@ public class DeviceAdapter extends RVBaseAdapter<AylaDevice> {
     @Override
     public void onBind(RVBaseHolder holder, AylaDevice deviceBean, int position) {
         holder.setText(R.id.rcname_tv,"万能遥控器"+(position+1));
+        if (deviceBean.isOnline()){
+            holder.setText(R.id.status_tv,"在线");
+        }else {
+            holder.setText(R.id.status_tv,"离线");
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
