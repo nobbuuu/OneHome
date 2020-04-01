@@ -27,6 +27,8 @@ import com.dream.onehome.dialog.DialogUtils;
 import com.dream.onehome.ui.Activity.AddDeviceActivity;
 import com.dream.onehome.ui.Activity.RemoteControlListActivity;
 import com.dream.onehome.utils.LogUtils;
+import com.gyf.immersionbar.BarHide;
+import com.gyf.immersionbar.ImmersionBar;
 
 import java.util.List;
 import java.util.Map;
@@ -44,9 +46,13 @@ public class HomeFragment extends BaseFragment {
     private HomeViewModel homeViewModel;
     private AylaSessionManager mSessionManager;
     private AylaDeviceManager mDeviceManager;
+
     @Override
     public void initView() {
-
+        //沉浸式
+        if (ImmersionBar.hasNotchScreen(this)) {//如果有刘海屏则让布局不与状态栏重合，如果没有刘海屏则全屏布局
+            ImmersionBar.with(this).statusBarDarkFont(true).hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR).fitsSystemWindows(true).barColor(R.color.white).keyboardEnable(true).init();
+        }
     }
 
     @Override
@@ -82,8 +88,8 @@ public class HomeFragment extends BaseFragment {
                         Log.d("AylaLog", "listChange = " + listChange);
                         if (listChange != null && devices.size() == 0) {
                             List<AylaDevice> addedItems = listChange.getAddedItems();
-                            Log.d("AylaLog", "addedItems.size() = " + addedItems.size());
                             if (addedItems != null && deviceRv != null) {
+                                Log.d("AylaLog", "addedItems.size() = " + addedItems.size());
                                 setAdapterData(addedItems);
                             }
                         }
@@ -123,7 +129,7 @@ public class HomeFragment extends BaseFragment {
                             public void onResponse(AylaAPIRequest.EmptyResponse response) {
                                 LogUtils.e("删除成功");
                                 List<AylaDevice> data = mDeviceManager.getDevices();
-                                if (data.size()>0){
+                                if (data != null) {
                                     setAdapterData(data);
                                 }
                             }

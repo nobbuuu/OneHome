@@ -65,6 +65,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@null"
         android:textColor="@color/color333"
+        android:paddingTop="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_5"
         app:layout_constraintStart_toStartOf="parent"
         android:textColorHint="@color/color999"
         app:layout_constraintTop_toBottomOf="@+id/varify_tv" />
@@ -74,7 +76,6 @@
         android:layout_width="match_parent"
         app:layout_constraintTop_toBottomOf="@+id/userphone_edt"
         android:background="@color/color_them"
-        android:layout_marginTop="@dimen/dp_10"
         android:layout_height="0.5dp"></View>
     <EditText
         android:id="@+id/varify_edt"
@@ -90,6 +91,8 @@
         android:textSize="@dimen/sp_15"
         android:textColorHint="@color/color999"
         android:background="@null"
+        android:paddingTop="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_5"
         android:textColor="@color/color333"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -110,7 +113,6 @@
         android:layout_width="match_parent"
         app:layout_constraintTop_toBottomOf="@+id/varify_edt"
         android:background="@color/color666"
-        android:layout_marginTop="@dimen/dp_10"
         android:layout_height="0.5dp"></View>
 
 

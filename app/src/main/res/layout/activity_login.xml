@@ -63,7 +63,10 @@
         android:inputType="phone"
         android:selectAllOnFocus="true"
         android:text="18277750576"
+        android:maxLength="11"
         android:textSize="@dimen/sp_15"
+        android:paddingBottom="@dimen/dp_5"
+        android:paddingTop="@dimen/dp_5"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@null"
         android:textColor="@color/color333"
@@ -76,7 +79,6 @@
         android:layout_width="match_parent"
         app:layout_constraintTop_toBottomOf="@+id/userphone_edt"
         android:background="@color/color_them"
-        android:layout_marginTop="@dimen/dp_10"
         android:layout_height="0.5dp"></View>
     <EditText
         android:id="@+id/password_edt"
@@ -93,6 +95,8 @@
         android:textColorHint="@color/color999"
         android:background="@null"
         android:textColor="@color/color333"
+        android:paddingTop="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_5"
         android:text="123456"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -104,7 +108,6 @@
         android:layout_width="match_parent"
         app:layout_constraintTop_toBottomOf="@+id/password_edt"
         android:background="@color/color666"
-        android:layout_marginTop="@dimen/dp_10"
         android:layout_height="0.5dp"></View>
 
 

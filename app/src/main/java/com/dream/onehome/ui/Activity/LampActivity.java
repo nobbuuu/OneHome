@@ -52,7 +52,7 @@ public class LampActivity extends BaseMVVMActivity<ModelViewModel, ActivityLampB
     private List<String> mKeylist = new ArrayList<>();
     private List<String> mKeyvalues = new ArrayList<>();
 
-    private int index = 0;
+    private int index = 1;
 
     private AylaSessionManager mSessionManager;
     private AylaDevice mAylaDevice;
@@ -96,10 +96,11 @@ public class LampActivity extends BaseMVVMActivity<ModelViewModel, ActivityLampB
         bindingView.chosemodelTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (index < modelList.size()) {
-                    mKfid = modelList.get(index).getId();
-                    refreshModel(mKfid);
+                if (index >= modelList.size()) {
+                    index = 0;
                 }
+                mKfid = modelList.get(index++).getId();
+                refreshModel(mKfid);
             }
         });
 
@@ -164,7 +165,7 @@ public class LampActivity extends BaseMVVMActivity<ModelViewModel, ActivityLampB
         String deviceName = intent.getStringExtra(Const.deviceName);
         String brandName = intent.getStringExtra(Const.brandName);
         mKfid = intent.getStringExtra(Const.kfid);
-        if (mKfid == null) {
+        if (mKfid == null) {//添加遥控器
             viewModel.getModellist(new IResultLisrener<List<ModelBean>>() {
                 @Override
                 public void onResults(List<ModelBean> data) {
@@ -208,7 +209,6 @@ public class LampActivity extends BaseMVVMActivity<ModelViewModel, ActivityLampB
                     remoteDevice();
                 }
                 if (!isView) {
-                    index++;
                     bindingView.chosemodelTv.setText("下一个（" + index + " / " + modelList.size() + "）");
                 }
                 for (int i = 0; i < keylist.size(); i++) {

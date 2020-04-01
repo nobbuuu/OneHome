@@ -1,5 +1,7 @@
 package com.dream.onehome.bean;
 
+import java.util.List;
+
 /**
  * Time:2019/12/20
  * Author:TiaoZi
@@ -10,6 +12,16 @@ public class RemoteControlBean {
     private String name;
     private String brandName;
     private String mKfid;
+
+    private List<CustomItemBean> keysList;
+
+    public List<CustomItemBean> getKeysList() {
+        return keysList;
+    }
+
+    public void setKeysList(List<CustomItemBean> keysList) {
+        this.keysList = keysList;
+    }
 
     public RemoteControlBean() {
 

@@ -68,6 +68,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/wifiicon"
         android:paddingLeft="@dimen/dp_10"
         android:layout_marginRight="@dimen/dp_5"
+        android:paddingTop="@dimen/dp_7"
+        android:paddingBottom="@dimen/dp_7"
         app:layout_constraintEnd_toStartOf="@+id/wifichange_iv"
         android:textColor="@color/black"
         android:layout_height="wrap_content"></EditText>
@@ -75,7 +77,7 @@
         android:id="@+id/line_wifi"
         android:layout_width="match_parent"
         android:background="@color/color666"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_2"
         app:layout_constraintTop_toBottomOf="@+id/wifiname_tv"
         android:layout_height="0.5dp"></View>
 
@@ -90,7 +92,7 @@
     <EditText
         android:id="@+id/wifipwd_tv"
         android:layout_width="0dp"
-        android:hint="密码"
+        android:hint="请输入WiFi密码"
         android:textSize="@dimen/sp_14"
         android:background="@null"
         android:textColor="@color/black"
@@ -99,7 +101,10 @@
         app:layout_constraintTop_toTopOf="@+id/pwdicon"
         app:layout_constraintBottom_toBottomOf="@+id/pwdicon"
         android:paddingLeft="@dimen/dp_10"
+        android:paddingTop="@dimen/dp_7"
+        android:paddingBottom="@dimen/dp_7"
         android:layout_marginEnd="@dimen/dp_5"
+        android:textCursorDrawable="@drawable/shape_edtcursor"
         android:layout_height="wrap_content"></EditText>
 
     <ImageView
@@ -123,7 +128,7 @@
         android:id="@+id/line_pwd"
         android:layout_width="match_parent"
         android:background="@color/color666"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_2"
         app:layout_constraintTop_toBottomOf="@+id/wifipwd_tv"
         android:layout_height="0.5dp"></View>
 

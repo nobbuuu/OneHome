@@ -15,6 +15,8 @@ import com.dream.onehome.utils.LocationUtil;
 import com.dream.onehome.utils.SP;
 import com.dream.onehome.utils.SpUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.gyf.immersionbar.BarHide;
+import com.gyf.immersionbar.ImmersionBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,6 +38,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initView() {
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.

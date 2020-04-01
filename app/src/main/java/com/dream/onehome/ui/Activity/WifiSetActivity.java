@@ -4,20 +4,23 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.opengl.Visibility;
 import android.os.Bundle;
-import android.os.HandlerThread;
+import android.provider.Settings;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,10 +32,13 @@ import com.dream.onehome.base.BaseActivity;
 import com.dream.onehome.common.Const;
 import com.dream.onehome.receiver.NetBroadcastReceiver;
 import com.dream.onehome.utils.SP;
-import com.dream.onehome.utils.WifiUtils;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -58,8 +64,11 @@ public class WifiSetActivity extends BaseActivity {
     @BindView(R.id.sure_tv)
     Button mSureTv;
 
+    @BindView(R.id.pwdvisible_iv)
+    ImageView pwdvisibleIv;
+
     private NetBroadcastReceiver receiver;
-    private int netMode = SP.get(Const.netMode,2);
+    private int netMode = SP.get(Const.netMode, 2);
 
     @Override
     public int getLayoutId() {
@@ -103,7 +112,6 @@ public class WifiSetActivity extends BaseActivity {
 
     @Override
     public void loadDatas() {
-
     }
 
     @Override
@@ -162,8 +170,10 @@ public class WifiSetActivity extends BaseActivity {
         String wifiName = ssid.replace("\"", "");
 
         Log.d(TAG, "connect wifi name = " + wifiName);
-        if(ssid!=null){
+        if (ssid != null && !wifiName.contains("unknow")) {
             mWifiNameEdt.setText(wifiName);
+        }else {
+            mWifiNameEdt.setHint("请选择可用WiFi");
         }
 
         return wifiName;
@@ -180,7 +190,7 @@ public class WifiSetActivity extends BaseActivity {
 
             } */
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 121);
-        }else {
+        } else {
             getConnectWifiSsid();
         }
     }
@@ -189,18 +199,20 @@ public class WifiSetActivity extends BaseActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == 121){
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == 121) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                 getConnectWifiSsid();
 
-            }else {
+            } else {
 
             }
         }
 
 
     }
+
+    private boolean isPwdVisible = true;
 
     @OnClick({R.id.back_iv, R.id.pwdvisible_iv, R.id.wifichange_iv, R.id.sure_tv})
     public void onViewClicked(View view) {
@@ -209,10 +221,20 @@ public class WifiSetActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.pwdvisible_iv:
-
+                if (isPwdVisible) {
+                    pwdvisibleIv.setImageResource(R.drawable.config_password_off);
+//                    mWifiPwdEdt.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    mWifiPwdEdt.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                }else {
+                    pwdvisibleIv.setImageResource(R.drawable.config_password_on);
+//                    mWifiPwdEdt.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    mWifiPwdEdt.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                }
+                mWifiPwdEdt.setSelection(mWifiPwdEdt.getText().length());
+                isPwdVisible = !isPwdVisible;
                 break;
             case R.id.wifichange_iv:
-                startActivityForResult(new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS),1217);
+                startActivityForResult(new Intent(Settings.ACTION_WIFI_SETTINGS), 1217);
 
                 break;
             case R.id.sure_tv:
@@ -220,12 +242,12 @@ public class WifiSetActivity extends BaseActivity {
                 String wifiName = mWifiNameEdt.getText().toString();
                 String wifiPwd = mWifiPwdEdt.getText().toString();
 
-                if (netMode == 6){//AP慢闪模式
+                if (netMode == 6) {//AP慢闪模式
                     Intent intent = new Intent(getBaseContext(), WifiChangeActivity.class);
                     intent.putExtra(Const.WiFiName, wifiName);
                     intent.putExtra(Const.WiFiPwd, wifiPwd);
-                    startActivityForResult(intent,1218);
-                }else {
+                    startActivityForResult(intent, 1218);
+                } else {
                     Intent intent = new Intent(this, ConnectDeviceActivity.class);
                     intent.putExtra(Const.WiFiName, wifiName);
                     intent.putExtra(Const.WiFiPwd, wifiPwd);
@@ -240,15 +262,14 @@ public class WifiSetActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 1217){
+        if (requestCode == 1217) {
             getConnectWifiSsid();
 
         }
 
-        if (requestCode == 1218){
+        if (requestCode == 1218) {
 
         }
     }
-
 
 }

@@ -48,7 +48,7 @@ public class AirFilterActivity extends BaseMVVMActivity<ModelViewModel, Activity
     private List<String> mKeylist = new ArrayList<>();
     private List<String> mKeyvalues = new ArrayList<>();
 
-    private int index = 0;
+    private int index = 1;
 
     private AylaSessionManager mSessionManager;
     private AylaDevice mAylaDevice;
@@ -92,10 +92,11 @@ public class AirFilterActivity extends BaseMVVMActivity<ModelViewModel, Activity
         bindingView.chosemodelTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (index < modelList.size()) {
-                    mKfid = modelList.get(index).getId();
-                    refreshModel(mKfid);
+                if (index >= modelList.size()) {
+                    index = 0;
                 }
+                mKfid = modelList.get(index++).getId();
+                refreshModel(mKfid);
             }
         });
 
@@ -201,7 +202,6 @@ public class AirFilterActivity extends BaseMVVMActivity<ModelViewModel, Activity
                     remoteDevice();
                 }
                 if (!isView) {
-                    index++;
                     bindingView.chosemodelTv.setText("下一个（" + index + " / " + modelList.size() + "）");
                 }
                 initExtentionData(keylist, keyvalue);

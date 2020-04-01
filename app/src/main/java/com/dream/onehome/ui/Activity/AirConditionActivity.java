@@ -51,7 +51,7 @@ public class AirConditionActivity extends BaseMVVMActivity<ModelViewModel, Activ
     private List<String> mKeylist = new ArrayList<>();
     private List<String> mKeyvalues = new ArrayList<>();
 
-    private int index = 0;
+    private int index = 1;
 
     private AylaSessionManager mSessionManager;
     private AylaDevice mAylaDevice;
@@ -96,10 +96,11 @@ public class AirConditionActivity extends BaseMVVMActivity<ModelViewModel, Activ
         bindingView.chosemodelTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (index < modelList.size()) {
-                    mKfid = modelList.get(index).getId();
-                    refreshModel(mKfid);
+                if (index >= modelList.size()) {
+                    index = 0;
                 }
+                mKfid = modelList.get(index++).getId();
+                refreshModel(mKfid);
             }
         });
 
@@ -120,7 +121,7 @@ public class AirConditionActivity extends BaseMVVMActivity<ModelViewModel, Activ
                 mAylaDevice.createDatum(mKfid, value, new Response.Listener<AylaDatum>() {
                     @Override
                     public void onResponse(AylaDatum response) {
-                        Log.d(TAG,"response = " + response.getValue());
+                        Log.d(TAG, "response = " + response.getValue());
                         bindingView.addsureLay.setVisibility(View.GONE);
                         mLoadingDialog.dismiss();
                         isAdded = true;
@@ -128,7 +129,7 @@ public class AirConditionActivity extends BaseMVVMActivity<ModelViewModel, Activ
                 }, new ErrorListener() {
                     @Override
                     public void onErrorResponse(AylaError aylaError) {
-                        Log.d(TAG,"aylaError = " + aylaError.getMessage());
+                        Log.d(TAG, "aylaError = " + aylaError.getMessage());
                         mLoadingDialog.dismiss();
                     }
                 });
@@ -212,24 +213,25 @@ public class AirConditionActivity extends BaseMVVMActivity<ModelViewModel, Activ
                     mControlBean.setBrandName(brandName);
                 }
             }, device_id, brand_id);
-        }else {
+        } else {
             isView = true;
             bindingView.addsureLay.setVisibility(View.GONE);
             mKfid = intent.getStringExtra(Const.kfid);
-            if (mKfid != null){
+            if (mKfid != null) {
                 refreshModel(mKfid);
             }
         }
     }
 
     private void refreshModel(String kfid) {
-        if (isView){
+        if (isView) {
             String keyListJson = (String) SpUtils.getParam(Const.KeyList, "");
-            if (!keyListJson.isEmpty()){
-                mKeylist = mGson.fromJson(keyListJson, new TypeToken<List<String>>() {}.getType());
+            if (!keyListJson.isEmpty()) {
+                mKeylist = mGson.fromJson(keyListJson, new TypeToken<List<String>>() {
+                }.getType());
             }
             remoteDevice();
-        }else {
+        } else {
             viewModel.getKeylist(kfid, new IResultLisrener<KeysBean>() {
                 @Override
                 public void onResults(KeysBean data) {
@@ -238,11 +240,10 @@ public class AirConditionActivity extends BaseMVVMActivity<ModelViewModel, Activ
                     if (keylist != null) {
                         mKeylist.clear();
                         mKeylist.addAll(keylist);
-                        SpUtils.savaUserInfo(Const.KeyList,new Gson().toJson(keylist));
+                        SpUtils.savaUserInfo(Const.KeyList, new Gson().toJson(keylist));
                         remoteDevice();
                     }
-                    if (!isView){
-                        index++;
+                    if (!isView) {
                         bindingView.chosemodelTv.setText("下一个（" + index + " / " + modelList.size() + "）");
                     }
                     List<String> keyvalue = data.getKeyvalue();
@@ -290,13 +291,14 @@ public class AirConditionActivity extends BaseMVVMActivity<ModelViewModel, Activ
                     Log.d(TAG, "irCode = " + irCode);
                     if (irCode != null && !irCode.isEmpty()) {
                         updateIrCode(irCode, data);
-                    }else {
+                    } else {
                         ToastUtils.Toast_long("");
                     }
                 }
             }
         });
     }
+
     private void remoteDevice() {
         viewModel.getKeyCode(new IResultLisrener<KeyIrCodeBean>() {
             @Override
@@ -319,7 +321,7 @@ public class AirConditionActivity extends BaseMVVMActivity<ModelViewModel, Activ
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (!isView && isAdded){
+        if (!isView && isAdded) {
             ActivityUtils.getManager().finishActivity(SelectDeviceTypeActivity.class);
             ActivityUtils.getManager().finishActivity(BrandActivity.class);
         }

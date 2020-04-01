@@ -24,6 +24,10 @@ import com.aylanetworks.aylasdk.error.ErrorListener;
 import com.dream.onehome.R;
 import com.dream.onehome.base.BaseActivity;
 import com.dream.onehome.common.Const;
+import com.dream.onehome.constract.IDialogLisrener;
+import com.dream.onehome.dialog.DialogUtils;
+import com.dream.onehome.utils.DeviceUtils;
+import com.dream.onehome.utils.EditTextUtils;
 import com.dream.onehome.utils.LogUtils;
 import com.dream.onehome.utils.ToastUtils;
 import com.sunseaiot.phoneservice.PhoneServerManager;
@@ -70,8 +74,23 @@ public class RegisterValiActivity extends BaseActivity {
     TextView passwordIcon;
 
     private int time = 60;
+    private boolean isActive;
 
-    private CountDownTimer mCountDownTimer;
+    private Handler mHandler = new Handler();
+    private Runnable mRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (isActive) {
+                onvarcodeTv.setText(time + "s");
+            }
+            if (time > 0) {
+                mHandler.postDelayed(this, 1000);
+                time--;
+            } else {
+                resendCode();
+            }
+        }
+    };
     private boolean isResetPwd;
 
     @Override
@@ -81,35 +100,41 @@ public class RegisterValiActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        mCountDownTimer = new CountDownTimer(6000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                onvarcodeTv.setText(time-- + "s");
-                if (time == 0) {
-                    onvarcodeTv.setText("重新发送");
-                    mCountDownTimer.cancel();
-                    time = 60;
-                }
-            }
-
-            @Override
-            public void onFinish() {
-
-            }
-        };
-
         String phone = getIntent().getStringExtra(Const.PHONE);
         if (phone != null && !phone.isEmpty()) {
             userphoneEdt.setText(phone);
             login.setText("确定");
             isResetPwd = true;
         }
+        EditTextUtils.setEditTextLimitInputChat(userphoneEdt, 11);
+        EditTextUtils.setEditTextLimitInputChat(varifyEdt, 4);
+    }
 
+    private void resendCode() {
+        onvarcodeTv.setText("重新发送");
+        mHandler.removeCallbacks(mRunnable);
+        time = 60;
     }
 
     @Override
     public void OnResume() {
+        isActive = true;
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isActive = false;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mHandler != null) {
+            mHandler.removeCallbacks(mRunnable);
+            mHandler = null;
+            time = 0;
+        }
     }
 
     @Override
@@ -163,11 +188,11 @@ public class RegisterValiActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!userphoneEdt.getText().toString().isEmpty() && s.length() == 4) {
+                if (!userphoneEdt.getText().toString().isEmpty() && !phone.isEmpty() && s.length() == 4) {
                     pwdLay.setVisibility(View.VISIBLE);
-                    onvarcodeTv.setText("重新发送");
-                    mCountDownTimer.cancel();
-                    time = 60;
+//                    resendCode();
+                }else {
+                    pwdLay.setVisibility(View.GONE);
                 }
             }
         });
@@ -185,14 +210,39 @@ public class RegisterValiActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.length() >= 6) {
+                if (s.length() >= 6 && !phone.isEmpty()) {
                     login.setBackgroundResource(R.drawable.select_surebtn);
                     login.setEnabled(true);
+                } else {
+                    login.setBackgroundResource(R.drawable.shape_voice_unenable_btn);
+                    login.setEnabled(false);
+                }
+            }
+        });
+        userphoneEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() >= 11) {
+                    if (!DeviceUtils.isMobile(s.toString())){
+                        ToastUtils.Toast_long("请输入正确的手机号");
+                    }
                 }
             }
         });
     }
 
+
+    private String phone = "";
 
     @OnClick({R.id.back_iv, R.id.onvarcode_tv, R.id.login})
     public void onViewClicked(View view) {
@@ -201,9 +251,11 @@ public class RegisterValiActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.onvarcode_tv:
-                String phone = userphoneEdt.getText().toString();
+                phone = userphoneEdt.getText().toString();
                 if (phone.isEmpty()) {
                     ToastUtils.Toast_long(this, "请先输入手机号");
+                } else if (!DeviceUtils.isMobile(phone)) {
+                    ToastUtils.Toast_long(this, "请输入正确的手机号");
                 } else {
                     String type = Const.TYPE_register;
                     if (isResetPwd) {
@@ -214,7 +266,7 @@ public class RegisterValiActivity extends BaseActivity {
                                 @Override
                                 public void onResponse(AylaAPIRequest.EmptyResponse response) {
                                     Log.d(getLocalClassName(), "getSmsCode  onResponse ..");
-
+                                    resendCode();
                                 }
                             }, new ErrorListener() {
                                 @Override
@@ -222,12 +274,38 @@ public class RegisterValiActivity extends BaseActivity {
                                     LogUtils.e(error.getMessage());
                                     if (error.getMessage().contains("phone registered")) {
                                         ToastUtils.Toast_long("手机号已注册");
+                                        resendCode();
                                     }
-                                    mCountDownTimer.cancel();
-                                    time = 60;
+
+                                    if (error.getMessage().contains("phone not exist")) {//手机号未注册 弹窗提示
+                                        DialogUtils.getTipDialog(mContext, "温馨提示", "手机号未注册，是否确认注册？", new IDialogLisrener() {
+                                            @Override
+                                            public void onCancel() {
+                                                resendCode();
+                                            }
+
+                                            @Override
+                                            public void onSure() {
+                                                PhoneServerManager.getInstance().getSmsCode(phone, Const.APP_NAME, Const.oemId, Const.APP_ID, Const.AYLA_SECRET, Const.TYPE_register,
+                                                        "chinese", Const.AreaCode, Const.AYLA_Appid, new Response.Listener<AylaAPIRequest.EmptyResponse>() {
+                                                            @Override
+                                                            public void onResponse(AylaAPIRequest.EmptyResponse response) {
+                                                                Log.d(getLocalClassName(), "getSmsCode  onResponse ..");
+                                                                login.setText("注册");
+                                                                isResetPwd = false;
+                                                            }
+                                                        }, new ErrorListener() {
+                                                            @Override
+                                                            public void onErrorResponse(AylaError error) {
+                                                                LogUtils.e(error.getMessage());
+                                                            }
+                                                        });
+                                            }
+                                        }).show();
+                                    }
                                 }
                             });
-                    mCountDownTimer.start();
+                    mHandler.post(mRunnable);
                     varifyEdt.requestFocus();
                 }
                 break;
@@ -235,7 +313,19 @@ public class RegisterValiActivity extends BaseActivity {
                 String pwd = passwordEdt.getText().toString();
                 String phoneNum = userphoneEdt.getText().toString();
                 String valiCode = varifyEdt.getText().toString();
-                if (checkInput()) {
+                String nickName = "用户" + phoneNum.substring(phoneNum.length() - 4, phoneNum.length());
+                Log.d("testLog", "nickName = " + nickName);
+                if (phoneNum.isEmpty()) {
+                    ToastUtils.Toast_long(this, "请先输入手机号");
+                } else if (!DeviceUtils.isMobile(phoneNum)) {
+                    ToastUtils.Toast_long(this, "请输入正确的手机号");
+                } else if (!phone.equals(phoneNum)) {
+                    if (phone.isEmpty()) {
+                        ToastUtils.Toast_long(this, "请先获取验证码");
+                    } else {
+                        ToastUtils.Toast_long(this, "请重新获取验证码");
+                    }
+                } else if (checkInput()) {
 
                     if (isResetPwd) {
                         PhoneServerManager.getInstance().requestPasswordUpdate(valiCode, pwd, phoneNum, Const.oemId, Const.APP_ID, Const.AYLA_SECRET, new Response.Listener<AylaAPIRequest.EmptyResponse>() {
@@ -252,7 +342,7 @@ public class RegisterValiActivity extends BaseActivity {
                         });
                     } else {
 
-                        PhoneServerManager.getInstance().idpSignUp(phoneNum, pwd, "条子", "tiaozi", "axiba", valiCode, Const.AreaCode,
+                        PhoneServerManager.getInstance().idpSignUp(phoneNum, pwd, phoneNum, "yk", nickName, valiCode, Const.AreaCode,
                                 Const.oemId, new Response.Listener<PhoneServerManager.IdentityProviderAuth.UserBean>() {
                                     @Override
                                     public void onResponse(PhoneServerManager.IdentityProviderAuth.UserBean response) {
@@ -263,7 +353,10 @@ public class RegisterValiActivity extends BaseActivity {
                                     @Override
                                     public void onErrorResponse(AylaError error) {
                                         Log.d(getLocalClassName(), "idpSignUp  error = " + error.getMessage());
-                                        ToastUtils.Toast_long(error.getMessage());
+                                        if (error.getMessage().contains("code wrong")) {
+                                            ToastUtils.Toast_long("验证码错误");
+                                        }
+//                                        com.aylanetworks.aylasdk.error.ServerError: Server error: 500 {"code":"1011","msg":"sms code wrong!"}
                                     }
                                 });
                     }

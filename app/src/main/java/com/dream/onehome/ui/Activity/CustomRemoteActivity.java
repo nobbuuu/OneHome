@@ -70,23 +70,6 @@ public class CustomRemoteActivity extends BaseMVVMActivity<CustomRemoteModel, Ac
     @Override
     protected void initIntent() {
 
-        String kfid = getIntent().getStringExtra(Const.kfid);
-        String remoteName = getIntent().getStringExtra(Const.deviceName);
-        if (kfid != null){
-            bindingView.completeTv.setVisibility(View.GONE);
-            bindingView.botDivider.setVisibility(View.GONE);
-            bindingView.addbtnBtn.setVisibility(View.GONE);
-
-            String s = SP.get(kfid, "");
-            dataList = new Gson().fromJson(s, new TypeToken<List<CustomItemBean>>() {}.getType());
-        }else {
-            mDialog = showNameDialog(this);
-        }
-
-        if (remoteName != null){
-            bindingView.centerTv.setText(remoteName);
-        }
-
         mSessionManager = AylaNetworks.sharedInstance().getSessionManager(Const.APP_NAME);
         if (mSessionManager != null) {
             String dsn = (String) SpUtils.getParam(Const.DSN, "");
@@ -98,6 +81,54 @@ public class CustomRemoteActivity extends BaseMVVMActivity<CustomRemoteModel, Ac
         } else {
             ToastUtils.Toast_long("aylaApi 初始化失败");
             Log.e(TAG, "aylaSessionManager  = " + mSessionManager);
+        }
+
+        //初始化adapter
+        mRemoteAdapter = new CustomRemoteAdapter(this,dataList,R.layout.gvitem_custom);
+        mRemoteAdapter.setOnIGvItemListener(new IGvItemClickLisrener<CustomItemBean>() {
+            @Override
+            public void onItemClick(CustomItemBean dataBean, int position) {
+                updateIrCode(dataList.get(position).getIrCode());
+            }
+        });
+        bindingView.customGv.setAdapter(mRemoteAdapter);
+
+        String kfid = getIntent().getStringExtra(Const.kfid);
+        String remoteName = getIntent().getStringExtra(Const.deviceName);
+        if (kfid != null){
+            bindingView.completeTv.setVisibility(View.GONE);
+            bindingView.botDivider.setVisibility(View.GONE);
+            bindingView.addbtnBtn.setVisibility(View.GONE);
+
+            if (mAylaDevice != null){
+                mAylaDevice.fetchAylaDatum(kfid, new Response.Listener<AylaDatum>() {
+                    @Override
+                    public void onResponse(AylaDatum response) {
+                        String value = response.getValue();
+                        dataList.clear();
+                        RemoteControlBean data = new Gson().fromJson(value,RemoteControlBean.class);
+                        if (data != null){
+                            List<CustomItemBean> keysList = data.getKeysList();
+                            if (keysList != null){
+                                dataList.addAll(keysList);
+                                mRemoteAdapter.notifyDataSetChanged();
+                            }
+                        }
+                    }
+                }, new ErrorListener() {
+                    @Override
+                    public void onErrorResponse(AylaError aylaError) {
+
+                    }
+                });
+            }
+
+        }else {
+            mDialog = showNameDialog(this);
+        }
+
+        if (remoteName != null){
+            bindingView.centerTv.setText(remoteName);
         }
 
     }
@@ -129,14 +160,6 @@ public class CustomRemoteActivity extends BaseMVVMActivity<CustomRemoteModel, Ac
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        mRemoteAdapter = new CustomRemoteAdapter(this,dataList,R.layout.gvitem_custom);
-        mRemoteAdapter.setOnIGvItemListener(new IGvItemClickLisrener<CustomItemBean>() {
-            @Override
-            public void onItemClick(CustomItemBean dataBean, int position) {
-                updateIrCode(dataList.get(position).getIrCode());
-            }
-        });
-        bindingView.customGv.setAdapter(mRemoteAdapter);
     }
 
     private Dialog showNameDialog(Context activity) {
@@ -204,6 +227,7 @@ public class CustomRemoteActivity extends BaseMVVMActivity<CustomRemoteModel, Ac
                     bean.setType("12");
                     bean.setBrandName("自定义");
                     bean.setKfid(kfid);
+                    bean.setKeysList(dataList);
                     String value = new Gson().toJson(bean);
                     mLoadingDialog.show();
                     Log.e(TAG,"kfid = " + kfid);
@@ -213,7 +237,6 @@ public class CustomRemoteActivity extends BaseMVVMActivity<CustomRemoteModel, Ac
                             Log.d(TAG,"response = " + response.getValue());
                             mLoadingDialog.dismiss();
                             ToastUtils.Toast_long("添加成功");
-                            SP.put(kfid,new Gson().toJson(dataList));
                             Intent intent = new Intent(CustomRemoteActivity.this, CustomRemoteActivity.class);
                             intent.putExtra(Const.kfid,bean.getKfid());
                             intent.putExtra(Const.deviceName,bean.getName());

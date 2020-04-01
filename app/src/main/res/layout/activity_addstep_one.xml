@@ -109,7 +109,7 @@
         android:textColor="@color/black"
         android:textSize="@dimen/sp_13"
         android:layout_marginBottom="@dimen/dp_12"
-        android:text="确认指示灯在慢闪"
+        android:text="确认指示灯在快闪"
         android:layout_height="wrap_content"></RadioButton>
 
 

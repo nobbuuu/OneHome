@@ -58,6 +58,4 @@ public interface ApiService {
     Observable<KeyIrCodeBean> getKeyCode(@Field("mac") String mac);
 
 
-
-
 }

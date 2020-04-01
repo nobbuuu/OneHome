@@ -62,7 +62,7 @@ public class FanActivity extends BaseMVVMActivity<ModelViewModel, ActivityFanBin
     private AylaSessionManager mSessionManager;
     private AylaDevice mAylaDevice;
 
-    private int index = 0;
+    private int index = 1;
 
     private static final String TAG = "AylaLog";
     private AylaProperty mAylaProperty;
@@ -128,10 +128,11 @@ public class FanActivity extends BaseMVVMActivity<ModelViewModel, ActivityFanBin
         bindingView.chosemodelTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (index < modelList.size()) {
-                    String kfid = modelList.get(index).getId();
-                    refreshModel(kfid);
+                if (index >= modelList.size()) {
+                    index = 0;
                 }
+                mKfid = modelList.get(index++).getId();
+                refreshModel(mKfid);
             }
         });
 
@@ -226,11 +227,13 @@ public class FanActivity extends BaseMVVMActivity<ModelViewModel, ActivityFanBin
 
     }
 
+    private boolean isView = true;
     @Override
     protected void initView(Bundle savedInstanceState) {
 
         if (mKfid != null){
             bindingView.addsureLay.setVisibility(View.GONE);
+            isView = false;
         }
         if (mDeviceId != null && mBrandId != null) {
             viewModel.getModellist(new IResultLisrener<List<ModelBean>>() {
@@ -260,8 +263,9 @@ public class FanActivity extends BaseMVVMActivity<ModelViewModel, ActivityFanBin
         viewModel.getKeylist(kfid, new IResultLisrener<KeysBean>() {
             @Override
             public void onResults(KeysBean data) {
-                index++;
-                bindingView.chosemodelTv.setText("下一个（" + index + " / " + modelList.size() + "）");
+                if (!isView){
+                    bindingView.chosemodelTv.setText("下一个（" + index + " / " + modelList.size() + "）");
+                }
                 List<String> keylist = data.getKeylist();
                 if (keylist != null) {
                     mKeylist.clear();

@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#00574B</color>
     <color name="colorPrimaryDark">#008577</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#2f2f2f</color>
 
     <color name="color_them">#44C9D0</color>
     <color name="color_unenable">#BFDFDC</color>
@@ -36,5 +36,7 @@
     <color name="color_anim">#32E97E</color>
     <color name="color_custom">#00BB9C</color>
     <color name="color_defaut">#EFF0F0</color>
+
+    <color name="color2f">#2F2F2F</color>
 
 </resources>

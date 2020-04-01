@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -21,10 +23,15 @@ import com.aylanetworks.aylasdk.error.ErrorListener;
 import com.dream.onehome.R;
 import com.dream.onehome.base.BaseActivity;
 import com.dream.onehome.common.Const;
+import com.dream.onehome.utils.DeviceUtils;
+import com.dream.onehome.utils.EditTextUtils;
 import com.dream.onehome.utils.SpUtils;
 import com.dream.onehome.utils.ToastUtils;
 import com.ldoublem.loadingviewlib.view.LVGhost;
 import com.sunseaiot.phoneservice.PhoneAuthProvider;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -71,6 +78,7 @@ public class LoginActivity extends BaseActivity {
             login.setEnabled(true);
         }
 
+        EditTextUtils.setEditTextLimitInputChat(userphoneEdt,11);
     }
 
     @Override
@@ -137,6 +145,8 @@ public class LoginActivity extends BaseActivity {
                 String password = passwordEdt.getText().toString();
                 if (phoneNum.isEmpty()) {
                     ToastUtils.Toast_long("请输入手机号");
+                } else if (!DeviceUtils.isMobile(phoneNum)){
+                    ToastUtils.Toast_long(this, "请输入正确的手机号");
                 } else if (password.isEmpty()) {
                     ToastUtils.Toast_long("请输入密码");
                 } else {
@@ -159,6 +169,9 @@ public class LoginActivity extends BaseActivity {
                             if (error.getMessage().contains("password is wrong")){
                                 ToastUtils.Toast_long("密码不正确");
                             }
+                            if (error.getMessage().contains("phone not exist")){
+                                ToastUtils.Toast_long("手机号未注册");
+                            }
                             mLoading.dismiss();
                         }
                     });
@@ -179,6 +192,42 @@ public class LoginActivity extends BaseActivity {
                 break;
         }
     }
+
+    /**
+     * 禁止EditText输入空格
+     * @param editText
+     */
+    public static void setEditTextInhibitInputSpace(EditText editText){
+        InputFilter filter=new InputFilter() {
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                if(source.equals(" "))return "";
+                else return null;
+            }
+        };
+        editText.setFilters(new InputFilter[]{filter});
+    }
+
+    /**
+     * 禁止EditText输入特殊字符
+     * @param editText
+     */
+    public static void setEditTextInhibitInputSpeChat(EditText editText){
+
+        InputFilter filter=new InputFilter() {
+            @Override
+            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+                String speChat="[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
+                Pattern pattern = Pattern.compile(speChat);
+                Matcher matcher = pattern.matcher(source.toString());
+                if(matcher.find())return "";
+                else return null;
+            }
+        };
+        editText.setFilters(new InputFilter[]{filter});
+    }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

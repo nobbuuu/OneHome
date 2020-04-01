@@ -1,11 +1,11 @@
-package com.dream.onehome.ui.notifications;
+package com.dream.onehome.ui.mine;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -17,37 +17,29 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.android.volley.Response;
 import com.aylanetworks.aylasdk.AylaAPIRequest;
-import com.aylanetworks.aylasdk.AylaDevice;
 import com.aylanetworks.aylasdk.AylaNetworks;
-import com.aylanetworks.aylasdk.AylaProperty;
 import com.aylanetworks.aylasdk.AylaSessionManager;
 import com.aylanetworks.aylasdk.error.AylaError;
 import com.aylanetworks.aylasdk.error.ErrorListener;
 import com.dream.onehome.R;
 import com.dream.onehome.common.Const;
 import com.dream.onehome.ui.Activity.LoginActivity;
-import com.dream.onehome.utils.SpUtils;
 import com.dream.onehome.utils.ToastUtils;
+import com.gyf.immersionbar.BarHide;
+import com.gyf.immersionbar.ImmersionBar;
 
-public class NotificationsFragment extends Fragment {
+public class MineFragment extends Fragment {
 
-    private NotificationsViewModel viewModel;
+    private MineViewModel viewModel;
     private AylaSessionManager mSessionManager;
     private static final String TAG = "AylaLog";
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        viewModel = ViewModelProviders.of(this).get(NotificationsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_notifications, container, false);
-        final TextView textView = root.findViewById(R.id.text_notifications);
-        viewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+        viewModel = ViewModelProviders.of(this).get(MineViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_mine, container, false);
         mSessionManager = AylaNetworks.sharedInstance().getSessionManager(Const.APP_NAME);
-        ConstraintLayout setLay = root.findViewById(R.id.setlay);
+        RelativeLayout setLay = root.findViewById(R.id.signout);
 
         setLay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,5 +75,7 @@ public class NotificationsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //沉浸式
+        ImmersionBar.with(this).statusBarDarkFont(true).hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR).keyboardEnable(true).init();
     }
 }

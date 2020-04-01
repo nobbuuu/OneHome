@@ -56,7 +56,7 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
     private AylaSessionManager mSessionManager;
     private AylaDevice mAylaDevice;
 
-    private int index = 0;
+    private int index = 1;
 
     private static final String TAG = "AylaLog";
     private AylaProperty mAylaProperty;
@@ -131,10 +131,11 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
         bindingView.chosemodelTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (index < modelList.size()) {
-                    String kfid = modelList.get(index).getId();
-                    refreshModel(kfid);
+                if (index >= modelList.size()) {
+                    index = 0;
                 }
+                mKfid = modelList.get(index++).getId();
+                refreshModel(mKfid);
             }
         });
 
@@ -210,6 +211,7 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
         }
     }
 
+    private boolean isView = true;
     @Override
     protected void initView(Bundle savedInstanceState) {
 
@@ -219,6 +221,7 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
         } else {
             initViewPager();
             bindingView.addsureLay.setVisibility(View.GONE);
+            isView = false;
         }
 
         if (mDeviceId != null && mBrandId != null) {
@@ -249,8 +252,9 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
         viewModel.getKeylist(kfid, new IResultLisrener<KeysBean>() {
             @Override
             public void onResults(KeysBean data) {
-                index++;
-                bindingView.chosemodelTv.setText("下一个（" + index + " / " + modelList.size() + "）");
+                if (!isView){
+                    bindingView.chosemodelTv.setText("下一个（" + index + " / " + modelList.size() + "）");
+                }
                 KeysBean extBean = new KeysBean();
                 int tempdex = 0;
                 List<String> keylist = data.getKeylist();
@@ -345,7 +349,7 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
                         updateIrCode(getIrCode("返回"));
                         break;
                     case R.id.nextiv:
-                        updateIrCode(getIrCode("-/--"));
+                        updateIrCode(getIrCode("收藏"));
                         break;
                     case R.id.sure:
                         updateIrCode(getIrCode("OK"));

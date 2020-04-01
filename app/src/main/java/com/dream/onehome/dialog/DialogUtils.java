@@ -60,6 +60,35 @@ public class DialogUtils {
         return dialog;
     }
 
+    public static Dialog getTipDialog(Context activity, String title,String content,IDialogLisrener lisrener) {
+        Dialog dialog = new Dialog(activity,R.style.ActionSheetDialogStyle);
+        dialog.setContentView(R.layout.dialog_tip);
+        dialog.setCancelable(true);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        TextView titleTv = dialog.findViewById(R.id.dtitle);
+        TextView contentTv = dialog.findViewById(R.id.tipcontent_tv);
+        titleTv.setText(title);
+        contentTv.setText(content);
+        TextView cancelTv = dialog.findViewById(R.id.cancle_tv);
+        TextView sureTv = dialog.findViewById(R.id.sure_tv);
+        cancelTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lisrener.onCancel();
+                dialog.dismiss();
+            }
+        });
+
+        sureTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lisrener.onSure();
+                dialog.dismiss();
+            }
+        });
+        return dialog;
+    }
+
     public static void setDialogGravity(Dialog dialog, int gravity, double percentParent) {
         // 设置宽度为屏宽、靠近屏幕底部。
         Window window = dialog.getWindow();
