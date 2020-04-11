@@ -50,6 +50,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <RelativeLayout
+        android:id="@+id/tianmao_relay"
         android:layout_width="match_parent"
         android:layout_marginTop="@dimen/dp_20"
         android:background="@color/white"
@@ -70,6 +71,7 @@
             android:layout_height="wrap_content"></ImageView>
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/share_relay"
         android:layout_width="match_parent"
         android:background="@color/white"
         android:padding="@dimen/dp_18"
@@ -89,6 +91,7 @@
             android:layout_height="wrap_content"></ImageView>
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/help_relay"
         android:layout_width="match_parent"
         android:background="@color/white"
         android:padding="@dimen/dp_18"
@@ -109,6 +112,7 @@
             android:layout_height="wrap_content"></ImageView>
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/idea_relay"
         android:layout_width="match_parent"
         android:background="@color/white"
         android:padding="@dimen/dp_18"
@@ -129,6 +133,7 @@
     </RelativeLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/current_lay"
         android:layout_width="match_parent"
         android:background="@color/white"
         android:padding="@dimen/dp_18"
@@ -164,6 +169,7 @@
             android:text="V1.1.0"
             android:layout_height="wrap_content"></TextView>
         <TextView
+            android:id="@+id/new_tv"
             android:layout_width="wrap_content"
             android:text="NEW"
             android:textColor="@color/white"

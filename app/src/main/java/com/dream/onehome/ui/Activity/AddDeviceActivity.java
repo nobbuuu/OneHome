@@ -24,6 +24,8 @@ import com.dream.onehome.utils.DensityUtil;
 import com.dream.onehome.utils.PopWindowUtil;
 import com.dream.onehome.utils.SP;
 import com.dream.onehome.utils.SpUtils;
+import com.gyf.immersionbar.BarHide;
+import com.gyf.immersionbar.ImmersionBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,6 +41,8 @@ public class AddDeviceActivity extends BaseActivity {
     View divider;
     @BindView(R.id.sure_rad)
     RadioButton sureRad;
+    @BindView(R.id.ra_tv)
+    TextView ra_tv;
     @BindView(R.id.sure_tv)
     Button sureTv;
     @BindView(R.id.summary_tv)
@@ -54,7 +58,7 @@ public class AddDeviceActivity extends BaseActivity {
                 if (index % 2 == 0) {
                     flashIv.setImageResource(R.drawable.valicon);
                 } else {
-                    flashIv.setImageResource(R.drawable.valiconr);
+                    flashIv.setImageResource(R.mipmap.valiconr);
                 }
             }
         }
@@ -84,6 +88,8 @@ public class AddDeviceActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        ImmersionBar.with(this).statusBarDarkFont(true).hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR).fitsSystemWindows(true).barColor(R.color.color_valicode).keyboardEnable(true).init();
+
     }
 
     @Override
@@ -146,7 +152,7 @@ public class AddDeviceActivity extends BaseActivity {
                     selectIv2.setVisibility(View.INVISIBLE);
                     modePerTime = 2;
                     summaryTv.setText("长按复位键5秒进入快闪模式");
-                    sureRad.setText("确认指示灯正在快闪");
+                    ra_tv.setText("确认指示灯正在快闪");
                     mPopupWindow.dismiss();
                 }
             });
@@ -157,7 +163,7 @@ public class AddDeviceActivity extends BaseActivity {
                     selectIv2.setVisibility(View.VISIBLE);
                     modePerTime = 6;
                     summaryTv.setText("长按复位键5秒进入快闪模式，再按复位键5秒进入慢闪模式");
-                    sureRad.setText("确认指示灯在慢闪");
+                    ra_tv.setText("确认指示灯在慢闪");
                     mPopupWindow.dismiss();
                 }
             });

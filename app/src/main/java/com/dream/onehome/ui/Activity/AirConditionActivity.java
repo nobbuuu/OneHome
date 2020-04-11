@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -111,6 +112,23 @@ public class AirConditionActivity extends BaseMVVMActivity<ModelViewModel, Activ
         bindingView.windspeedIv.setOnClickListener(this);
         bindingView.winddirectionIv.setOnClickListener(this);
         bindingView.unknowIv.setOnClickListener(this);
+
+        bindingView.swichLay.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        bindingView.swichLay.setBackgroundResource(R.drawable.shape_corner_gray);
+                        bindingView.swichIv.setBackgroundResource(R.mipmap.power_icon_pressed);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        bindingView.swichLay.setBackgroundResource(R.drawable.shape_corner_default);
+                        bindingView.swichIv.setBackgroundResource(R.drawable.swich);
+                        break;
+                }
+                return false;
+            }
+        });
 
         //添加遥控器
         bindingView.addremotecontrolTv.setOnClickListener(new View.OnClickListener() {

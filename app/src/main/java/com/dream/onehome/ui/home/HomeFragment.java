@@ -51,7 +51,7 @@ public class HomeFragment extends BaseFragment {
     public void initView() {
         //沉浸式
         if (ImmersionBar.hasNotchScreen(this)) {//如果有刘海屏则让布局不与状态栏重合，如果没有刘海屏则全屏布局
-            ImmersionBar.with(this).statusBarDarkFont(true).hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR).fitsSystemWindows(true).barColor(R.color.white).keyboardEnable(true).init();
+            ImmersionBar.with(this).statusBarDarkFont(true).hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR).fitsSystemWindows(true).barColor(R.color.color_valicode).keyboardEnable(true).init();
         }
     }
 

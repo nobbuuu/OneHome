@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#00574B</color>
-    <color name="colorPrimaryDark">#008577</color>
-    <color name="colorAccent">#2f2f2f</color>
+    <color name="colorPrimaryDark">#6BC235</color>
+    <color name="colorAccent">#6BC235</color>
 
-    <color name="color_them">#44C9D0</color>
+    <color name="color_them_old">#44C9D0</color>
+    <color name="color_them">#6BC235</color>
     <color name="color_unenable">#BFDFDC</color>
     <color name="color333">#333333</color>
-    <color name="color666">#666666</color>
+    <color name="color666">#AEDD00</color>
     <color name="color999">#999999</color>
+    <color name="color_press">#6BC332</color>
     <color name="color_publish">#744BBB</color>
     <color name="default_bg">#F8F8F8</color>
     <color name="divider_bg">#EFEFEF</color>
@@ -23,6 +25,7 @@
     <color name="circle">#A2B4FE</color>
     <color name="rect">#F08980</color>
     <color name="triangle">#A1E3A1</color>
+    <color name="transpaint">#00000000</color>
     <color name="orange">#FE4302</color>
     <color name="reset">#677FC5</color>
     <color name="reset_dark">#D0D9F5</color>
@@ -38,5 +41,7 @@
     <color name="color_defaut">#EFF0F0</color>
 
     <color name="color2f">#2F2F2F</color>
+    <color name="color_loginbg">#F5FBF1</color>
+    <color name="color_valicode">#6BC235</color>
 
 </resources>

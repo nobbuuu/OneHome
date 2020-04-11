@@ -2,6 +2,7 @@ package com.dream.onehome.ui.Activity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -27,6 +28,8 @@ import com.dream.onehome.utils.DeviceUtils;
 import com.dream.onehome.utils.EditTextUtils;
 import com.dream.onehome.utils.SpUtils;
 import com.dream.onehome.utils.ToastUtils;
+import com.gyf.immersionbar.BarHide;
+import com.gyf.immersionbar.ImmersionBar;
 import com.ldoublem.loadingviewlib.view.LVGhost;
 import com.sunseaiot.phoneservice.PhoneAuthProvider;
 
@@ -58,6 +61,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        ImmersionBar.with(this).statusBarDarkFont(true).hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR).fitsSystemWindows(true).barColor(R.color.colorPrimaryDark).keyboardEnable(true).init();
         String phone = (String) SpUtils.getParam(Const.PHONE, "");
         String pwd = (String) SpUtils.getParam(Const.PWD, "");
 

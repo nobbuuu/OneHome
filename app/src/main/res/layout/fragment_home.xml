@@ -10,7 +10,7 @@
         android:id="@+id/action_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="@color/color_valicode"
         android:padding="@dimen/dp_10"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:text="一科"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 app:layout_constraintLeft_toRightOf="@+id/user_icon"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
@@ -47,7 +47,7 @@
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_7"
                 android:text="智能生活每一天"
-                android:textColor="#9A9A9A"
+                android:textColor="@color/white"
                 android:textSize="@dimen/sp_12"
                 app:layout_constraintLeft_toRightOf="@+id/user_icon"
                 app:layout_constraintTop_toBottomOf="@+id/login_tv"></TextView>
@@ -57,7 +57,7 @@
             android:id="@+id/adddevice_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/shop_mi_protect_add"
+            android:src="@mipmap/add_device"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"></ImageView>

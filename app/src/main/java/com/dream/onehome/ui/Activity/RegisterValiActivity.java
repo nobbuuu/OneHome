@@ -1,6 +1,7 @@
 package com.dream.onehome.ui.Activity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -30,6 +31,8 @@ import com.dream.onehome.utils.DeviceUtils;
 import com.dream.onehome.utils.EditTextUtils;
 import com.dream.onehome.utils.LogUtils;
 import com.dream.onehome.utils.ToastUtils;
+import com.gyf.immersionbar.BarHide;
+import com.gyf.immersionbar.ImmersionBar;
 import com.sunseaiot.phoneservice.PhoneServerManager;
 
 import java.util.Timer;
@@ -100,6 +103,8 @@ public class RegisterValiActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        ImmersionBar.with(this).statusBarDarkFont(true).hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR).fitsSystemWindows(true).barColor(R.color.colorPrimaryDark).keyboardEnable(true).init();
+
         String phone = getIntent().getStringExtra(Const.PHONE);
         if (phone != null && !phone.isEmpty()) {
             userphoneEdt.setText(phone);
@@ -191,7 +196,7 @@ public class RegisterValiActivity extends BaseActivity {
                 if (!userphoneEdt.getText().toString().isEmpty() && !phone.isEmpty() && s.length() == 4) {
                     pwdLay.setVisibility(View.VISIBLE);
 //                    resendCode();
-                }else {
+                } else {
                     pwdLay.setVisibility(View.GONE);
                 }
             }
@@ -233,7 +238,7 @@ public class RegisterValiActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.length() >= 11) {
-                    if (!DeviceUtils.isMobile(s.toString())){
+                    if (!DeviceUtils.isMobile(s.toString())) {
                         ToastUtils.Toast_long("请输入正确的手机号");
                     }
                 }
