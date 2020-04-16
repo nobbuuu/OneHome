@@ -70,6 +70,9 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        bind.unbind();
+
+        if (bind != null) {
+            bind.unbind();
+        }
     }
 }
