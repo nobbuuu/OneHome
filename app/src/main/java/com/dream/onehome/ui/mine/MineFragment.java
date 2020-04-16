@@ -50,8 +50,10 @@ public class MineFragment extends Fragment {
                         public void onResponse(AylaAPIRequest.EmptyResponse response) {
                             ToastUtils.Toast_long("退出成功");
                             Intent intent = new Intent(getContext(), LoginActivity.class);
-                            startActivity(intent);
-                            getActivity().finish();
+                            if (getActivity() != null) {
+                                startActivity(intent);
+                                getActivity().finish();
+                            } 
                         }
                     }, new ErrorListener() {
                         @Override
