@@ -328,7 +328,7 @@ public class ConnectDeviceActivity extends BaseActivity {
             mSurebtn.setBackgroundResource(R.drawable.select_reset);
             mSurebtn.setVisibility(View.VISIBLE);
         } catch (NullPointerException e) {
-            e.printStackTrace();
+            throw new NullPointerException("Null Pointer Exception");
         }
     }
 
