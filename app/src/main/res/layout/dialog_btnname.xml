@@ -28,6 +28,7 @@
             android:layout_marginRight="@dimen/dp_15"
             android:background="@drawable/shape_stroke_gray1"
             android:hint="请输入按键名称"
+            android:maxLength="10"
             android:padding="@dimen/dp_13"
             android:textSize="@dimen/sp_13"
             app:layout_constraintEnd_toEndOf="parent"
@@ -54,11 +55,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/select_tipdialog_lb"
+                android:clickable="true"
                 android:gravity="center"
                 android:padding="@dimen/dp_15"
-                android:background="@drawable/select_tipdialog_lb"
                 android:text="取消"
-                android:clickable="true"
                 android:textColor="@color/black"></TextView>
 
             <View
@@ -71,10 +72,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/select_tipdialog_rb"
+                android:clickable="true"
                 android:gravity="center"
                 android:padding="@dimen/dp_15"
-                android:clickable="true"
-                android:background="@drawable/select_tipdialog_rb"
                 android:text="完成"
                 android:textColor="@color/color_custom"></TextView>
         </LinearLayout>
