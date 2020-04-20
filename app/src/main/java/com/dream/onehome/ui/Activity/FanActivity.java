@@ -182,20 +182,20 @@ public class FanActivity extends BaseMVVMActivity<ModelViewModel, ActivityFanBin
             mAylaProperty.createDatapoint(irCode, null, new Response.Listener<AylaDatapoint>() {
                 @Override
                 public void onResponse(AylaDatapoint response) {
-                    ToastUtils.Toast_long("码率上传成功！");
+//                    ToastUtils.Toast_long("码率上传成功！");
                     Log.e(TAG, "action  = 码率上传成功！");
                     refreshUI(data);
                 }
             }, new ErrorListener() {
                 @Override
                 public void onErrorResponse(AylaError aylaError) {
-                    ToastUtils.Toast_long("码率上传失败！");
+//                    ToastUtils.Toast_long("码率上传失败！");
                     Log.e(TAG, "aylaError  = " + aylaError.getMessage());
 
                 }
             });
         } else {
-            ToastUtils.Toast_long("码率获取失败！");
+//            ToastUtils.Toast_long("码率获取失败！");
             Log.e(TAG, "action  = 码率获取失败！！");
         }
     }
