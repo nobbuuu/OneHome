@@ -35,9 +35,7 @@ import java.util.Map;
  */
 @ContentView(R.layout.activity_learn)
 public class LearnActivity extends BaseMVVMActivity<ModelViewModel, ActivityLearnBinding> {
-
-    private boolean EXIT = false;
-
+    
     private AylaSessionManager mSessionManager;
     private AylaDevice mAylaDevice;
 
@@ -110,6 +108,11 @@ public class LearnActivity extends BaseMVVMActivity<ModelViewModel, ActivityLear
 
     private void fetchIrCode() {
         Log.d(TAG, "fetchIrCode.......");
+
+        if (mAylaProperty == null) {
+            return;
+        }
+
         requestSum++;
         mAylaProperty.fetchDatapoints(1, null, null, new Response.Listener<AylaDatapoint[]>() {
             @Override
@@ -134,9 +137,7 @@ public class LearnActivity extends BaseMVVMActivity<ModelViewModel, ActivityLear
                     fetchIrCode();
                 }
                 if (requestSum >= REQUESTNUM) {
-                    if (!EXIT) {
-                        ToastUtils.Toast_long("添加超时，请重试");
-                    }
+                    ToastUtils.Toast_long("添加超时，请重试");
                     finish();
                 }
             }
@@ -156,8 +157,10 @@ public class LearnActivity extends BaseMVVMActivity<ModelViewModel, ActivityLear
             @Override
             public void onNoDoubleClick(View view) {
                 // 用户退出时停止学习过程
-                EXIT =true;
-                requestSum = REQUESTNUM;
+                if (mAylaProperty != null) {
+                    mAylaProperty = null;
+                    onBackPressed();
+                }
             }
         });
     }
