@@ -92,7 +92,7 @@
                 android:background="@drawable/select_master"
                 android:clickable="true"
                 android:padding="@dimen/dp_15"
-                android:src="@mipmap/swich"
+                android:src="@drawable/select_power"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></ImageView>
