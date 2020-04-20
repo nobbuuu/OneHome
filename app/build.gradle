@@ -32,13 +32,13 @@ android {
         release {
             keyAlias 'onehome'
             keyPassword '243586'
-            storeFile file('E:/workpace/onehome-keystore/onehome.keystore')
+            storeFile file('E:/workpace/onehome-keystore/onehome-release.keystore')
             storePassword '243586'
         }
         debug {
             keyAlias 'onehome'
             keyPassword '243586'
-            storeFile file('E:/workpace/onehome-keystore/onehome.keystore')
+            storeFile file('E:/workpace/onehome-keystore/onehome-debug.keystore')
             storePassword '243586'
         }
     }
