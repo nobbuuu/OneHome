@@ -33,6 +33,7 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.ldoublem.loadingviewlib.view.LVGhost;
 import com.sunseaiot.phoneservice.PhoneAuthProvider;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -154,32 +155,36 @@ public class LoginActivity extends BaseActivity {
                 } else if (password.isEmpty()) {
                     ToastUtils.Toast_long("请输入密码");
                 } else {
-                    PhoneAuthProvider phoneAuthProvider = new PhoneAuthProvider(phoneNum, password);
-                    AylaNetworks.sharedInstance().getLoginManager().signIn(phoneAuthProvider, Const.APP_NAME, new Response.Listener<AylaAuthorization>() {
-                        @Override
-                        public void onResponse(AylaAuthorization response) {
-                            Log.d(getLocalClassName(),"response = " + response.getAccessToken());
-                            SpUtils.savaUserInfo(Const.TOKEN,phoneNum);
-                            SpUtils.savaUserInfo(Const.PWD,password);
-                            ToastUtils.Toast_long("登录成功");
-                            mLoading.dismiss();
-                            startActivity(new Intent(getBaseContext(),MainActivity.class));
-                            finish();
-                        }
-                    }, new ErrorListener() {
-                        @Override
-                        public void onErrorResponse(AylaError error) {
-                            Log.d(getLocalClassName(),"error = " + error.getMessage());
-                            if (error.getMessage().contains("password is wrong")){
-                                ToastUtils.Toast_long("密码不正确");
+                    try {
+                        PhoneAuthProvider phoneAuthProvider = new PhoneAuthProvider(phoneNum, password);
+                        AylaNetworks.sharedInstance().getLoginManager().signIn(phoneAuthProvider, Const.APP_NAME, new Response.Listener<AylaAuthorization>() {
+                            @Override
+                            public void onResponse(AylaAuthorization response) {
+                                Log.d(getLocalClassName(), "response = " + response.getAccessToken());
+                                SpUtils.savaUserInfo(Const.TOKEN, phoneNum);
+                                SpUtils.savaUserInfo(Const.PWD, password);
+                                ToastUtils.Toast_long("登录成功");
+                                mLoading.dismiss();
+                                startActivity(new Intent(getBaseContext(), MainActivity.class));
+                                finish();
                             }
-                            if (error.getMessage().contains("phone not exist")){
-                                ToastUtils.Toast_long("手机号未注册");
+                        }, new ErrorListener() {
+                            @Override
+                            public void onErrorResponse(AylaError error) {
+                                Log.d(getLocalClassName(), "error = " + error.getMessage());
+                                if (error.getMessage().contains("password is wrong")) {
+                                    ToastUtils.Toast_long("密码不正确");
+                                }
+                                if (error.getMessage().contains("phone not exist")) {
+                                    ToastUtils.Toast_long("手机号未注册");
+                                }
+                                mLoading.dismiss();
                             }
-                            mLoading.dismiss();
-                        }
-                    });
-                    mLoading.show();
+                        });
+                        mLoading.show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 break;
             case R.id.onvarcode_tv://忘记密码

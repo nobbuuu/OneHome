@@ -66,8 +66,6 @@ public class RemoteControlListAdapter extends RVBaseAdapter<RemoteControlBean> {
 
     }
 
-
-
     @Override
     public void onBind(RVBaseHolder holder, RemoteControlBean remoteControlBean, int position) {
         final String name = remoteControlBean.getName();

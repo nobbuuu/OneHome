@@ -199,7 +199,7 @@ public class MainCtrolerActivity extends BaseMVVMActivity<ModelViewModel, Activi
             }, new ErrorListener() {
                 @Override
                 public void onErrorResponse(AylaError aylaError) {
-                    ToastUtils.Toast_long("发送失败");
+//                    ToastUtils.Toast_long("发送失败");
                     Log.e(TAG, "aylaError  = " + aylaError.getMessage());
 
                 }

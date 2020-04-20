@@ -1,5 +1,6 @@
 package com.dream.onehome.ui.mine;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -44,14 +45,17 @@ public class MineFragment extends Fragment {
         setLay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ( mSessionManager != null){
+                if (mSessionManager != null) {
                     mSessionManager.shutDown(new Response.Listener<AylaAPIRequest.EmptyResponse>() {
                         @Override
                         public void onResponse(AylaAPIRequest.EmptyResponse response) {
-                            ToastUtils.Toast_long("退出成功");
-                            Intent intent = new Intent(getContext(), LoginActivity.class);
-                            startActivity(intent);
-                            getActivity().finish();
+                            Activity rootActivity = getActivity();
+                            if (rootActivity != null) {
+                                ToastUtils.Toast_long("退出成功");
+                                Intent intent = new Intent(getContext(), LoginActivity.class);
+                                startActivity(intent);
+                                rootActivity.finish();
+                            }
                         }
                     }, new ErrorListener() {
                         @Override
@@ -59,9 +63,9 @@ public class MineFragment extends Fragment {
 
                         }
                     });
-                }else {
+                } else {
                     ToastUtils.Toast_long("账号异常  请重新登录");
-                    Intent intent = new Intent(getContext(),LoginActivity.class);
+                    Intent intent = new Intent(getContext(), LoginActivity.class);
                     startActivity(intent);
                     getActivity().finish();
                 }

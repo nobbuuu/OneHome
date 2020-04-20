@@ -170,6 +170,9 @@ public class ConnectDeviceActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back_iv:
+                if (mSunAirKiss != null) {
+                    mSunAirKiss.stop();
+                }
                 onBackPressed();
                 break;
             case R.id.sure_tv:
@@ -319,10 +322,14 @@ public class ConnectDeviceActivity extends BaseActivity {
         Log.e(TAG, "aylaError  = " + aylaError.getMessage());
         ToastUtils.Toast_long(aylaError.getMessage());
 
-        mSteplay.setVisibility(View.GONE);
-        mSurebtn.setText("重试");
-        mSurebtn.setBackgroundResource(R.drawable.select_reset);
-        mSurebtn.setVisibility(View.VISIBLE);
+        try {
+            mSteplay.setVisibility(View.GONE);
+            mSurebtn.setText("重试");
+            mSurebtn.setBackgroundResource(R.drawable.select_reset);
+            mSurebtn.setVisibility(View.VISIBLE);
+        } catch (NullPointerException e) {
+            throw new NullPointerException("Retry button NPE");
+        }
     }
 
     private void onAylaRequestSuccess() {

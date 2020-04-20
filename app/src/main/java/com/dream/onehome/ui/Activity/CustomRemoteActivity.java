@@ -219,10 +219,16 @@ public class CustomRemoteActivity extends BaseMVVMActivity<CustomRemoteModel, Ac
                 String keyName = nameEdt.getText().toString();
                 if (keyName.isEmpty()){
                     ToastUtils.Toast_long("请输入遥控器名称");
-                }else {
+                } else {
+                    // 防止无按键时创建自定义遥控器
+                    if (dataList.size() == 0) {
+                        ToastUtils.Toast_long("请添加按键");
+                        return;
+                    }
+
                     dialog.dismiss();
                     RemoteControlBean bean = new RemoteControlBean();
-                    String kfid = SystemClock.elapsedRealtime()+"c";
+                    String kfid = SystemClock.elapsedRealtime() + "c";
                     bean.setName(keyName);
                     bean.setType("12");
                     bean.setBrandName("自定义");
@@ -230,23 +236,23 @@ public class CustomRemoteActivity extends BaseMVVMActivity<CustomRemoteModel, Ac
                     bean.setKeysList(dataList);
                     String value = new Gson().toJson(bean);
                     mLoadingDialog.show();
-                    Log.e(TAG,"kfid = " + kfid);
+                    Log.e(TAG, "kfid = " + kfid);
                     mAylaDevice.createDatum(kfid, value, new Response.Listener<AylaDatum>() {
                         @Override
                         public void onResponse(AylaDatum response) {
-                            Log.d(TAG,"response = " + response.getValue());
+                            Log.d(TAG, "response = " + response.getValue());
                             mLoadingDialog.dismiss();
                             ToastUtils.Toast_long("添加成功");
                             Intent intent = new Intent(CustomRemoteActivity.this, CustomRemoteActivity.class);
-                            intent.putExtra(Const.kfid,bean.getKfid());
-                            intent.putExtra(Const.deviceName,bean.getName());
+                            intent.putExtra(Const.kfid, bean.getKfid());
+                            intent.putExtra(Const.deviceName, bean.getName());
                             startActivity(intent);
                             finish();
                         }
                     }, new ErrorListener() {
                         @Override
                         public void onErrorResponse(AylaError aylaError) {
-                            Log.e(TAG,"aylaError = " + aylaError.getMessage());
+                            Log.e(TAG, "aylaError = " + aylaError.getMessage());
                             mLoadingDialog.dismiss();
                         }
                     });
@@ -289,7 +295,7 @@ public class CustomRemoteActivity extends BaseMVVMActivity<CustomRemoteModel, Ac
         mAylaProperty.createDatapoint(irCode, null, new Response.Listener<AylaDatapoint>() {
             @Override
             public void onResponse(AylaDatapoint response) {
-                ToastUtils.Toast_long("码率上传成功！");
+//                ToastUtils.Toast_long("码率上传成功！");
             }
         }, new ErrorListener() {
             @Override

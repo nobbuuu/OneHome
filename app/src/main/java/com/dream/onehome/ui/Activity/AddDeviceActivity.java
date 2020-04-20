@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -89,7 +91,7 @@ public class AddDeviceActivity extends BaseActivity {
     @Override
     public void initView() {
         ImmersionBar.with(this).statusBarDarkFont(true).hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR).fitsSystemWindows(true).barColor(R.color.color_valicode).keyboardEnable(true).init();
-
+        hideBottomNavigationBar();
     }
 
     @Override
@@ -162,7 +164,7 @@ public class AddDeviceActivity extends BaseActivity {
                     selectIv1.setVisibility(View.INVISIBLE);
                     selectIv2.setVisibility(View.VISIBLE);
                     modePerTime = 6;
-                    summaryTv.setText("长按复位键5秒进入快闪模式，再按复位键5秒进入慢闪模式");
+                    summaryTv.setText("长按复位键5秒进入快闪模式后，再按复位键5秒进入慢闪模式");
                     ra_tv.setText("确认指示灯在慢闪");
                     mPopupWindow.dismiss();
                 }
@@ -191,5 +193,15 @@ public class AddDeviceActivity extends BaseActivity {
         super.onDestroy();
         mHandler.removeCallbacks(mRunnable);
         mHandler = null;
+    }
+
+    /**
+     * 隐藏底部导航栏
+     */
+    private void hideBottomNavigationBar() {
+        Window _window = getWindow();
+        WindowManager.LayoutParams params = _window.getAttributes();
+        params.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|View.SYSTEM_UI_FLAG_IMMERSIVE;
+        _window.setAttributes(params);
     }
 }

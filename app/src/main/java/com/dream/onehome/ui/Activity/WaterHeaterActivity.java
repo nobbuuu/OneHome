@@ -142,7 +142,7 @@ public class WaterHeaterActivity extends BaseMVVMActivity<ModelViewModel, Activi
         }, new ErrorListener() {
             @Override
             public void onErrorResponse(AylaError aylaError) {
-                ToastUtils.Toast_long("码率上传失败！");
+//                ToastUtils.Toast_long("码率上传失败！");
                 Log.e(TAG, "aylaError  = " + aylaError.getMessage());
 
             }

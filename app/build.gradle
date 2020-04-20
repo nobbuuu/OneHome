@@ -12,12 +12,6 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
-    buildTypes {
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
     //for butterknife
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -30,6 +24,49 @@ android {
     repositories {
         flatDir {
             dirs 'libs'
+        }
+    }
+
+
+    signingConfigs {
+        release {
+            keyAlias 'onehome'
+            keyPassword '243586'
+            storeFile file('E:/workpace/onehome-keystore/onehome-release.keystore')
+            storePassword '243586'
+        }
+        debug {
+            keyAlias 'onehome'
+            keyPassword '243586'
+            storeFile file('E:/workpace/onehome-keystore/onehome-debug.keystore')
+            storePassword '243586'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true //代码混淆
+            zipAlignEnabled true
+//            useProguard true //代码压缩
+            shrinkResources true //资源压缩
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            lintOptions {
+                checkReleaseBuilds false
+                abortOnError false
+            }
+            signingConfig signingConfigs.release
+        }
+
+        debug {
+            minifyEnabled false //代码混淆
+            zipAlignEnabled false
+            shrinkResources false //资源压缩
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            lintOptions {
+                checkReleaseBuilds false
+                abortOnError false
+            }
+            signingConfig signingConfigs.debug
         }
     }
 }
