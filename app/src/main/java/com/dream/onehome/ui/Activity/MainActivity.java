@@ -6,6 +6,9 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.dream.onehome.R;
@@ -38,6 +41,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        hideBottomNavigationBar();
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -120,4 +124,13 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 隐藏底部导航栏
+     */
+    private void hideBottomNavigationBar() {
+        Window _window = getWindow();
+        WindowManager.LayoutParams params = _window.getAttributes();
+        params.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|View.SYSTEM_UI_FLAG_IMMERSIVE;
+        _window.setAttributes(params);
+    }
 }

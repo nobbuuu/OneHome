@@ -1,152 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="@dimen/dp_15"
-    android:layout_height="match_parent">
+    android:padding="@dimen/dp_15">
 
     <RelativeLayout
         android:id="@+id/action_bar"
         android:layout_width="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
         <ImageView
             android:id="@+id/back_iv"
             android:layout_width="@dimen/dp_23"
-            android:src="@drawable/back_normal_light"
-            android:layout_height="@dimen/dp_23"></ImageView>
+            android:layout_height="@dimen/dp_23"
+            android:src="@drawable/back_normal_light"></ImageView>
 
         <TextView
             android:layout_width="wrap_content"
-            android:text="连接WI-FI"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:text="连接WI-FI"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/sp_15"
-            android:layout_height="wrap_content"></TextView>
+            android:textSize="@dimen/sp_15"></TextView>
     </RelativeLayout>
 
     <ImageView
 
         android:id="@+id/configwifi_iv"
         android:layout_width="@dimen/dp_120"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_30"
         android:src="@drawable/config_wifi_choose_tip"
-        app:layout_constraintTop_toBottomOf="@+id/title"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="@dimen/dp_30"
-        android:layout_height="wrap_content"></ImageView>
+        app:layout_constraintTop_toBottomOf="@+id/title"></ImageView>
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_80"
         android:text="输入家中的WI-FI密码"
         android:textColor="@color/black"
         android:textSize="@dimen/sp_18"
-        app:layout_constraintTop_toBottomOf="@+id/action_bar"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/dp_80"
-        android:layout_height="wrap_content"></TextView>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/action_bar"></TextView>
 
     <ImageView
         android:id="@+id/wifiicon"
         android:layout_width="wrap_content"
-        android:src="@drawable/select_wificonfig"
-        app:layout_constraintTop_toBottomOf="@+id/configwifi_iv"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_55"
-        android:layout_height="wrap_content"></ImageView>
+        android:src="@drawable/select_wificonfig"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/configwifi_iv"></ImageView>
+
     <EditText
         android:id="@+id/wifiname_tv"
         android:layout_width="0dp"
-        android:hint="WI-FI名称"
-        android:background="@null"
-        android:textSize="@dimen/sp_14"
-        app:layout_constraintStart_toEndOf="@+id/wifiicon"
-        app:layout_constraintTop_toTopOf="@+id/wifiicon"
-        app:layout_constraintBottom_toBottomOf="@+id/wifiicon"
-        android:paddingLeft="@dimen/dp_10"
+        android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/dp_5"
+        android:background="@null"
+        android:hint="WI-FI名称"
+        android:paddingLeft="@dimen/dp_10"
         android:paddingTop="@dimen/dp_7"
         android:paddingBottom="@dimen/dp_7"
-        app:layout_constraintEnd_toStartOf="@+id/wifichange_iv"
         android:textColor="@color/black"
-        android:layout_height="wrap_content"></EditText>
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintBottom_toBottomOf="@+id/wifiicon"
+        app:layout_constraintEnd_toStartOf="@+id/wifichange_iv"
+        app:layout_constraintStart_toEndOf="@+id/wifiicon"
+        app:layout_constraintTop_toTopOf="@+id/wifiicon"></EditText>
+
     <View
         android:id="@+id/line_wifi"
         android:layout_width="match_parent"
-        android:background="@color/color666"
+        android:layout_height="0.5dp"
         android:layout_marginTop="@dimen/dp_2"
-        app:layout_constraintTop_toBottomOf="@+id/wifiname_tv"
-        android:layout_height="0.5dp"></View>
+        android:background="@color/color666"
+        app:layout_constraintTop_toBottomOf="@+id/wifiname_tv"></View>
 
     <ImageView
         android:id="@+id/pwdicon"
         android:layout_width="wrap_content"
-        android:src="@drawable/config_ty_password_normal"
-        app:layout_constraintTop_toBottomOf="@+id/line_wifi"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_35"
+        android:src="@drawable/config_ty_password_normal"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_height="wrap_content"></ImageView>
+        app:layout_constraintTop_toBottomOf="@+id/line_wifi"></ImageView>
+
     <EditText
         android:id="@+id/wifipwd_tv"
         android:layout_width="0dp"
-        android:hint="请输入WiFi密码"
-        android:textSize="@dimen/sp_14"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_5"
         android:background="@null"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@+id/pwdicon"
-        app:layout_constraintEnd_toStartOf="@+id/pwdvisible_iv"
-        app:layout_constraintTop_toTopOf="@+id/pwdicon"
-        app:layout_constraintBottom_toBottomOf="@+id/pwdicon"
+        android:hint="请输入WiFi密码"
+        android:maxLines="1"
         android:paddingLeft="@dimen/dp_10"
         android:paddingTop="@dimen/dp_7"
         android:paddingBottom="@dimen/dp_7"
-        android:layout_marginEnd="@dimen/dp_5"
+        android:textColor="@color/black"
         android:textCursorDrawable="@drawable/shape_edtcursor"
-        android:layout_height="wrap_content"></EditText>
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintBottom_toBottomOf="@+id/pwdicon"
+        app:layout_constraintEnd_toStartOf="@+id/pwdvisible_iv"
+        app:layout_constraintStart_toEndOf="@+id/pwdicon"
+        app:layout_constraintTop_toTopOf="@+id/pwdicon"></EditText>
 
     <ImageView
         android:id="@+id/pwdvisible_iv"
         android:layout_width="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/pwdicon"
+        android:layout_height="wrap_content"
+        android:src="@drawable/config_password_on"
         app:layout_constraintBottom_toBottomOf="@+id/pwdicon"
         app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/config_password_on"
-        android:layout_height="wrap_content"></ImageView>
+        app:layout_constraintTop_toTopOf="@+id/pwdicon"></ImageView>
 
     <ImageView
         android:id="@+id/wifichange_iv"
         android:layout_width="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/wifiicon"
+        android:layout_height="wrap_content"
+        android:src="@drawable/config_wifi_change"
         app:layout_constraintBottom_toBottomOf="@+id/wifiicon"
         app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/config_wifi_change"
-        android:layout_height="wrap_content"></ImageView>
+        app:layout_constraintTop_toTopOf="@+id/wifiicon"></ImageView>
+
     <View
         android:id="@+id/line_pwd"
         android:layout_width="match_parent"
-        android:background="@color/color666"
+        android:layout_height="0.5dp"
         android:layout_marginTop="@dimen/dp_2"
-        app:layout_constraintTop_toBottomOf="@+id/wifipwd_tv"
-        android:layout_height="0.5dp"></View>
+        android:background="@color/color666"
+        app:layout_constraintTop_toBottomOf="@+id/wifipwd_tv"></View>
 
     <Button
         android:id="@+id/sure_tv"
         android:layout_width="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:padding="@dimen/dp_10"
-        android:text="确定"
-        android:textColor="@android:color/white"
-        android:gravity="center"
-        android:enabled="false"
-        android:background="@drawable/shape_voice_unenable_btn"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_67"
         android:layout_marginEnd="@dimen/dp_67"
         android:layout_marginBottom="@dimen/dp_17"
-        android:layout_height="wrap_content"></Button>
+        android:background="@drawable/shape_voice_unenable_btn"
+        android:enabled="false"
+        android:gravity="center"
+        android:padding="@dimen/dp_10"
+        android:text="确定"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"></Button>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
