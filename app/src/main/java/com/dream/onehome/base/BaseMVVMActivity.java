@@ -19,6 +19,8 @@ import com.dream.onehome.utils.annotations.InjectManager;
 import com.gyf.immersionbar.BarHide;
 import com.gyf.immersionbar.ImmersionBar;
 
+import java.util.Objects;
+
 /**
  * "浪小白" 创建 2019/8/13.
  * 界面名称以及功能:
@@ -34,7 +36,7 @@ public abstract class BaseMVVMActivity<VM extends AndroidViewModel, SV extends V
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
         mLoadingDialog = DialogUtils.initLoadingDialog(this);
         bindingView = DataBindingUtil.setContentView(this, InjectManager.inject(this));
         //沉浸式
