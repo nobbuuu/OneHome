@@ -144,7 +144,10 @@ public class CustomRemoteActivity extends BaseMVVMActivity<CustomRemoteModel, Ac
         bindingView.addbtnBtn.setOnClickListener(new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View view) {
-                if (mDialog != null) {
+                if (dataList.size() >= 20) {
+                    ToastUtils.Toast_long("添加的按钮数量已达上限");
+                } else {
+                    if (mDialog != null)
                     mDialog.show();
                 }
             }
