@@ -207,7 +207,7 @@ public class CustomRemoteActivity extends BaseMVVMActivity<CustomRemoteModel, Ac
         TextView sureTv = dialog.findViewById(R.id.sure_tv);
         TextView nameTv = dialog.findViewById(R.id.name_tv);
         nameTv.setText("遥控器名称");
-        nameEdt.setText("自定义遥控器");
+        nameEdt.setHint("请输入遥控器名称");
         sureTv.setText("确定");
         cancelTv.setOnClickListener(new View.OnClickListener() {
             @Override
