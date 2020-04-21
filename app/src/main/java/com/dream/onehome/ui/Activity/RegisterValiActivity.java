@@ -143,8 +143,8 @@ public class RegisterValiActivity extends BaseActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         if (mHandler != null) {
             mHandler = null;
             time = 0;

@@ -222,7 +222,7 @@ public class CustomRemoteActivity extends BaseMVVMActivity<CustomRemoteModel, Ac
                 } else {
                     // 防止无按键时创建自定义遥控器
                     if (dataList.size() == 0) {
-                        ToastUtils.Toast_long("请添加按键");
+                        ToastUtils.Toast_long("没有添加按钮");
                         return;
                     }
 
