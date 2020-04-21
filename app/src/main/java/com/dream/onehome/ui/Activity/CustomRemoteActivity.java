@@ -144,7 +144,10 @@ public class CustomRemoteActivity extends BaseMVVMActivity<CustomRemoteModel, Ac
         bindingView.addbtnBtn.setOnClickListener(new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View view) {
-                if (mDialog != null) {
+                if (dataList.size() >= 20) {
+                    ToastUtils.Toast_long("添加的按钮数量已达上限");
+                } else {
+                    if (mDialog != null)
                     mDialog.show();
                 }
             }
@@ -204,7 +207,7 @@ public class CustomRemoteActivity extends BaseMVVMActivity<CustomRemoteModel, Ac
         TextView sureTv = dialog.findViewById(R.id.sure_tv);
         TextView nameTv = dialog.findViewById(R.id.name_tv);
         nameTv.setText("遥控器名称");
-        nameEdt.setText("自定义遥控器");
+        nameEdt.setHint("请输入遥控器名称");
         sureTv.setText("确定");
         cancelTv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,7 +225,7 @@ public class CustomRemoteActivity extends BaseMVVMActivity<CustomRemoteModel, Ac
                 } else {
                     // 防止无按键时创建自定义遥控器
                     if (dataList.size() == 0) {
-                        ToastUtils.Toast_long("请添加按键");
+                        ToastUtils.Toast_long("没有添加按钮");
                         return;
                     }
 

@@ -16,18 +16,19 @@
             <RelativeLayout
                 android:id="@+id/back_iv"
                 android:layout_width="@dimen/dp_45"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_height="match_parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_height="match_parent">
+                app:layout_constraintTop_toTopOf="parent">
+
                 <ImageView
                     android:layout_width="@dimen/dp_20"
                     android:layout_height="@dimen/dp_20"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_15"
                     android:src="@drawable/back_arrow"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/dp_15"
-                    app:layout_constraintTop_toTopOf="parent"></ImageView>
+                    app:layout_constraintTop_toTopOf="parent" />
             </RelativeLayout>
 
             <TextView
@@ -40,143 +41,145 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></TextView>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:layout_width="@dimen/dp_5"
                 android:layout_height="@dimen/dp_5"
                 android:layout_marginLeft="@dimen/dp_3"
                 android:background="@drawable/shape_circle_gray"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/center_tv"
                 app:layout_constraintLeft_toRightOf="@+id/center_tv"
-                app:layout_constraintTop_toTopOf="@+id/center_tv"></ImageView>
+                app:layout_constraintTop_toTopOf="@+id/center_tv" />
 
             <ImageView
                 android:layout_width="@dimen/dp_18"
                 android:layout_height="@dimen/dp_18"
                 android:src="@drawable/edit"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:visibility="gone"
-                app:layout_constraintTop_toTopOf="parent"></ImageView>
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/common_lay"
             android:layout_width="match_parent"
-            android:layout_below="@+id/action_bar"
+            android:layout_height="wrap_content"
             android:layout_above="@+id/addsure_lay"
+            android:layout_below="@+id/action_bar"
             android:paddingLeft="@dimen/dp_35"
-            android:paddingRight="@dimen/dp_35"
             android:paddingTop="@dimen/dp_25"
-            android:layout_height="wrap_content">
+            android:paddingRight="@dimen/dp_35">
+
             <ImageView
                 android:id="@+id/main_iv"
                 android:layout_width="wrap_content"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@mipmap/home"
+                android:layout_height="wrap_content"
                 android:background="@drawable/select_circle_white"
                 android:padding="@dimen/dp_15"
-                android:layout_height="wrap_content"></ImageView>
+                android:src="@mipmap/home"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:layout_width="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/main_iv"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:text="首页"
                 app:layout_constraintLeft_toLeftOf="@+id/main_iv"
                 app:layout_constraintRight_toRightOf="@+id/main_iv"
-                android:text="首页"
-                android:layout_marginTop="@dimen/dp_5"
-                android:layout_height="wrap_content"></TextView>
+                app:layout_constraintTop_toBottomOf="@+id/main_iv" />
 
             <ImageView
                 android:id="@+id/swich_iv"
                 android:layout_width="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:src="@mipmap/swich"
+                android:layout_height="wrap_content"
                 android:background="@drawable/select_circle_white"
                 android:padding="@dimen/dp_15"
-                android:layout_height="wrap_content"></ImageView>
+                android:src="@mipmap/swich"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:layout_width="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/swich_iv"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:text="电源"
                 app:layout_constraintLeft_toLeftOf="@+id/swich_iv"
                 app:layout_constraintRight_toRightOf="@+id/swich_iv"
-                android:text="电源"
-                android:layout_marginTop="@dimen/dp_5"
-                android:layout_height="wrap_content"></TextView>
+                app:layout_constraintTop_toBottomOf="@+id/swich_iv" />
 
             <ImageView
                 android:id="@+id/return_iv"
                 android:layout_width="wrap_content"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@mipmap/returnback"
+                android:layout_height="wrap_content"
                 android:background="@drawable/select_circle_white"
                 android:padding="@dimen/dp_15"
-                android:layout_height="wrap_content"></ImageView>
+                android:src="@mipmap/returnback"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:layout_width="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/return_iv"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:text="返回"
                 app:layout_constraintLeft_toLeftOf="@+id/return_iv"
                 app:layout_constraintRight_toRightOf="@+id/return_iv"
-                android:text="返回"
-                android:layout_marginTop="@dimen/dp_5"
-                android:layout_height="wrap_content"></TextView>
+                app:layout_constraintTop_toBottomOf="@+id/return_iv" />
 
             <ImageView
                 android:id="@+id/addvoice_iv"
                 android:layout_width="wrap_content"
-                android:src="@mipmap/add"
-                app:layout_constraintTop_toBottomOf="@+id/main_iv"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_40"
-                app:layout_constraintLeft_toLeftOf="parent"
                 android:background="@drawable/select_circle_white"
                 android:padding="@dimen/dp_15"
-                android:layout_height="wrap_content"></ImageView>
+                android:src="@mipmap/add"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_iv" />
 
             <TextView
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
                 android:text="音量+"
-                app:layout_constraintTop_toBottomOf="@+id/addvoice_iv"
                 app:layout_constraintLeft_toLeftOf="@+id/addvoice_iv"
                 app:layout_constraintRight_toRightOf="@+id/addvoice_iv"
-                android:layout_marginTop="@dimen/dp_5"
-                android:layout_height="wrap_content"></TextView>
+                app:layout_constraintTop_toBottomOf="@+id/addvoice_iv" />
 
             <ImageView
                 android:id="@+id/lessvoice_iv"
                 android:layout_width="wrap_content"
-                android:src="@mipmap/less"
-                app:layout_constraintTop_toBottomOf="@+id/return_iv"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_40"
-                app:layout_constraintRight_toRightOf="parent"
                 android:background="@drawable/select_circle_white"
                 android:padding="@dimen/dp_15"
-                android:layout_height="wrap_content"></ImageView>
+                android:src="@mipmap/less"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/return_iv" />
 
             <TextView
                 android:id="@+id/addvoice_tv"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
                 android:text="音量-"
-                app:layout_constraintTop_toBottomOf="@+id/lessvoice_iv"
                 app:layout_constraintLeft_toLeftOf="@+id/lessvoice_iv"
                 app:layout_constraintRight_toRightOf="@+id/lessvoice_iv"
-                android:layout_marginTop="@dimen/dp_5"
-                android:layout_height="wrap_content"></TextView>
+                app:layout_constraintTop_toBottomOf="@+id/lessvoice_iv" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/master_tab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_25"
                 android:background="@drawable/shape_corner_white"
                 app:layout_constraintTop_toBottomOf="@+id/addvoice_tv"
-                android:layout_marginTop="@dimen/dp_25"
-                app:tabIndicatorHeight="0dp"></com.google.android.material.tabs.TabLayout>
+                app:tabIndicatorHeight="0dp" />
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/master_vp"
@@ -184,8 +187,7 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/dp_10"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/master_tab">
-            </androidx.viewpager.widget.ViewPager>
+                app:layout_constraintTop_toBottomOf="@+id/master_tab"></androidx.viewpager.widget.ViewPager>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -207,7 +209,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/addremotecontrol_tv"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></TextView>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/addremotecontrol_tv"
@@ -223,7 +225,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/chosemodel_tv"></TextView>
+                app:layout_constraintRight_toLeftOf="@+id/chosemodel_tv" />
 
             <TextView
                 android:id="@+id/chosemodel_tv"
@@ -240,7 +242,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintLeft_toRightOf="@+id/addremotecontrol_tv"
-                app:layout_constraintRight_toRightOf="parent"></TextView>
+                app:layout_constraintRight_toRightOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </RelativeLayout>

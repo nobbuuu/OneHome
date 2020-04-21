@@ -16,7 +16,7 @@
             android:id="@+id/back_iv"
             android:layout_width="@dimen/dp_23"
             android:layout_height="@dimen/dp_23"
-            android:src="@drawable/back_normal_light"></ImageView>
+            android:src="@drawable/back_normal_light" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -24,7 +24,7 @@
             android:layout_centerInParent="true"
             android:text="连接WI-FI"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/sp_15"></TextView>
+            android:textSize="@dimen/sp_15" />
     </RelativeLayout>
 
     <ImageView
@@ -36,7 +36,7 @@
         android:src="@drawable/config_wifi_choose_tip"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title"></ImageView>
+        app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <TextView
         android:id="@+id/title"
@@ -48,7 +48,7 @@
         android:textSize="@dimen/sp_18"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/action_bar"></TextView>
+        app:layout_constraintTop_toBottomOf="@+id/action_bar" />
 
     <ImageView
         android:id="@+id/wifiicon"
@@ -57,7 +57,7 @@
         android:layout_marginTop="@dimen/dp_55"
         android:src="@drawable/select_wificonfig"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/configwifi_iv"></ImageView>
+        app:layout_constraintTop_toBottomOf="@+id/configwifi_iv" />
 
     <EditText
         android:id="@+id/wifiname_tv"
@@ -66,6 +66,7 @@
         android:layout_marginRight="@dimen/dp_5"
         android:background="@null"
         android:hint="WI-FI名称"
+        android:maxLines="1"
         android:paddingLeft="@dimen/dp_10"
         android:paddingTop="@dimen/dp_7"
         android:paddingBottom="@dimen/dp_7"
@@ -74,7 +75,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/wifiicon"
         app:layout_constraintEnd_toStartOf="@+id/wifichange_iv"
         app:layout_constraintStart_toEndOf="@+id/wifiicon"
-        app:layout_constraintTop_toTopOf="@+id/wifiicon"></EditText>
+        app:layout_constraintTop_toTopOf="@+id/wifiicon" />
 
     <View
         android:id="@+id/line_wifi"
@@ -82,7 +83,7 @@
         android:layout_height="0.5dp"
         android:layout_marginTop="@dimen/dp_2"
         android:background="@color/color666"
-        app:layout_constraintTop_toBottomOf="@+id/wifiname_tv"></View>
+        app:layout_constraintTop_toBottomOf="@+id/wifiname_tv" />
 
     <ImageView
         android:id="@+id/pwdicon"
@@ -91,7 +92,7 @@
         android:layout_marginTop="@dimen/dp_35"
         android:src="@drawable/config_ty_password_normal"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line_wifi"></ImageView>
+        app:layout_constraintTop_toBottomOf="@+id/line_wifi" />
 
     <EditText
         android:id="@+id/wifipwd_tv"
@@ -100,6 +101,7 @@
         android:layout_marginEnd="@dimen/dp_5"
         android:background="@null"
         android:hint="请输入WiFi密码"
+        android:maxLength="30"
         android:maxLines="1"
         android:paddingLeft="@dimen/dp_10"
         android:paddingTop="@dimen/dp_7"
@@ -110,7 +112,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/pwdicon"
         app:layout_constraintEnd_toStartOf="@+id/pwdvisible_iv"
         app:layout_constraintStart_toEndOf="@+id/pwdicon"
-        app:layout_constraintTop_toTopOf="@+id/pwdicon"></EditText>
+        app:layout_constraintTop_toTopOf="@+id/pwdicon" />
 
     <ImageView
         android:id="@+id/pwdvisible_iv"
@@ -119,7 +121,7 @@
         android:src="@drawable/config_password_on"
         app:layout_constraintBottom_toBottomOf="@+id/pwdicon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/pwdicon"></ImageView>
+        app:layout_constraintTop_toTopOf="@+id/pwdicon" />
 
     <ImageView
         android:id="@+id/wifichange_iv"
@@ -128,7 +130,7 @@
         android:src="@drawable/config_wifi_change"
         app:layout_constraintBottom_toBottomOf="@+id/wifiicon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/wifiicon"></ImageView>
+        app:layout_constraintTop_toTopOf="@+id/wifiicon" />
 
     <View
         android:id="@+id/line_pwd"
@@ -136,7 +138,7 @@
         android:layout_height="0.5dp"
         android:layout_marginTop="@dimen/dp_2"
         android:background="@color/color666"
-        app:layout_constraintTop_toBottomOf="@+id/wifipwd_tv"></View>
+        app:layout_constraintTop_toBottomOf="@+id/wifipwd_tv" />
 
     <Button
         android:id="@+id/sure_tv"
@@ -153,6 +155,6 @@
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"></Button>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

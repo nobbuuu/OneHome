@@ -1,5 +1,6 @@
 package com.dream.onehome.ui.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -76,25 +77,36 @@ public class RegisterValiActivity extends BaseActivity {
     @BindView(R.id.password_icon)
     TextView passwordIcon;
 
+    private final int COUNTER = 0;
+    private final int RESEND = 1;
+
     private int time = 60;
     private boolean isActive;
+    private boolean isResetPwd;
 
-    private Handler mHandler = new Handler();
-    private Runnable mRunnable = new Runnable() {
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler(){
         @Override
-        public void run() {
-            if (isActive) {
-                onvarcodeTv.setText(time + "s");
-            }
-            if (time > 0) {
-                mHandler.postDelayed(this, 1000);
-                time--;
-            } else {
-                resendCode();
+        public void handleMessage(@NonNull Message msg) {
+            switch (msg.what) {
+                case COUNTER :
+                    if (time > 0) {
+                        onvarcodeTv.setText(new StringBuilder().append(time).append("s").toString());
+                        time--;
+                        mHandler.sendEmptyMessageDelayed(COUNTER, 1000);
+                    } else {
+                        resendCode();
+                    }
+                    break;
+                case RESEND :
+                    onvarcodeTv.setText("重新发送");
+                    time = 60;
+                    break;
             }
         }
     };
-    private boolean isResetPwd;
+
+
 
     @Override
     public int getLayoutId() {
@@ -116,9 +128,7 @@ public class RegisterValiActivity extends BaseActivity {
     }
 
     private void resendCode() {
-        onvarcodeTv.setText("重新发送");
-        mHandler.removeCallbacks(mRunnable);
-        time = 60;
+        mHandler.sendEmptyMessage(RESEND);
     }
 
     @Override
@@ -133,12 +143,10 @@ public class RegisterValiActivity extends BaseActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         if (mHandler != null) {
-            mHandler.removeCallbacks(mRunnable);
             mHandler = null;
-            time = 0;
         }
     }
 
@@ -271,7 +279,7 @@ public class RegisterValiActivity extends BaseActivity {
                                 @Override
                                 public void onResponse(AylaAPIRequest.EmptyResponse response) {
                                     Log.d(getLocalClassName(), "getSmsCode  onResponse ..");
-                                    resendCode();
+//                                    resendCode();
                                 }
                             }, new ErrorListener() {
                                 @Override
@@ -310,7 +318,7 @@ public class RegisterValiActivity extends BaseActivity {
                                     }
                                 }
                             });
-                    mHandler.post(mRunnable);
+                    mHandler.sendEmptyMessage(COUNTER);
                     varifyEdt.requestFocus();
                 }
                 break;

@@ -18,7 +18,7 @@
                 android:layout_width="@dimen/dp_20"
                 android:src="@drawable/select_backiv"
                 android:layout_centerVertical="true"
-                android:layout_height="wrap_content"></ImageView>
+                android:layout_height="wrap_content"/>
         </RelativeLayout>
 
         <TextView
@@ -31,7 +31,7 @@
             android:textColor="@color/black"
             android:textSize="@dimen/sp_15"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></TextView>
+            android:layout_height="wrap_content"/>
 
         <TextView
             android:id="@+id/complete_tv"
@@ -43,14 +43,14 @@
             app:layout_constraintBottom_toBottomOf="@+id/back_iv"
             android:textColor="#01C296"
             android:layout_marginRight="@dimen/dp_15"
-            android:layout_height="wrap_content"></TextView>
+            android:layout_height="wrap_content"/>
 
         <View
             android:layout_width="match_parent"
             android:background="@color/divider_bg"
             app:layout_constraintTop_toBottomOf="@+id/center_tv"
             android:layout_marginTop="@dimen/dp_15"
-            android:layout_height="@dimen/dp_1"></View>
+            android:layout_height="@dimen/dp_1"/>
 
         <GridView
             android:id="@+id/custom_gv"
@@ -64,7 +64,7 @@
             android:numColumns="3"
             android:gravity="center_horizontal"
             android:verticalSpacing="@dimen/dp_35"
-            android:layout_height="0dp"></GridView>
+            android:layout_height="0dp"/>
 
 
         <View
@@ -73,7 +73,7 @@
             app:layout_constraintBottom_toTopOf="@+id/addbtn_btn"
             android:layout_marginBottom="@dimen/dp_15"
             android:background="@color/divider_bg"
-            android:layout_height="@dimen/dp_1"></View>
+            android:layout_height="@dimen/dp_1"/>
 
         <Button
             android:id="@+id/addbtn_btn"
@@ -84,7 +84,7 @@
             android:textSize="@dimen/sp_15"
             android:background="@drawable/shape_corner_green"
             android:layout_margin="@dimen/dp_15"
-            android:layout_height="wrap_content"></Button>
+            android:layout_height="wrap_content"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

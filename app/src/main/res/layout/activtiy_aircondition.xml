@@ -32,7 +32,7 @@
                 android:src="@drawable/back_arrow"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></ImageView>
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
                 android:id="@+id/center_tv"
@@ -44,7 +44,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></TextView>
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <ImageView
                 android:id="@+id/sign_iv"
@@ -54,7 +54,8 @@
                 android:background="@drawable/shape_circle_gray"
                 app:layout_constraintBottom_toBottomOf="@+id/center_tv"
                 app:layout_constraintLeft_toRightOf="@+id/center_tv"
-                app:layout_constraintTop_toTopOf="@+id/center_tv"></ImageView>
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="@+id/center_tv"/>
 
             <ImageView
                 android:layout_width="@dimen/dp_18"
@@ -63,7 +64,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 android:visibility="gone"
-                app:layout_constraintTop_toTopOf="parent"></ImageView>
+                app:layout_constraintTop_toTopOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -84,7 +85,7 @@
                 android:text="风速"
                 android:textColor="@color/master_text_color"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></TextView>
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <ImageView
                 android:id="@+id/windspeedvalue_iv"
@@ -94,7 +95,7 @@
                 android:src="@mipmap/nowinds"
                 app:layout_constraintBottom_toBottomOf="@+id/windspeed_tv"
                 app:layout_constraintLeft_toRightOf="@+id/windspeed_tv"
-                app:layout_constraintTop_toTopOf="@+id/windspeed_tv"></ImageView>
+                app:layout_constraintTop_toTopOf="@+id/windspeed_tv"/>
 
             <TextView
                 android:id="@+id/winddirection_tv"
@@ -104,7 +105,7 @@
                 android:text="风向"
                 android:textColor="@color/master_text_color"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/windspeed_tv"></TextView>
+                app:layout_constraintTop_toBottomOf="@+id/windspeed_tv"/>
 
             <ImageView
             android:id="@+id/winddirectionvalue1_iv"
@@ -114,7 +115,7 @@
             android:src="@mipmap/winddirection"
             app:layout_constraintBottom_toBottomOf="@+id/winddirection_tv"
             app:layout_constraintLeft_toRightOf="@+id/winddirection_tv"
-            app:layout_constraintTop_toTopOf="@+id/winddirection_tv"></ImageView>
+            app:layout_constraintTop_toTopOf="@+id/winddirection_tv"/>
 
             <ImageView
                 android:id="@+id/winddirectionvalue2_iv"
@@ -125,7 +126,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/winddirection_tv"
                 android:visibility="gone"
                 app:layout_constraintLeft_toRightOf="@+id/winddirectionvalue1_iv"
-                app:layout_constraintTop_toTopOf="@+id/winddirection_tv"></ImageView>
+                app:layout_constraintTop_toTopOf="@+id/winddirection_tv"/>
 
 
             <TextView
@@ -136,7 +137,7 @@
                 android:text="扫风"
                 android:textColor="@color/master_text_color"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/winddirection_tv"></TextView>
+                app:layout_constraintTop_toBottomOf="@+id/winddirection_tv"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -145,7 +146,7 @@
                 android:src="@mipmap/ventilation"
                 app:layout_constraintBottom_toBottomOf="@+id/wind_tv"
                 app:layout_constraintLeft_toRightOf="@+id/wind_tv"
-                app:layout_constraintTop_toTopOf="@+id/wind_tv"></ImageView>
+                app:layout_constraintTop_toTopOf="@+id/wind_tv"/>
 
             <TextView
                 android:id="@+id/temperature_tv"
@@ -156,7 +157,7 @@
                 android:textColor="@color/master_text_color"
                 android:textSize="@dimen/sp_55"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></TextView>
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -165,7 +166,7 @@
                 android:textColor="@color/master_text_color"
                 android:textSize="@dimen/sp_16"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></TextView>
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
                 android:id="@+id/modevalue_tv"
@@ -176,7 +177,7 @@
                 android:textColor="@color/master_text_color"
                 app:layout_constraintLeft_toLeftOf="@+id/temperature_tv"
                 app:layout_constraintRight_toRightOf="@+id/temperature_tv"
-                app:layout_constraintTop_toBottomOf="@+id/temperature_tv"></TextView>
+                app:layout_constraintTop_toBottomOf="@+id/temperature_tv"/>
 
 
             <ImageView
@@ -190,7 +191,7 @@
                 android:clickable="true"
                 android:background="@drawable/select_master_air"
                 app:layout_constraintBottom_toBottomOf="@+id/swich_lay"
-                android:layout_height="wrap_content"></ImageView>
+                android:layout_height="wrap_content"/>
 
             <RelativeLayout
                 android:id="@+id/swich_lay"
@@ -209,7 +210,7 @@
                     android:layout_margin="@dimen/dp_13"
                     android:src="@drawable/select_power"
                     android:clickable="true"
-                    android:layout_height="wrap_content"></ImageView>
+                    android:layout_height="wrap_content"/>
             </RelativeLayout>
             <ImageView
                 android:id="@+id/less_iv"
@@ -222,7 +223,7 @@
                 android:background="@drawable/select_master_air"
                 android:layout_marginRight="@dimen/dp_20"
                 android:clickable="true"
-                android:layout_height="wrap_content"></ImageView>
+                android:layout_height="wrap_content"/>
 
             <LinearLayout
                 android:id="@+id/nav_controller_lay"
@@ -240,7 +241,7 @@
                     android:padding="@dimen/dp_10"
                     android:background="@drawable/select_master_air"
                     android:clickable="true"
-                    android:src="@mipmap/automaticmode"></ImageView>
+                    android:src="@mipmap/automaticmode"/>
 
                 <ImageView
                     android:id="@+id/windspeed_iv"
@@ -250,7 +251,7 @@
                     android:layout_weight="1"
                     android:clickable="true"
                     android:background="@drawable/select_master_air"
-                    android:src="@mipmap/windspeed"></ImageView>
+                    android:src="@mipmap/windspeed"/>
 
                 <ImageView
                     android:id="@+id/winddirection_iv"
@@ -260,7 +261,7 @@
                     android:padding="@dimen/dp_10"
                     android:clickable="true"
                     android:background="@drawable/select_master_air"
-                    android:src="@mipmap/winddirection"></ImageView>
+                    android:src="@mipmap/winddirection"/>
 
                 <ImageView
                     android:id="@+id/unknow_iv"
@@ -270,7 +271,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/select_master_air"
                     android:clickable="true"
-                    android:src="@mipmap/sweepwind"></ImageView>
+                    android:src="@mipmap/sweepwind"/>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -293,7 +294,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/addremotecontrol_tv"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></TextView>
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
                 android:id="@+id/addremotecontrol_tv"
@@ -309,7 +310,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/chosemodel_tv"></TextView>
+                app:layout_constraintRight_toLeftOf="@+id/chosemodel_tv"/>
 
             <TextView
                 android:id="@+id/chosemodel_tv"
@@ -326,7 +327,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintLeft_toRightOf="@+id/addremotecontrol_tv"
-                app:layout_constraintRight_toRightOf="parent"></TextView>
+                app:layout_constraintRight_toRightOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

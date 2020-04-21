@@ -8,14 +8,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.opengl.Visibility;
-import android.os.Bundle;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -32,13 +28,12 @@ import com.dream.onehome.base.BaseActivity;
 import com.dream.onehome.common.Const;
 import com.dream.onehome.receiver.NetBroadcastReceiver;
 import com.dream.onehome.utils.SP;
+import com.dream.onehome.utils.SpUtils;
+import com.dream.onehome.utils.ToastUtils;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.util.Objects;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -84,6 +79,16 @@ public class WifiSetActivity extends BaseActivity {
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         this.registerReceiver(receiver, filter);
 
+        String savedWifiName = (String) SpUtils.getParam(Const.WiFiName, "");
+        if (!"".equals(mWifiNameEdt.getText().toString()) && !"".equals(savedWifiName) && Objects.requireNonNull(savedWifiName).equals(mWifiNameEdt.getText().toString())) {
+            String wifiPwd = (String) SpUtils.getParam(Const.WiFiPwd, "");
+            mWifiPwdEdt.setText(wifiPwd);
+
+            if (mWifiPwdEdt.getText() != null) {
+                mSureTv.setBackgroundResource(R.drawable.select_surebtn);
+                mSureTv.setEnabled(true);
+            }
+        }
 
     }
 
@@ -165,7 +170,7 @@ public class WifiSetActivity extends BaseActivity {
 
     private String getConnectWifiSsid() {
         WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
-        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+        WifiInfo wifiInfo = Objects.requireNonNull(wifiManager).getConnectionInfo();
         String ssid = wifiInfo.getSSID();
         String wifiName = ssid.replace("\"", "");
 
@@ -179,7 +184,7 @@ public class WifiSetActivity extends BaseActivity {
         return wifiName;
     }
 
-    public void requestPermission() {
+    private void requestPermission() {
         // checkSelfPermission 判断是否已经申请了此权限
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED || ActivityCompat.shouldShowRequestPermissionRationale(this,
@@ -204,12 +209,8 @@ public class WifiSetActivity extends BaseActivity {
 
                 getConnectWifiSsid();
 
-            } else {
-
             }
         }
-
-
     }
 
     private boolean isPwdVisible = true;
@@ -238,9 +239,17 @@ public class WifiSetActivity extends BaseActivity {
 
                 break;
             case R.id.sure_tv:
-
                 String wifiName = mWifiNameEdt.getText().toString();
                 String wifiPwd = mWifiPwdEdt.getText().toString();
+
+                if ("".equals(wifiName)) {
+                    ToastUtils.Toast_long("请选择 wifi");
+                    return;
+                }
+
+                // 保存 wifi 账号、密码到本地
+                SpUtils.setParam(Const.WiFiName, wifiName);
+                SpUtils.setParam(Const.WiFiPwd, wifiPwd);
 
                 if (netMode == 6) {//AP慢闪模式
                     Intent intent = new Intent(getBaseContext(), WifiChangeActivity.class);
