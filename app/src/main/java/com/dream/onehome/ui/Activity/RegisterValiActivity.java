@@ -147,7 +147,6 @@ public class RegisterValiActivity extends BaseActivity {
         super.onDestroy();
         if (mHandler != null) {
             mHandler = null;
-            time = 0;
         }
     }
 
