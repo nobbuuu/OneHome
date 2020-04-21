@@ -14,7 +14,6 @@ import com.android.volley.Response;
 import com.aylanetworks.aylasdk.AylaAPIRequest;
 import com.aylanetworks.aylasdk.AylaDevice;
 import com.aylanetworks.aylasdk.AylaNetworks;
-import com.aylanetworks.aylasdk.AylaProperty;
 import com.aylanetworks.aylasdk.AylaSessionManager;
 import com.aylanetworks.aylasdk.error.AylaError;
 import com.aylanetworks.aylasdk.error.ErrorListener;
@@ -35,6 +34,8 @@ import com.dream.onehome.utils.SpUtils;
 import com.dream.onehome.utils.ToastUtils;
 import com.sunseaiot.larkairkiss.SunAirKiss;
 
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -44,7 +45,6 @@ public class ConnectDeviceActivity extends BaseActivity {
 
     private String wifiName = "";
     private String wifiPwd = "";
-    private String aylaWifi = "";
 
     @BindView(R.id.circle_pro)
     CircularProgressView mProgressView;
@@ -61,7 +61,7 @@ public class ConnectDeviceActivity extends BaseActivity {
     private AylaSetup aylaSetup;
     private AylaSessionManager mSessionManager;
     private boolean isConnectNewDevice = false;
-    public static boolean isConnectSuccess = false;
+    private static boolean isConnectSuccess = false;
     private int mCurrentProgress = 0;
     private int reBindingNum;
     private LatLng mLatLng = new LatLng(114.0645520000,22.5484560000);
@@ -80,11 +80,11 @@ public class ConnectDeviceActivity extends BaseActivity {
         if (intent != null) {
             wifiName = intent.getStringExtra(Const.WiFiName);
             wifiPwd = intent.getStringExtra(Const.WiFiPwd);
-            aylaWifi = intent.getStringExtra(Const.AylaWifi);
+            String aylaWifi = intent.getStringExtra(Const.AylaWifi);
 
             String latitude = (String) SpUtils.getParam(Const.Latitude, "");
             String longitude = (String) SpUtils.getParam(Const.Longitude, "");
-            if (!latitude.isEmpty() && !longitude.isEmpty()) {
+            if (!Objects.requireNonNull(latitude).isEmpty() && !Objects.requireNonNull(longitude).isEmpty()) {
                 mLatLng = new LatLng(Double.valueOf(longitude), Double.valueOf(latitude));
                 connectDeviceService();
             } else {
@@ -125,7 +125,6 @@ public class ConnectDeviceActivity extends BaseActivity {
         }
     }
 
-    private int reStartCount;
     private void airkissStart() {
         mSunAirKiss.start(this, wifiName, wifiPwd, new SunAirKiss.Callback() {
             @Override
@@ -176,10 +175,10 @@ public class ConnectDeviceActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.sure_tv:
-                ActivityUtils.getManager().finishActivity(WifiSetActivity.class);
-                if (isConnectSuccess) {
-                    ActivityUtils.getManager().finishActivity(AddDeviceActivity.class);
+                if (isConnectSuccess) { // 连接成功
+                    ActivityUtils.getManager().finishActivity(WifiSetActivity.class);
                 }
+                ActivityUtils.getManager().finishActivity(AddDeviceActivity.class);
                 onBackPressed();
                 break;
         }
@@ -210,7 +209,6 @@ public class ConnectDeviceActivity extends BaseActivity {
 
     private void connectDeviceService() {
         if (!wifiName.isEmpty() && !wifiPwd.isEmpty() && mLatLng != null && isConnectNewDevice) {
-
             final String setupToken = getRandomToken();
             aylaSetup.connectDeviceToService(wifiName, wifiPwd, setupToken, mLatLng.getLatitude(), mLatLng.getLongitude(), 10,
                     new Response.Listener<AylaWifiStatus>() {
@@ -354,14 +352,14 @@ public class ConnectDeviceActivity extends BaseActivity {
     }
 
     private String getRandomToken() {
-        String strRand = "";
+        StringBuilder strRand = new StringBuilder();
         for (int i = 0; i < 8; i++) {
-            strRand += String.valueOf((int) (Math.random() * 10));
+            strRand.append((Math.random() * 10));
         }
 
         Log.d(TAG, "Rand = " + strRand);
-        SpUtils.savaUserInfo(Const.SETUP_TOKEN, strRand);
+        SpUtils.savaUserInfo(Const.SETUP_TOKEN, strRand.toString());
 
-        return strRand;
+        return strRand.toString();
     }
 }
