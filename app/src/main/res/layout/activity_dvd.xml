@@ -19,18 +19,19 @@
             <RelativeLayout
                 android:id="@+id/back_iv"
                 android:layout_width="@dimen/dp_45"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_height="match_parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_height="match_parent">
+                app:layout_constraintTop_toTopOf="parent">
+
                 <ImageView
                     android:layout_width="@dimen/dp_20"
                     android:layout_height="@dimen/dp_20"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_15"
                     android:src="@drawable/back_arrow"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/dp_15"
-                    app:layout_constraintTop_toTopOf="parent"></ImageView>
+                    app:layout_constraintTop_toTopOf="parent" />
             </RelativeLayout>
 
             <TextView
@@ -43,25 +44,26 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></TextView>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:layout_width="@dimen/dp_5"
                 android:layout_height="@dimen/dp_5"
                 android:layout_marginLeft="@dimen/dp_3"
                 android:background="@drawable/shape_circle_gray"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/center_tv"
                 app:layout_constraintLeft_toRightOf="@+id/center_tv"
-                app:layout_constraintTop_toTopOf="@+id/center_tv"></ImageView>
+                app:layout_constraintTop_toTopOf="@+id/center_tv" />
 
             <ImageView
                 android:layout_width="@dimen/dp_18"
                 android:layout_height="@dimen/dp_18"
                 android:src="@drawable/edit"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:visibility="gone"
-                app:layout_constraintTop_toTopOf="parent"></ImageView>
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -70,9 +72,9 @@
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/dp_20"
             android:paddingLeft="@dimen/dp_46"
-            app:layout_constraintTop_toBottomOf="@+id/action_bar"
+            android:paddingRight="@dimen/dp_46"
             app:layout_constraintBottom_toTopOf="@+id/addsure_lay"
-            android:paddingRight="@dimen/dp_46">
+            app:layout_constraintTop_toBottomOf="@+id/action_bar">
 
             <ImageView
                 android:id="@+id/main_iv"
@@ -83,7 +85,7 @@
                 android:padding="@dimen/dp_15"
                 android:src="@mipmap/maindvd"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></ImageView>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/swich_iv"
@@ -95,7 +97,7 @@
                 android:src="@mipmap/swich"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></ImageView>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/mute_iv"
@@ -106,7 +108,7 @@
                 android:padding="@dimen/dp_15"
                 android:src="@mipmap/mute"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></ImageView>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
                 android:id="@+id/voicelay"
@@ -139,7 +141,7 @@
                     android:layout_marginTop="@dimen/dp_5"
                     android:layout_marginBottom="@dimen/dp_5"
                     android:text="音量"
-                    android:textColor="@color/master_text_color"></TextView>
+                    android:textColor="@color/master_text_color" />
 
                 <ImageView
                     android:id="@+id/lessvoice_iv"
@@ -151,53 +153,55 @@
                     android:paddingTop="@dimen/dp_9"
                     android:paddingRight="@dimen/dp_15"
                     android:paddingBottom="@dimen/dp_9"
-                    android:src="@mipmap/less"></ImageView>
+                    android:src="@mipmap/less" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/center_lay"
                 android:layout_width="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/swich_iv"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_20"
                 android:background="@drawable/shape_corner_white"
-                android:layout_height="wrap_content">
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/swich_iv">
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:src="@mipmap/leftarr"
-                    android:clickable="true"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/select_master"
+                    android:clickable="true"
                     android:paddingLeft="@dimen/dp_21"
-                    android:paddingRight="@dimen/dp_21"
                     android:paddingTop="@dimen/dp_11"
+                    android:paddingRight="@dimen/dp_21"
                     android:paddingBottom="@dimen/dp_11"
-                    android:layout_height="wrap_content"></ImageView>
+                    android:src="@mipmap/leftarr" />
+
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:src="@mipmap/play"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:background="@drawable/select_master"
                     android:clickable="true"
                     android:paddingLeft="@dimen/dp_21"
-                    android:paddingRight="@dimen/dp_21"
                     android:paddingTop="@dimen/dp_11"
+                    android:paddingRight="@dimen/dp_21"
                     android:paddingBottom="@dimen/dp_11"
-                    android:background="@drawable/select_master"
-                    android:layout_marginTop="@dimen/dp_2"
-                    android:layout_height="wrap_content"></ImageView>
+                    android:src="@mipmap/play" />
+
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:src="@mipmap/unleft"
-                    android:clickable="true"
-                    android:background="@drawable/select_master"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_2"
+                    android:background="@drawable/select_master"
+                    android:clickable="true"
                     android:paddingLeft="@dimen/dp_21"
-                    android:paddingRight="@dimen/dp_21"
                     android:paddingTop="@dimen/dp_11"
+                    android:paddingRight="@dimen/dp_21"
                     android:paddingBottom="@dimen/dp_11"
-                    android:layout_height="wrap_content"></ImageView>
+                    android:src="@mipmap/unleft" />
             </LinearLayout>
 
             <LinearLayout
@@ -210,39 +214,43 @@
                 android:orientation="vertical"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/mute_iv">
+
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:src="@mipmap/rightarr"
-                    android:clickable="true"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/select_master"
+                    android:clickable="true"
                     android:paddingLeft="@dimen/dp_21"
-                    android:paddingRight="@dimen/dp_21"
                     android:paddingTop="@dimen/dp_11"
+                    android:paddingRight="@dimen/dp_21"
                     android:paddingBottom="@dimen/dp_11"
-                    android:layout_height="wrap_content"></ImageView>
+                    android:src="@mipmap/rightarr" />
+
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:src="@mipmap/stop"
-                    android:clickable="true"
-                    android:paddingLeft="@dimen/dp_21"
-                    android:paddingRight="@dimen/dp_21"
-                    android:paddingTop="@dimen/dp_11"
-                    android:paddingBottom="@dimen/dp_11"
-                    android:background="@drawable/select_master"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_2"
-                    android:layout_height="wrap_content"></ImageView>
+                    android:background="@drawable/select_master"
+                    android:clickable="true"
+                    android:paddingLeft="@dimen/dp_21"
+                    android:paddingTop="@dimen/dp_11"
+                    android:paddingRight="@dimen/dp_21"
+                    android:paddingBottom="@dimen/dp_11"
+                    android:src="@mipmap/stop" />
+
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:src="@mipmap/next"
-                    android:clickable="true"
-                    android:background="@drawable/select_master"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_2"
+                    android:background="@drawable/select_master"
+                    android:clickable="true"
                     android:paddingLeft="@dimen/dp_21"
-                    android:paddingRight="@dimen/dp_21"
                     android:paddingTop="@dimen/dp_11"
+                    android:paddingRight="@dimen/dp_21"
                     android:paddingBottom="@dimen/dp_11"
-                    android:layout_height="wrap_content"></ImageView>
+                    android:src="@mipmap/next" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/channel_lay"
                 android:layout_width="wrap_content"
@@ -251,8 +259,8 @@
                 android:background="@drawable/shape_corner_white"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
-                app:layout_constraintRight_toRightOf="parent"
                 android:visibility="gone"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/mute_iv">
 
                 <ImageView
@@ -265,7 +273,7 @@
                     android:paddingTop="@dimen/dp_9"
                     android:paddingRight="@dimen/dp_15"
                     android:paddingBottom="@dimen/dp_9"
-                    android:src="@mipmap/up"></ImageView>
+                    android:src="@mipmap/up" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -273,7 +281,7 @@
                     android:layout_marginTop="@dimen/dp_5"
                     android:layout_marginBottom="@dimen/dp_5"
                     android:text="频道"
-                    android:textColor="@color/master_text_color"></TextView>
+                    android:textColor="@color/master_text_color" />
 
                 <ImageView
                     android:id="@+id/lesschanel_iv"
@@ -285,7 +293,7 @@
                     android:paddingTop="@dimen/dp_9"
                     android:paddingRight="@dimen/dp_15"
                     android:paddingBottom="@dimen/dp_9"
-                    android:src="@mipmap/down"></ImageView>
+                    android:src="@mipmap/down" />
             </LinearLayout>
 
             <com.google.android.material.tabs.TabLayout
@@ -295,7 +303,7 @@
                 android:layout_marginTop="@dimen/dp_25"
                 android:background="@drawable/shape_corner_white"
                 app:layout_constraintTop_toBottomOf="@+id/voicelay"
-                app:tabIndicatorHeight="0dp"></com.google.android.material.tabs.TabLayout>
+                app:tabIndicatorHeight="0dp" />
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/master_vp"
@@ -327,7 +335,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/addremotecontrol_tv"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></TextView>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/addremotecontrol_tv"
@@ -343,7 +351,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/chosemodel_tv"></TextView>
+                app:layout_constraintRight_toLeftOf="@+id/chosemodel_tv" />
 
             <TextView
                 android:id="@+id/chosemodel_tv"
@@ -360,7 +368,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintLeft_toRightOf="@+id/addremotecontrol_tv"
-                app:layout_constraintRight_toRightOf="parent"></TextView>
+                app:layout_constraintRight_toRightOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
